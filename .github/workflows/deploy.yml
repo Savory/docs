@@ -20,11 +20,11 @@ jobs:
         cache: 'yarn'
     - run: yarn
     - run: yarn docs:build
-    - name: 📂 Sync files
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+    - name: 📂 Sync Files
+      uses: SamKirkland/web-deploy@v1
       with:
-        server: docs.danet.land
-        username: ${{ secrets.DEPLOYMENT_USER }}
-        password: ${{ secrets.DEPLOYMENT_PASSWORD }}
-        local-dir: ./.vitepress/dist/
-        server-dir: /home/docs.danet.land/public_html/
+          target-server: docs.danet.land
+          remote-user: ${{ secrets.DEPLOYMENT_USER }}
+          private-ssh-key: ${{ secrets.DEPLOYMENT_KEY }}
+          destination-path: ~/public_html/
+          source-path: ./.vitepress/dist/
