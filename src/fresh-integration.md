@@ -41,7 +41,7 @@ There are two ways of doing so :
 Until Deno Deploy handles `emitDecoratorMetadata` compiler option, or Fresh handles bundling, there is no way to deploy a Danet app with Fresh integration on Deno Deploy if you use an instance of `DanetApplication` in Fresh islands.
 !!!
 
-### Folder and Files setup
+## Folder and Files setup
 
 Good news, there is little to no change in your Danet or Fresh app's folder structure !
 
@@ -57,7 +57,7 @@ Move `fresh-app` into `danet-app/src` (we don't show all files that exist for cl
 
 You can delete `fresh-app/dev.ts` and `fresh-app/main.ts`, but remember the plugins you use in `fresh-app/main.ts`, to pass them as parameters when enabling Fresh from your Danet app.
 
-### Fresh from root
+## Fresh from root
 
 To enable Fresh from `/`, use our Fresh Module call : `FreshModule.enableFreshFromRoot` from your `DanetApplication`, **BEFORE** calling `.init`.
 This method argument are:
@@ -92,7 +92,7 @@ export const bootstrap = async () => {
 !!!
 
 
-### Fresh from a given path
+## Fresh from a given path
 
 To enable Fresh from a given path, simply call : `.enableFresh` from your `DanetApplication`, **BEFORE** calling `.init`.
 This method argument are:
@@ -128,7 +128,7 @@ export const bootstrap = async () => {
 !!!
 
 
-### Working example
+## Working example
 
 There is a [specific branch on our starter project](https://github.com/Savory/Danet-Starter/tree/fresh-integration) with a demo Fresh app in `src/dashboard` folder, served from root. 
 

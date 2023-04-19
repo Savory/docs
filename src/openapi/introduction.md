@@ -11,7 +11,7 @@ The SwaggerModule is currently in Alpha, maaaany features are missing. If someth
 !!!
 
 
-### Bootstrap
+## Bootstrap
 
 Simply open the `bootstrap.ts` file and initialize Swagger using the `SwaggerModule` class:
 

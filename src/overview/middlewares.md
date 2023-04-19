@@ -28,11 +28,11 @@ export class LoggerMiddleware implements DanetMiddleware {
 }
 ```
 
-#### Dependency injection
+### Dependency injection
 
 Danet middleware fully supports Dependency Injection. Just as with injectables and controllers, they are able to **inject dependencies** that are available within the same module. As usual, this is done through the `constructor`.
 
-#### Applying middleware
+### Applying middleware
 
 You can apply middlewares either globally, to controllers and to methods.
 
@@ -59,7 +59,7 @@ class TodoController {
 };
 ```
 
-#### Functional middleware
+### Functional middleware
 
 The `LoggerMiddleware` class we've been using is quite simple. It has no members, no additional methods, and no dependencies. Why can't we just define it in a simple function instead of a class? In fact, we can. This type of middleware is called **functional middleware**. Let's transform the logger middleware from class-based into functional middleware to illustrate the difference:
 
@@ -89,11 +89,11 @@ class TodoController {
 Consider using the simpler **functional middleware** alternative any time your middleware doesn't need any dependencies.
 !!!
 
-#### Multiple middleware
+### Multiple middleware
 
 As mentioned above, in order to bind multiple middleware that are executed sequentially, simply provide them in left to right order to `@Middleware` or `addGlobalMiddleware`.
 
-#### Global middleware
+### Global middleware
 
 If we want to bind middleware to every registered route at once, simply use `addGlobalMiddlewares` DanetApplication's method as following:
 

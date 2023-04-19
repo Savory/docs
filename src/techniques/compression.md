@@ -8,7 +8,7 @@ Compression can greatly decrease the size of the response body, thereby increasi
 For high-traffic websites in production, it is strongly recommended to offload compression from the application server - typically in a reverse proxy (e.g., Nginx). In that case, you should not use compression middleware.
 
 
-### Usage
+## Usage
 
 As Danet uses Oak under the hood, you can use [oak_compress](https://deno.land/x/oak_compress) package.
 

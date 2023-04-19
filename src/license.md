@@ -3,7 +3,7 @@ label: License
 order: -100
 ---
 
-### Danet Documentation
+## Danet Documentation
 
 Copyright 2022 Thomas Cruveilher
 
@@ -24,7 +24,7 @@ COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-### [NestJs Documentation](https://github.com/nestjs/docs.nestjs.com) which we heavily copy content from
+## [NestJs Documentation](https://github.com/nestjs/docs.nestjs.com) which we heavily copy content from
 
 Copyright (c) 2017-2022 Kamil Myśliwiec <http://kamilmysliwiec.com>
 

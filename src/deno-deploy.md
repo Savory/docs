@@ -14,7 +14,7 @@ Learn more on the [official Deno Deploy website](https://deno.com/deploy)
 ## First step
 
 
-### Create an account 
+## Create an account 
 Before diving into the (few) commands required to deploy your Danet project from your local environment or from a Github action, you need to [create an account on Deno Deploy](https://deno.com/deploy/pricing).
 
 At the time of writing this documentation, Deploy offers 2 pricing.
@@ -39,7 +39,7 @@ The signing up process is pretty simple, login with github and voilà.
 The Github integration allows you to deploy from Github actions without the need of any secret/environment variable
 !!!
 
-### Create a project
+## Create a project
 
 Now that you have an account, you need to create a Deploy project to deploy to.
 
@@ -54,7 +54,7 @@ For Danet project, we need to select "Github Action".
 Last input is to name your project, this will also be your project subdomain.
 
 
-### Deploy from your local environment
+## Deploy from your local environment
 
 If you want a fast way to test deploy, you can easily do so in 3 commands.
 
@@ -73,21 +73,21 @@ Your token can be created/found [here](https://dash.deno.com/account#access-toke
 !!!
 
 
-#### Bundle your application
+### Bundle your application
 Bundling is the action of creating one JS file which contains all your project source code.
  We recommend that you use `danet bundle` command to bundle, but feel free to use any bundler you want as long as it handles "emitDecoratorMetadata" option.
 
 ```bash
 $ danet bundle my-app.js
 ```
-#### Deploy to DD
+### Deploy to DD
 Now that you have your whole app bundled, you can send this .js file to deploy.
 In order to do so, you need to [get your access token from Deploy](https://dash.deno.com/account#access-tokens)
 ```bash
 $ deployctl deploy --project=YOUR_PROJECT_NAME --no-static --token=YOUTOKEN my-app.js
 ```
 
-### Github Action
+## Github Action
 
 If you created your project with our CLI, you already have a workflow ready in `.github/workflows/run-test.yml` to be used, you simply need to put your project name in the last step :
 
@@ -104,7 +104,7 @@ If you don't have it (because you used an older version of the starter project),
 
 Create a yaml file in `.github/workflows` folder, something like `deploy.yml` Follow these steps : 
 
-#### Setup the workflow:
+### Setup the workflow:
 
 ```yaml
 name: Deploy to Deno Deploy
@@ -117,7 +117,7 @@ permissions:
   contents: read
   id-token: write # Needed for auth with Deno Deploy
 ```
-#### Setup jobs
+### Setup jobs
 
 Then, we need a job to run, which is what will be done on push. 
 
@@ -156,7 +156,7 @@ jobs:
           root: bundle
 ```
 
-#### Full working example
+### Full working example
 
 Check our own workflow on the Starter project [here](https://github.com/Savory/Danet-Starter/blob/main/.github/workflows/run-tests.yml)
 

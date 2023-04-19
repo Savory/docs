@@ -8,7 +8,7 @@ The [Danet CLI](https://github.com/Savory/Danet-CLI) is a command-line interface
 
 In the future, it will assist in multiple ways, including scaffolding the project, serving it in development mode, and building and bundling the application for production distribution. It embodies best-practice architectural patterns to encourage well-structured apps.
 
-### Installation
+## Installation
 
 Installing Deno packages as a commands is simple. You can install them under any name you want. For simplicity's sake, we install our danet-cli under the name `danet`.  
 
@@ -16,7 +16,7 @@ Installing Deno packages as a commands is simple. You can install them under any
 $ deno install --allow-read --allow-write --allow-run --allow-env -n danet https://deno.land/x/danet_cli/main.ts
 ```
 
-### Basic workflow
+## Basic workflow
 
 Once installed, you can invoke CLI commands directly from your OS command line through the `danet` command. See the available `danet` commands by entering the following:
 
@@ -35,7 +35,7 @@ $ danet start  //run without file watching
 
 In your browser, open [http://localhost:3000](http://localhost:3000) to see the new application running.
 
-### Database Options
+## Database Options
 
 When creating a new project, Danet CLI will ask you what database provider you want to use between `mongodb`, `postgres` and `in-memory` and will generate all the required code.
 

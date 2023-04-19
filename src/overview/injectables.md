@@ -14,7 +14,7 @@ In the previous chapter, we built a simple `TodoController`. Controllers should 
 
 > info **Hint** Since Danet enables the possibility to design and organize dependencies in a more OO way, we strongly recommend following the [SOLID](https://en.wikipedia.org/wiki/SOLID) principles.
 
-### Services
+## Services
 
 Let's start by creating a simple `TodoService`. This service will be responsible for data storage and retrieval, and is designed to be used by the `TodoController`, so it's a good candidate to be defined as a provider.
 
@@ -72,7 +72,7 @@ export class TodoController {
 
 The `TodoService` is **injected** through the class constructor. Notice the use of the `private` syntax. This shorthand allows us to both declare and initialize the `todoService` member immediately in the same location.
 
-### Dependency injection
+## Dependency injection
 
 Danet is built around the strong design pattern commonly known as **Dependency injection**. We recommend reading a great article about this concept in the official [Angular](https://angular.io/guide/dependency-injection) documentation.
 
@@ -82,17 +82,17 @@ In Danet, thanks to TypeScript capabilities, it's extremely easy to manage depen
 constructor(private todoService: TodoService) {}
 ```
 
-### Scopes
+## Scopes
 
 Injectables normally have a lifetime ("scope") synchronized with the application lifecycle. When the application is bootstrapped, every dependency must be resolved, and therefore every provider has to be instantiated. Similarly, when the application shuts down, each provider will be destroyed. However, there are ways to make your provider lifetime **request-scoped** as well. 
 You can read more about these techniques on the following page[!fundamentals](/overview/injection-scopes.md)
 
-[//]: # (### Custom injectables)
+[//]: # (## Custom injectables)
 
 [//]: # ()
 [//]: # (Danet has a built-in inversion of control &#40;"IoC"&#41; container that resolves relationships between injectables. This feature underlies the dependency injection feature described above, but is in fact far more powerful than what we've described so far. There are several ways to define a provider: you can use plain values, classes, and either asynchronous or synchronous factories. More examples are provided [here]&#40;/fundamentals/dependency-injection&#41;.)
 
-### Provider registration
+## Provider registration
 
 Now that we have defined a provider (`TodoService`), and we have a consumer of that service (`TodoController`), we need to register the service with Danet so that it can perform the injection. We do this by editing our module file (`app.module.ts`) and adding the service to the `injectables` array of the `@Module()` decorator.
 

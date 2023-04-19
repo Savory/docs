@@ -21,7 +21,7 @@ The module **does not encapsulate** injectables. This means that you can inject 
 
 This will change in the future.
 
-### Feature modules
+## Feature modules
 
 The `TodoController` and `TodoService` belong to the same application domain. As they are closely related, it makes sense to move them into a feature module. A feature module simply organizes code relevant for a specific feature, keeping code organized and establishing clear boundaries. This helps us manage complexity and develop with [SOLID](https://en.wikipedia.org/wiki/SOLID) principles, especially as the size of the application and/or team grow.
 
@@ -52,12 +52,12 @@ import { TodoModule } from './todo/todo.module';
 export class AppModule {}
 ```
 
-### Shared modules
+## Shared modules
 
 In Danet, modules are **singletons** by default, and thus you can share the same instance of any provider between multiple modules effortlessly.
 
 Every module is automatically a **shared module**. Once created it can be reused by any module. Let's imagine that we want to share an instance of the `TodoService` between several other modules. In order to do that, nothing has to be done, any module that imports the `TodoModule` has access to the `TodoService` and will share the same instance with all other modules that import it as well.
 
-### Global modules
+## Global modules
 
 Like in [Angular](https://angular.io) `injectables` are registered in the global scope. Once defined, they're available everywhere.

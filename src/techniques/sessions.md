@@ -5,7 +5,7 @@ order: 50
 
 **HTTP sessions** provide a way to store information about the user across multiple requests.
 
-### Usage
+## Usage
 
 As Danet uses Oak under the hood, you can use [oak_sessions](https://deno.land/x/oak_sessions) package.
 
@@ -23,7 +23,7 @@ app.addGlobalMiddlewares(
 The default server-side session storage is purposely not designed for a production environment. It is meant for debugging and developing. Read more in the [official repository](https://deno.land/x/oak_sessions).
 !!!
 
-### With cookies
+## With cookies
 
 Oak_session use `Stores` to store session data in Cookies, Sqlite, Mongodb or Postgres.
 The simpliest way to handle sessions is with cookies using `CookieStore`: 
@@ -43,7 +43,7 @@ app.addGlobalMiddlewares(
 );
 ```
 
-### Session decorator
+## Session decorator
 
 You can access the session in your routes using `@Session` decorator.
 `oak_session`'s `Session` is basically a map, so we use the `Map` type.

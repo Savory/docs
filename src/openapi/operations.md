@@ -11,7 +11,7 @@ The SwaggerModule is currently in Alpha, maaaany features are missing. If someth
 !!!
 
 
-#### Tags
+### Tags
 
 To attach a **controller or an endpoint** to a specific tag, use the `@Tag(tagName)` decorator.
 

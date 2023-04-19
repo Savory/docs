@@ -14,7 +14,7 @@ In order to create a basic controller, we use classes and **decorators**.
 Decorators associate classes with required metadata and enable Danet to create a
 routing map (tie requests to the corresponding controllers).
 
-### Routing
+## Routing
 
 In the following example we'll use the `@Controller()` decorator, which is
 **required** to define a basic controller. We'll specify an optional route path
@@ -59,7 +59,7 @@ chosen.
 This method will return a 200 status code and the associated response, which in
 this case is just a string.
 
-### Request object
+## Request object
 
 Handlers often need access to the client **request** details. Danet provides
 access to the
@@ -96,7 +96,7 @@ objects they represent.
 | `@Query(key: string, options?: { value?: 'first' \| 'last' \| 'array' })` | `string \| string[]` | Get the `first`, the `last` or `all` the values for the query parameter named `key` |
 | `@Query(options?: { value?: 'first' \| 'last' \| 'array' })` | `{ [key: string]: string \| string[] }` | Get the `first`, the `last` or `all` the values for all the query parameters |
 
-### Resources
+## Resources
 
 Earlier, we defined an endpoint to fetch the todo resource (**GET** route).
 We'll typically also want to provide an endpoint that creates new records. For
@@ -123,7 +123,7 @@ It's that simple. Danet provides decorators for almost all of the standard HTTP
 methods: `@Get()`, `@Post()`, `@Put()`, `@Delete()`, `@Patch()`. In addition,
 `@All()` defines an endpoint that handles all of them.
 
-### Route parameters
+## Route parameters
 
 Routes with static paths won't work when you need to accept **dynamic data** as
 part of the request (e.g., `GET /todo/1` to get todo with id `1`). In order to
@@ -147,7 +147,7 @@ parameter token to the decorator.
 Import `Param` from the `https://deno.land/x/danet/mod.ts` package.
 !!!
 
-### Scopes
+## Scopes
 
 For people coming from different programming language backgrounds, it might be
 unexpected to learn that in Danet, almost everything is shared across incoming
@@ -158,7 +158,7 @@ However, there are edge-cases when request-based lifetime of the controller may
 be the desired behavior, for example request tracking or multi-tenancy.
 Documentation page will be created to explain how to do that.
 
-### Asynchronicity
+## Asynchronicity
 
 Being a modern framework, we know that data extraction is mostly
 **asynchronous**. That's why Danet supports and works well with `async`
@@ -179,7 +179,7 @@ async findAll(): Promise<any[]> {
 }
 ```
 
-### Request payloads
+## Request payloads
 
 Our previous examples of the POST route handler didn't accept any client params.
 Let's fix this by adding the `@Body()` decorator here.
@@ -240,12 +240,12 @@ If the body doesn't follow the DTO is returned a 400 status code. Like the examp
 More details about Body validation can be found [here](https://savory.github.io/body-validation-in-danet/).
 !!!
 
-### Handling errors
+## Handling errors
 
 There's a separate chapter about handling errors (i.e., working with
 exceptions): [!ref](exception-filters.md)
 
-### Full resource sample
+## Full resource sample
 
 Below is an example that makes use of several of the available decorators to
 create a basic controller. This controller exposes a couple of methods to access
@@ -288,7 +288,7 @@ export class TodoController {
 }
 ```
 
-### Getting up and running
+## Getting up and running
 
 With the above controller fully defined, Danet still doesn't know that
 `TodoController` exists and as a result won't create an instance of this class.

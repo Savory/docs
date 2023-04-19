@@ -26,7 +26,7 @@ property will be properly populated and send back as a response (instead of the
 default `InternalServerError` for unrecognized exceptions).
 !!!
 
-#### Built-in HTTP exceptions
+### Built-in HTTP exceptions
 
 Danet provides a set of standard exceptions that inherit from the base
 `HttpException` and represent many of the most common HTTP exceptions:
@@ -52,7 +52,7 @@ Danet provides a set of standard exceptions that inherit from the base
 - `GatewayTimeoutException`
 - `PreconditionFailedException`
 
-### Exception filters
+## Exception filters
 
 While the base (built-in) exception filter can automatically handle many cases
 for you, you may want **full control** over the exceptions layer. For example,
@@ -95,7 +95,7 @@ exception filter, telling Danet that this particular filter is looking for
 exceptions of type `CustomException` and nothing else. The `@Catch()` decorator
 takes a single parameter.
 
-### Binding filters
+## Binding filters
 
 Let's tie our new `CustomExceptionFilter` to the `TodoController`'s `create()`
 method.
@@ -126,7 +126,7 @@ export class TodoController {}
 This construction sets up the `CustomException` for every route handler defined
 inside the `TodoController`.
 
-### Catch everything
+## Catch everything
 
 In order to catch **every** unhandled exception (regardless of the exception
 type), omit `@Catch()` decorator.

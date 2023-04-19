@@ -8,7 +8,7 @@ The SwaggerModule is currently in Alpha, maaaany features are missing. If someth
 !!!
 
 
-### Body, Query and Params
+## Body, Query and Params
 
 The `SwaggerModule` searches for all `@Body()` and `@Query()` decorators in route handlers to generate the API document. It also creates corresponding model definitions by taking advantage of reflection. Consider the following code:
 
@@ -51,7 +51,7 @@ Let's open the browser and verify the generated `Todo` model:
 
 ![image](https://user-images.githubusercontent.com/38007824/206904638-1f44ef08-c8e1-4d95-b605-8acc80227397.png)
 
-### Return type
+## Return type
 
 Due to SWC (Deno's typescript compiler) lacking `design:return` metadata, you **must** use the `@ReturnedType` decorator to say what your endpoint will return :
 
@@ -75,7 +75,7 @@ async getTodos(): Todo[] {
 }
 ```
 
-### Enums
+## Enums
 
 To identify an `enum`, we must manually set the `enum` property on the `@ApiProperty` with an array of values.
 

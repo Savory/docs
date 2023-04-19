@@ -24,7 +24,7 @@ const className = ctx.getClass().name; // "TodoController"
 
 The ability to access references to both the current class and handler method provides great flexibility. Most importantly, it gives us the opportunity to access the metadata set through the `@SetMetadata()` decorator from within guards or interceptors. We cover this use case below.
 
-#### Reflection and metadata
+### Reflection and metadata
 
 Danet provides the ability to attach **custom metadata** to route handlers through the `@SetMetadata()` decorator. We can then access this metadata from within our class to make certain decisions.
 

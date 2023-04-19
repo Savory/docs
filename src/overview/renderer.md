@@ -8,7 +8,7 @@ engine.
 
 ## Before writing any code
 
-#### Create the following directory at your project's root
+### Create the following directory at your project's root
 
 ```
 /views
@@ -21,7 +21,7 @@ If you want to put these directory elsewhere, you can provide the
 path to `views` at runtime with `app.setViewEngineDir('my/path/to/views);`
 !!!
 
-#### Create a default layout called `main.hbs` with the following content:
+### Create a default layout called `main.hbs` with the following content:
 
 ```handlebars
 {{{body}}}
