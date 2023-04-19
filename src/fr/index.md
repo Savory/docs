@@ -11,7 +11,8 @@ hero:
     alt: Danet
   actions:
     - theme: brand
-      text: Coming soon
+      text: Documentation
+      link: welcome.html
     - theme: alt
       text: Github
       link: https://github.com/Savory/Danet
