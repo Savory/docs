@@ -20,4 +20,11 @@ jobs:
         cache: 'yarn'
     - run: yarn
     - run: yarn docs:build
-    - run: ls
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: docs.deno.land
+        username: ${{ secrets.DEPLOY_USER }}
+        password: ${{ secrets.DEPLOY_PASSWORD }}
+        local-dir: ./vitepress/dist/
+        server-dir: /home/docs.danet.land/public_html
