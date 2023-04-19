@@ -33,7 +33,7 @@ $ danet develop //run with file watching
 $ danet start  //run without file watching
 ```
 
-In your browser, open [http://localhost:3000](http://localhost:3000) to see the new application running.
+In your browser, open <a href="http://localhost:3000" target="_blank" rel="noreferrer">http://localhost:3000</a> to see the new application running.
 
 ## Database Options
 
