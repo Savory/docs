@@ -23,8 +23,8 @@ jobs:
     - name: 📂 Sync Files
       uses: SamKirkland/web-deploy@v1
       with:
-          target-server: docs.danet.land
-          remote-user: ${{ secrets.DEPLOYMENT_USER }}
-          private-ssh-key: ${{ secrets.DEPLOYMENT_KEY }}
-          destination-path: ~/public_html/
-          source-path: ./.vitepress/dist/
+        target-server: docs.danet.land
+        remote-user: ${{ secrets.DEPLOYMENT_USER }}
+        private-ssh-key: ${{ secrets.DEPLOYMENT_KEY }}
+        destination-path: ~/public_html/
+        source-path: ./.vitepress/dist/
