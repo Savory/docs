@@ -5,7 +5,7 @@ layout: home
 hero:
   name: "Danet"
   text: "The most mature backend framework for Deno"
-  tagline: Inspired by the bests, inspiring you to be
+  tagline: Inspired by the best, inspiring you to be
   image:
     src: /danet-logo.png
     alt: Danet

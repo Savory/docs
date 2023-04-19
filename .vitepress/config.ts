@@ -1,26 +1,30 @@
 import { defineConfig } from 'vitepress'
+import { sidebar } from "./sidebar.ts";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "Danet",
   description: "The most mature backend framework for Deno",
+  head: [
+    [
+        'script',
+      {
+      'data-goatcounter': "https://danet.goatcounter.com/count",
+      'async': true,
+      'src':"//gc.zgo.at/count.js"
+      }
+    ]
+  ],
+  srcDir: "src",
   themeConfig: {
     logo: '/danet-logo.png',
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '' },
-      { text: 'Examples', link: 'markdown-examples' }
+      { text: 'Documentation', link: 'welcome.md' }
     ],
 
-    sidebar: [
-      {
-        text: 'Examples',
-        items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
-        ]
-      }
-    ],
+    sidebar,
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/Savory/Danet' }
@@ -29,7 +33,8 @@ export default defineConfig({
   locales: {
     root: {
       label: 'English',
-      lang: 'en'
+      lang: 'en',
+      dir: 'en'
     },
     fr: {
       label: 'Français',

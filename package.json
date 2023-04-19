@@ -6,5 +6,10 @@
     "docs:dev": "vitepress dev",
     "docs:build": "vitepress build",
     "docs:preview": "vitepress preview"
+  },
+  "dependencies": {
+    "@types/js-yaml": "^4.0.5",
+    "front-matter": "^4.0.2",
+    "js-yaml": "^4.1.0"
   }
 }
