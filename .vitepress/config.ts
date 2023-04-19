@@ -5,6 +5,7 @@ import { sidebar } from "./sidebar.ts";
 export default defineConfig({
   title: "Danet",
   description: "The most mature backend framework for Deno",
+  ignoreDeadLinks: true,
   head: [
     [
         'script',
