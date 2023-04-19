@@ -24,7 +24,7 @@ jobs:
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
         server: docs.deno.land
-        username: ${{ secrets.DEPLOY_USER }}
-        password: ${{ secrets.DEPLOY_PASSWORD }}
+        username: ${{ secrets.DEPLOYMENT_USER }}
+        password: ${{ secrets.DEPLOYMENT_PASSWORD }}
         local-dir: ./vitepress/dist/
         server-dir: /home/docs.danet.land/public_html
