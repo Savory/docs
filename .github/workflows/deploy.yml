@@ -20,6 +20,7 @@ jobs:
         cache: 'yarn'
     - run: yarn
     - run: yarn docs:build
+    - run: cp public/* .vitepress/dist
     - name: rsync deployments
       uses: burnett01/rsync-deployments@5.2.1
       with:
