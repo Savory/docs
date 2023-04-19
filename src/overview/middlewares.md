@@ -85,9 +85,9 @@ class TodoController {
 };
 ```
 
-!!!info **Hint**
+::: info **Hint**
 Consider using the simpler **functional middleware** alternative any time your middleware doesn't need any dependencies.
-!!!
+:::
 
 ### Multiple middleware
 

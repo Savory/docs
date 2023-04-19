@@ -12,9 +12,9 @@ Lifecycle events happen during application bootstrapping and shutdown. Danet cal
 | `OnAppBootstrap()`                | Called once after all dependencies have been injected.          |
 | `OnAppClose()`      | Called on `app.close` right before shutting down connections. |
 
-!!!warning **Warning** 
+::: danger **Warning** 
 The lifecycle hooks listed above are not triggered for **request-scoped** classes. Request-scoped classes are not tied to the application lifecycle and their lifespan is unpredictable. They are exclusively created for each request and deleted after the response is sent.
-!!!
+:::
 
 ## Usage
 

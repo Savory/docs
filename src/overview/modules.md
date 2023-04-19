@@ -41,8 +41,7 @@ export class TodoModule {}
 
 Above, we defined the `TodoModule` in the `todo.module.ts` file, and moved everything related to this module into the `todo` directory. The last thing we need to do is import this module into the root module (the `AppModule`, defined in the `app.module.ts` file).
 
-```typescript
-@@filename(app.module)
+```typescript app.module.ts
 import { Module } from 'https://deno.land/x/danet/mod.ts';
 import { TodoModule } from './todo/todo.module';
 

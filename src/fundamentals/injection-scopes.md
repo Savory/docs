@@ -18,9 +18,9 @@ A provider can have any of the following scopes:
 </table>
 
 
-!!!info Hint
+::: info Hint
 Using singleton scope is **recommended** for most use cases. Sharing providers across consumers and across requests means that an instance can be cached and its initialization occurs only once, during application startup.
-!!!
+:::
 
 ## Usage
 
@@ -76,6 +76,6 @@ export class TodoService {
 Using request-scoped providers will have an impact on application performance. We have to create an instance of your class on each request. Hence, it will slow down your average response time and overall benchmarking result. Unless a provider must be request-scoped, it is strongly recommended that you use the default singleton scope.
 
 
-!!!info Hint
+::: info Hint
 Although it all sounds quite intimidating, a properly designed application that leverages request-scoped providers should not slow down by more than ~5% latency-wise.
-!!!
+:::

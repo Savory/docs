@@ -143,9 +143,9 @@ findOne(@Param('id') id: string): string {
 `@Param()` is used to decorate a method parameter by giving a particular
 parameter token to the decorator.
 
-!!!info Hint
+::: info Hint
 Import `Param` from the `https://deno.land/x/danet/mod.ts` package.
-!!!
+:::
 
 ## Scopes
 
@@ -164,9 +164,9 @@ Being a modern framework, we know that data extraction is mostly
 **asynchronous**. That's why Danet supports and works well with `async`
 functions.
 
-!!!info Hint
+::: info Hint
 Learn more about `async / await` feature [here](https://kamilmysliwiec.com/typescript-2-1-introduction-async-await)
-!!!
+:::
 
 Every async function has to return a `Promise`. This means that you can return a
 deferred value that Danet will be able to resolve by itself. Let's see an
@@ -236,14 +236,14 @@ If the body doesn't follow the DTO is returned a 400 status code. Like the examp
 }
 ```
 
-!!!info Hint
+::: info Hint
 More details about Body validation can be found [here](https://savory.github.io/body-validation-in-danet/).
-!!!
+:::
 
 ## Handling errors
 
 There's a separate chapter about handling errors (i.e., working with
-exceptions): [!ref](exception-filters.md)
+exceptions): [exception-filters](exception-filters.md)
 
 ## Full resource sample
 

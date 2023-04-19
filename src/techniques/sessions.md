@@ -19,9 +19,9 @@ app.addGlobalMiddlewares(
   Session.initMiddleware(),
 );
 ```
-!!!warning **Notice**
+::: danger **Notice**
 The default server-side session storage is purposely not designed for a production environment. It is meant for debugging and developing. Read more in the [official repository](https://deno.land/x/oak_sessions).
-!!!
+:::
 
 ## With cookies
 

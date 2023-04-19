@@ -6,9 +6,9 @@ order: 3
 
 Deno Deploy is a distributed system that allows you to run JavaScript, TypeScript, and WebAssembly close to users, at the edge, worldwide. Deeply integrated with the V8 runtime, Deno deploy servers provide minimal latency and eliminate unnecessary abstractions. You can develop your script locally using the Deno CLI, and then deploy it to our managed infrastructure in less than a second, without the need to configure anything.
 
-!!!info **Hint**
+::: info **Hint**
 Learn more on the [official Deno Deploy website](https://deno.com/deploy)
-!!!
+:::
 
 
 ## First step
@@ -35,9 +35,9 @@ You can start with the free tier and upgrade when you see need !
 
 The signing up process is pretty simple, login with github and voilà.
 
-!!!info **Hint**
+::: info **Hint**
 The Github integration allows you to deploy from Github actions without the need of any secret/environment variable
-!!!
+:::
 
 ## Create a project
 
@@ -66,11 +66,11 @@ $ cd bundle
 $ deployctl deploy --project=YOUR_PROJECT_NAME --no-static --token=YOUTOKEN my-app.js
 ```
 
-!!!info **Hint**
+::: info **Hint**
 `deployctl` is from https://deno.com/deploy/docs/deployctl
 
 Your token can be created/found [here](https://dash.deno.com/account#access-tokens)
-!!!
+:::
 
 
 ### Bundle your application

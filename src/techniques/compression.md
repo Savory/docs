@@ -22,6 +22,6 @@ app.addGlobalMiddlewares(brotli());
 // app.addGlobalMiddlewares(gzip());
 // app.addGlobalMiddlewares(deflate());
 ```
-!!!hint **Hint**
+::: tip **Hint**
 Feel free to use any other compression middleware you like
-!!!
+:::

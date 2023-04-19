@@ -11,9 +11,7 @@ v1.24.3) is installed on your operating system.
 
 ## Setup
 
-The easiest way to set up a Danet project is by using our Danet CLI
-
-[!ref](/cli.md)
+The easiest way to set up a Danet project is by using our [Danet CLI](/cli.md)
 
 ```bash
 $ deno install --allow-read --allow-write --allow-run --allow-env -n danet https://deno.land/x/danet_cli/main.ts
@@ -53,9 +51,9 @@ DB_USERNAME
 DB_PASSWORD=
 ```
 
-!!!info Hint
+::: info Hint
 We provide an `.env.example` file in the project
-!!!
+:::
 
 
 ## Running the application

@@ -3,9 +3,9 @@ order: 98
 label: Types and Parameters
 ---
 
-!!!danger
+::: danger
 The SwaggerModule is currently in Alpha, maaaany features are missing. If something you need is not here yet, [please fill an issue/feature request](https://github.com/Savory/Danet-Swagger/issues)
-!!!
+:::
 
 
 ## Body, Query and Params
@@ -19,10 +19,10 @@ async create(@Body() createTodoDto: CreateTodoDto) {
 }
 ```
 
-!!!Hint
+::: tip
 To explicitly set the body definition use the `@BodyType(Todo)` decorator.
 To explicitly set the query definition use the `@QueryType(Todo)` decorator.
-!!!
+:::
 
 Based on the `Todo`, the following model definition Swagger UI will be created:
 ![image](https://user-images.githubusercontent.com/38007824/206904581-a7d39867-4a1b-40d2-be39-60e65897d99e.png)
@@ -43,9 +43,9 @@ export class CreateTodoDto {
 }
 ```
 
-!!!Hint
+::: tip
 If one of these property is optional, you can use `@Optional()` decorator.
-!!!
+:::
 
 Let's open the browser and verify the generated `Todo` model:
 

@@ -16,9 +16,9 @@ Some stand-out features:
 - TypeScript support out of the box.
 - File-system routing à la Next.js.
 
-!!!info **Hint**
+::: info **Hint**
 Learn more on the [official Deno Fresh website](https://fresh.deno.dev/)
-!!!
+:::
 
 
 ## Integration with Danet
@@ -37,9 +37,9 @@ There are two ways of doing so :
 - serve Fresh content from a dedicated prefix, such as `/dashboard` and your API endpoints from root `/`
 
 
-!!!warning **Deploy**
+::: danger **Deploy**
 Until Deno Deploy handles `emitDecoratorMetadata` compiler option, or Fresh handles bundling, there is no way to deploy a Danet app with Fresh integration on Deno Deploy if you use an instance of `DanetApplication` in Fresh islands.
-!!!
+:::
 
 ## Folder and Files setup
 
@@ -87,9 +87,9 @@ export const bootstrap = async () => {
 };
 
 ```
-!!!info **Hint**
+::: info **Hint**
 `danet-fresh/mod.ts` is declared in the import map to point to https://deno.land/x/danet_fresh/
-!!!
+:::
 
 
 ## Fresh from a given path
@@ -123,9 +123,9 @@ export const bootstrap = async () => {
 
 ```
 
-!!!info **Hint**
+::: info **Hint**
 `danet-fresh/mod.ts` is declared in the import map to point to https://deno.land/x/danet_fresh/
-!!!
+:::
 
 
 ## Working example
