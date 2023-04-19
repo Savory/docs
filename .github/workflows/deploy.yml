@@ -26,5 +26,5 @@ jobs:
         server: docs.deno.land
         username: ${{ secrets.DEPLOYMENT_USER }}
         password: ${{ secrets.DEPLOYMENT_PASSWORD }}
-        local-dir: ./vitepress/dist/
+        local-dir: ./.vitepress/dist/
         server-dir: /home/docs.danet.land/public_html/
