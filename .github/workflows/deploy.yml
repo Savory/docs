@@ -20,11 +20,12 @@ jobs:
         cache: 'yarn'
     - run: yarn
     - run: yarn docs:build
-    - name: 📂 Sync Files
-      uses: SamKirkland/web-deploy@v1
+    - name: rsync deployments
+      uses: burnett01/rsync-deployments@5.2.1
       with:
-        target-server: docs.danet.land
-        remote-user: ${{ secrets.DEPLOYMENT_USER }}
-        private-ssh-key: ${{ secrets.DEPLOYMENT_KEY }}
-        destination-path: ~/public_html/
-        source-path: ./.vitepress/dist/
+          switches: -avzr --delete
+          path: .vitepress/dist/
+          remote_path: ~/public_html/
+          remote_host: docs.danet.land
+          remote_user: ${{ secrets.DEPLOYMENT_USER }}
+          remote_key: ${{ secrets.DEPLOYMENT_KEY }}
