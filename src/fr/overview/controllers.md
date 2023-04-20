@@ -133,7 +133,7 @@ async findAll(): Promise<any[]> {
 }
 ```
 
-## Charges utiles de demande
+## Payload de la requête
 
 Notre exemple précédent de handler de route POST n'accepte pas de paramètres.
 Résolvons cela en ajoutant ici le décorateur `@Body()`.
