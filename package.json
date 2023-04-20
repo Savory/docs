@@ -10,6 +10,7 @@
   "dependencies": {
     "@types/js-yaml": "^4.0.5",
     "front-matter": "^4.0.2",
-    "js-yaml": "^4.1.0"
+    "js-yaml": "^4.1.0",
+    "vitepress-plugin-pagefind": "^0.2.3"
   }
 }

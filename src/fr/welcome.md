@@ -1,53 +1,38 @@
 ---
-label: Welcome
+label: Bienvenu
 order: 100
 ---
 
-# Welcome
+# Bienvenu
 
 
-Danet is a framework heavily inspired by a NodeJS Framework called
-[Nest](https://docs.nestjs.com/). We aim to provide the same efficiency, but in
-[Deno](https://deno.land/). Of course, Nest is way more mature, think of it as a
-hero that we look up to.
+Danet est un framework pour Deno grandement inspiré par
+[Nest](https://docs.nestjs.com/), un framework pour Node. Notre but est d'atteindre la même efficacité, mais pour [Deno](https://deno.land/). Évidemment, Nest est beaucoup plus mature. Vois Nest comme notre modèle !
 
-We borrow a lot from it, including documentation and sentences on this page, so
-please, definitely check it out because they deserve a lot of credit. Without
-Nest, we wouldn't be developing Danet.
+Nous prenons beaucoup de choses de Nest, que ce soit de la documentation ou bien même des phrases sur cette page (du moins pour la version anglaise), donc n'hésites pas à aller voir ce qu'ils font. Sans Nest, nous ne serions pas en train de développer Danet.
 
-Danet is a framework for building efficient, scalable Deno server-side
-applications. It is entirely build with Typescript.
+Danet est un framework pour construire des applications back-end efficaces, optimisées et scalable. Entiérement en Typescript.
 
-Under the hood, Danet makes use of [Oak](https://github.com/oakserver/oak). We
-might support other HTTP Web Framework in the future !
+Sous le capot (j'ai pas trouvé une meilleur expression pour le moment), Danet utilise [Oak](https://github.com/oakserver/oak). Peut être que nous supporterons d'autres moteurs dans le futur.
 
-We abstract a lot of things so you can focus on your core business and
-architecture.
+Nous abstrayons beaucoups de points pour que tu puisses focus sur le coeur de ton business et l'architecture.
 
-## Philosophy
+## Philosophie
 
-Deno is a relatively new engine. Nest was one of the greatest framework to
-improve the architecture of NodeJS project. We want to bring the same level of
-pro-efficiency and professionalism into Deno's world.
+Deno est un moteur relativement récent. Nest a été (et est toujours) l'un des meilleurs framework améliorant l'architecture des projets Node. Nous souhaitons apporter ce même niveau d'efficacité et de professionalisme dans le monde de Deno.
 
-Exactly like Nest, Danet provides an out-of-the-box application architecture
-which allows developers and teams to create highly testable, scalable, loosely
-coupled, and easily maintainable applications.
+Tout comme Nest, Danet fourni une architecture logiciel "out of the box" permettant aux développeurs et équipes de créer une application testable, scalable, faiblement couplée et surtout facilement maintenable.
 
-The architecture is the same as our hero, and it was originally heavily inspired
-by Angular.
+L'architecture est similaire à Nest, elle même inspirée par Angular à l'origine.
 
-## Come with us on this awesome journey
+## Rejoins nous dans cette aventure
 
-We always welcome contributors, feel free to submit a new feature or report a
-bug on our [Github Repository](https://github.com/Savory/Danet) and
-[join our discord](https://discord.gg/Q7ZHuDPgjA)
-
-If you prefer to read one page tutorial, [read our blog](https://savory.github.io/)
+Nous accueillons avec grand plaisir toutes les contributions, n'hésites pas à soumettre une demande de feature ou à remonter un bug sur [notre repo Github](https://github.com/Savory/Danet) et
+[à rejoindre notre discord](https://discord.gg/Q7ZHuDPgjA)
 
 ## Sponsor
 
-A huge thanks to
+Nos remerciement les plus sincère à
 
 <p align="center">
 <a href="https://www.abbeal.com/">

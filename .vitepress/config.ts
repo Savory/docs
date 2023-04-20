@@ -18,6 +18,32 @@ export default defineConfig({
   ],
   srcDir: "src",
   themeConfig: {
+    search: {
+      provider: 'local',
+      options: {
+        locales: {
+          "fr": {
+            translations: {
+              button: {
+                buttonText: 'Rechercher',
+                buttonAriaLabel: 'Rechercher'
+              },
+              modal: {
+                noResultsText: 'Pas de résultat',
+                resetButtonTitle: 'Réinitialiser la recherche',
+                footer: {
+                  selectText: 'pour sélectionner',
+                  navigateText: 'pour naviguer'
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    editLink: {
+      pattern: 'https://github.com/savory/docs/edit/main/src/:path'
+    },
     logo: '/danet-logo.png',
     // https://vitepress.dev/reference/default-theme-config
     nav: [
@@ -29,8 +55,9 @@ export default defineConfig({
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/Savory/Danet' }
-    ]
+    ],
   },
+
   locales: {
     root: {
       label: 'English',

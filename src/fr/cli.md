@@ -2,47 +2,48 @@
 label: CLI
 order: 1
 ---
-## Overview
 
-The [Danet CLI](https://github.com/Savory/Danet-CLI) is a command-line interface tool that helps you to initialize your Danet applications.
+## Aperçu
 
-In the future, it will assist in multiple ways, including scaffolding the project, serving it in development mode, and building and bundling the application for production distribution. It embodies best-practice architectural patterns to encourage well-structured apps.
+Le [CLI Danet](https://github.com/Savory/Danet-CLI) est un outil d'interface de ligne de commande qui t'aide à setup, run et bundle les projets Danet.
+
+À l'avenir, il permettra notamment pour créer facilement des modules/controllers/service. Les projets créés via le CLI mettent en place les meilleures pratiques afin d'encourager des applications bien structurées.
 
 ## Installation
 
-Installing Deno packages as a commands is simple. You can install them under any name you want. For simplicity's sake, we install our danet-cli under the name `danet`.  
+L'installation des paquets Deno en tant que commandes est simple. Tu peux les installer sous le nom de ton choix. Pour des raisons de simplicité, nous installons notre danet-cli sous le nom `danet`.
 
 ```bash
 $ deno install --allow-read --allow-write --allow-run --allow-env -n danet https://deno.land/x/danet_cli/main.ts
 ```
 
-## Basic workflow
+## Workflow travail de base
 
-Once installed, you can invoke CLI commands directly from your OS command line through the `danet` command. See the available `danet` commands by entering the following:
+Une fois installé, tu peux invoquer des commandes directement depuis le terminal de ton OS grâce à la commande `danet`. Tu peux voir les commandes disponibles en tapant :
 
 ```bash
 $ danet --help
 ```
 
-To create, run a new basic Danet project, go to the folder that should be the parent of your new project, and run the following commands:
+Pour créer et lancer un nouveau projet Danet basique, places toi dans le dossier parent de ton nouveau projet, et lances les commandes suivantes :
 
 ```bash
-$ danet new my-danet-project
-$ cd my-danet-project
-$ danet develop //run with file watching
-$ danet start  //run without file watching
+$ danet new mon-projet-danet
+$ cd mon-projet-danet
+$ danet develop //run sans file watching
+$ danet start //run sans file watching
 ```
 
-In your browser, open <a href="http://localhost:3000" target="_blank" rel="noreferrer">http://localhost:3000</a> to see the new application running.
+Dans ton navigateur, ouvres <a href="http://localhost:3000" target="_blank" rel="noreferrer">http://localhost:3000</a> pour voir fonctionner la nouvelle application.
 
-## Database Options
+## Options de base de données
 
-When creating a new project, Danet CLI will ask you what database provider you want to use between `mongodb`, `postgres` and `in-memory` and will generate all the required code.
+Lors de la création d'un nouveau projet, le CLI Danet te demandera quel fournisseur de base de données tu souhaites utiliser entre `mongodb`, `postgres` et `in-memory` et générera tout le code nécessaire.
 
-The only thing left if you use `mongodb` or `postgres` will be to set environment variables or put them in a `.env` file in your project's root folder.
+La seule chose que tu as à faire lorsque tu utilises `mongodb` ou `postgres` est de définir des variables d'environnement ou de les placer dans un fichier `.env` dans le répertoire racine de ton projet.
 
-However, if you need it to be less interactive, you can pass the followings options when calling `danet new` : 
+Cependant, si tu veux que ce soit moins interactif, tu peux passer les options suivantes à `danet new` : 
 
 - `--mongodb`
 - `--postgres`
-- `--in-memory`
+- `---en-mémoire`
