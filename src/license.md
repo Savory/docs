@@ -26,7 +26,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 ## [NestJs Documentation](https://github.com/nestjs/docs.nestjs.com) which we heavily copy content from
 
-Copyright (c) 2017-2022 Kamil Myśliwiec <http://kamilmysliwiec.com>
+Copyright (c) 2017-2023 Kamil Myśliwiec <http://kamilmysliwiec.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the 'Software'), to deal in
