@@ -12,7 +12,7 @@ hero:
   actions:
     - theme: brand
       text: Documentation
-      link: welcome.html
+      link: /fr/welcome.html
     - theme: alt
       text: Github
       link: https://github.com/Savory/Danet
