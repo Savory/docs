@@ -2,7 +2,7 @@
 order: 95
 ---
 
-Danet est fourni avec une **couche d'exceptions intégrée** qui est responsable du traitement de toutes les exceptions non gérées au sein d'une application. Lorsqu'une exception n'est pas gérée par le code de ton application, elle est interceptée par cette couche, qui envoie alors automatiquement une réponse appropriée et compréhensible pour l'utilisateur.
+Danet est fourni avec une **couche d'exceptions intégrée** qui est responsable du traitement de toutes les exceptions non gérées au sein d'une application. Lorsque c'est le cas, elle est interceptée par cette couche, qui envoie alors automatiquement une réponse appropriée et compréhensible pour l'utilisateur.
 
 Par défaut, cette action est effectuée par un **filtre d'exceptions global** intégré, qui gère toutes les exceptions. Lorsqu'une exception est **non reconnue** (c'est-à-dire qu'elle ne possède pas les propriétés `statusCode` et `message`), le filtre d'exceptions intégré génère la réponse JSON par défaut suivante :
 
