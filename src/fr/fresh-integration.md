@@ -58,39 +58,6 @@ Tu peux supprimer `fresh-app/dev.ts` et `fresh-app/main.ts`, mais n'oublie pas l
 
 ## Fresh depuis la racine
 
-Pour activer Fresh depuis `/`, utilise notre appel de module Fresh : `FreshModule.enableFreshFromRoot` depuis ta `DanetApplication`, **AVANT** l'appel de `.init`.
-Les arguments de cette méthode sont :
-- Ta DanetApplication
-- L'URL du dossier Fresh
-- Le préfixe depuis lequel tu veux que les routes de Danet soient accessibles
-- L'objet de configuration de démarrage de Fresh.
-
-
-```ts bootstrap.ts
-import { AppModule } from './app.module.ts';
-import { DanetApplication } from 'danet/mod.ts';
-import { configAsync } from 'dotenv/mod.ts';
-import twindConfig from "./dashboard/twind.config.ts";
-import twindPlugin from "$fresh/plugins/twind.ts";
-import { FreshModule } from "danet-fresh/mod.ts";
-
-export const application = new DanetApplication();
-export const bootstrap = async () => {
-    await configAsync({export: true});
-
-    const freshAppDirectory = new URL('./fresh-app/', import.meta.url);
-    await FreshModule.enableFreshOnRoot(application, freshAppDirectory, '/api', {plugins: [twindPlugin(twindConfig)]});
-
-    await application.init(AppModule);
-
-    return application;
-};
-
-```
-Tu peux supprimer `fresh-app/dev.ts` et `fresh-app/main.ts`, mais n'oublie pas les plugins que tu utilises dans `fresh-app/main.ts`, pour les passer en paramètres lorsque tu actives Fresh depuis ton application Danet.
-
-## Fresh depuis la racine
-
 Pour activer Fresh depuis `/`, utilise notre appel au module Fresh : `FreshModule.enableFreshFromRoot` depuis ton `DanetApplication`, **AVANT** d'appeler `.init`.
 Les arguments de cette méthode sont :
 - Ton DanetApplication
@@ -119,6 +86,7 @@ export const bootstrap = async () => {
 };
 
 ```
+Tu peux supprimer `fresh-app/dev.ts` et `fresh-app/main.ts`, mais n'oublie pas les plugins que tu utilises dans `fresh-app/main.ts`, pour les passer en paramètres lorsque tu actives Fresh depuis ton application Danet.
 
 ::: info **Astuce**
 `danet-fresh/mod.ts` est déclaré dans la carte d'importation pour pointer vers https://deno.land/x/danet_fresh/
