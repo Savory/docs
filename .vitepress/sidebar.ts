@@ -1,9 +1,10 @@
-import { generateSidebar } from "./generate-sidebar.ts";
+import { generateSidebar } from "./generate-sidebar";
 
 export const sidebar =  generateSidebar({
     root: 'src/',
-    excludeDir: ['fr'],
+    collapsed: false,
     capitalizeFirst: true,
     sortByFrontMatter: true,
-    locales: ['fr']
+    excludeDir: ['fr', 'pt'],
+    locales: ['fr', 'pt']
 });
