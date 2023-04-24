@@ -1,9 +1,9 @@
 ---
-label: Welcome
+label: Bem-vindo
 order: 100
 ---
 
-# Welcome
+# Bem-vindo
 
 
 Danet is a framework heavily inspired by a NodeJS Framework called
