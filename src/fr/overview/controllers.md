@@ -1,5 +1,6 @@
 ---
 order: 99
+label: Controlleurs
 ---
 Les contrôleurs sont responsables de la gestion des **requêtes** entrantes et du renvoi de **réponses** au client.
 

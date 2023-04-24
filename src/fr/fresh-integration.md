@@ -1,5 +1,5 @@
 ---
-label: Deno's Fresh Integration
+label: Intégration avec Fresh
 order: 4
 ---
 ## Introduction

@@ -1,5 +1,6 @@
 ---
 order: 90
+label: Guardes
 ---
 
 Un garde est une classe annotée avec le décorateur `@Injectable()`, qui implémente l'interface `AuthGuard`.

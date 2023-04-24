@@ -1,3 +1,7 @@
+---
+label: Cycle de vie
+---
+
 Une application Danet, ainsi que chaque élément d'application, a un cycle de vie. Danet fournit des **hooks de cycle de vie** qui donnent une visibilité sur les événements clés du cycle de vie et la capacité d'agir (exécuter du code enregistré sur votre `injectable` ou `controller`) lorsqu'ils se produisent.
 
 ## Événements de cycle de vie

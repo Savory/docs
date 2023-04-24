@@ -1,5 +1,6 @@
 ---
-  order: 98
+order: 98
+label: Injectables
 ---
 
 Les injectables sont un concept fondamental dans Danet. De nombreuses classes de base de Danet peuvent être traitées comme un service - repositories, de factories, d'helpers, etc. L'idée principale d'un service est qu'il peut être **injecté** en tant que dépendance ; cela signifie que des objets peuvent créer diverses relations les uns avec les autres, et la fonction de "connexion" des instances d'objets peut être largement déléguée au système d'exécution de Danet.

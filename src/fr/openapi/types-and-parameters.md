@@ -1,6 +1,6 @@
 ---
 order: 98
-label: Types and Parameters
+label: Types et Paramètres
 ---
 ::: danger
 Le module Swagger est actuellement en version Alpha, de nombreuses fonctionnalités sont manquantes. Si quelque chose dont vous avez besoin n'est pas encore ici, [veuillez remplir une demande de problème ou de fonctionnalité](https://github.com/Savory/Danet-Swagger/issues).

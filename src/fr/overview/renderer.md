@@ -1,3 +1,7 @@
+---
+label: Renderer
+---
+
 # Afficher du HTML
 
 Créer des API c'est cool, mais parfois, on veut créer une application MVC simple qui affichera de l'HTML.

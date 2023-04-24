@@ -1,3 +1,7 @@
+---
+label: Portée de l'injection
+---
+
 Pour les personnes venant de différents milieux de programmation, il peut être surprenant d'apprendre que dans Danet, presque tout est partagé entre les requêtes entrantes. Nous avons un pool de connexions à la base de données, des services singleton avec un état global, etc. Rappelle-toi que Node.js ne suit pas le modèle Multi-threaded Stateless Request/Response dans lequel chaque requête est traitée par un thread séparé. Ainsi, l'utilisation d'instances singleton est totalement **sûre** pour nos applications.
 
 Cependant, il existe des cas particuliers où le cycle de vie de la requête peut être le comportement souhaité, par exemple pour le caching par requête dans les applications GraphQL, le suivi des requêtes et le multi-tenant. Les scopes d'injection fournissent un mécanisme pour obtenir le comportement souhaité du cycle de vie du fournisseur.

@@ -1,5 +1,6 @@
 ---
 order: 95
+label: Filtre d'exceptions
 ---
 
 Danet est fourni avec une **couche d'exceptions intégrée** qui est responsable du traitement de toutes les exceptions non gérées au sein d'une application. Lorsque c'est le cas, elle est interceptée par cette couche, qui envoie alors automatiquement une réponse appropriée et compréhensible pour l'utilisateur.

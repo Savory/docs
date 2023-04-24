@@ -1,5 +1,6 @@
 ---
 order: 96
+label: Middlewares
 ---
 Les middlewares sont des fonctions appelées **avant** le gestionnaire de route. Les fonctions middleware ont accès à l'objet de contexte [d'Oak](https://deno.land/x/oak@v11.1.0/context.ts?s=Context).
 

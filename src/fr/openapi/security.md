@@ -1,6 +1,6 @@
 ---
 order: 97
-label: Security
+label: Sécurité
 ---
 
 Pour définir les mécanismes de sécurité à utiliser pour une opération spécifique, utilise `@ApiSecurity()`.

@@ -1,3 +1,6 @@
+---
+label: Contexte d'éxécution
+---
 `ExecutionContext` fournit des détails supplémentaires sur le processus d'exécution en cours. Danet fournit une instance d' `ExecutionContext` dans des endroits où tu pourrais en avoir besoin, comme dans la méthode `canActivate()` d'un [garde](https://savory.github.io/Danet/overview/guards/) et la méthode `action()` d'un [middleware](https://savory.github.io/Danet/overview/middlewares/). Il fournit les méthodes suivantes :
 
 ```ts
