@@ -2,7 +2,7 @@ import type { DefaultTheme, LocaleSpecificConfig } from "vitepress";
 import { sidebar } from "../sidebar";
 
 export const META_TITLE = "Danet";
-export const META_URL = "https://danet.land";
+export const META_URL = "https://docs.danet.land";
 export const META_DESCRIPTION = "The most mature backend framework for Deno";
 
 export const enConfig: LocaleSpecificConfig<DefaultTheme.Config> = {
@@ -38,10 +38,10 @@ export const enConfig: LocaleSpecificConfig<DefaultTheme.Config> = {
             text: "Discussions",
             link: "https://github.com/Savory/Danet/discussions",
           },
-          {
-            text: "Changelog",
-            link: "https://github.com/Savory/Danet/blob/main/CHANGELOG.md",
-          },
+          // {
+          //   text: "Changelog",
+          //   link: "https://github.com/Savory/Danet/blob/main/CHANGELOG.md",
+          // },
         ],
       },
     ],
