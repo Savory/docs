@@ -202,6 +202,9 @@ export default class VitePressSidebar {
                     return 'Unknown';
                 }
             } else {
+                const fileContent = readFileSync(filePath);
+                const frontMatterData = fm<{ label }>(fileContent.toString());
+                result = frontMatterData.attributes.label ?? result;
                 result = result.replace(/\.md$/, '');
 
                 if (options.hyphenToSpace) {
@@ -211,6 +214,14 @@ export default class VitePressSidebar {
                 if (options.underscoreToSpace) {
                     result = result.replace(/_/g, ' ');
                 }
+            }
+        } else {
+            try {
+                const fileContent = readFileSync(`${filePath}/index.yml`);
+                const data = load(fileContent.toString()) as { label: string };
+                result = data.label ?? result;
+            } catch (e) {
+
             }
         }
 
