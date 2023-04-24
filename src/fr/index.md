@@ -19,10 +19,10 @@ hero:
 features:
   - icon: 🦕
     title: Sûr
-    details: Nous utilisons les dernières fonctionnalités Deno et TypeScript afin que vous puissiez développer avec plus de confiance et de sécurité.
+    details: Nous utilisons les dernières fonctionnalités Deno et TypeScript afin que vous puissiez développer en toute confiance de façon sûre.
   - icon: 💡
     title: Intuitif
-    details: Nous l'avons gardé simple et intuitif afin que vous puissiez vous concentrer sur ce qui est vraiment important.
+    details: Simple et intuitif afin que vous puissiez vous concentrer sur ce qui est vraiment important.
   - icon: 🪜
     title: Extensible
     details: Nous permettons à d'autres bibliothèques et outils d'être intégrés de manière transparente dans votre projet.

@@ -2,7 +2,7 @@ import type { DefaultTheme, LocaleSpecificConfig } from "vitepress";
 import { sidebar } from "../sidebar";
 
 export const META_TITLE = "Danet";
-export const META_URL = "https://danet.land";
+export const META_URL = "https://docs.danet.land";
 export const META_DESCRIPTION =
   "Le plus mature des framework backend pour Deno";
 
@@ -53,7 +53,7 @@ export const frConfig: LocaleSpecificConfig<DefaultTheme.Config> = {
       text: "Suggérer des modifications à cette page",
     },
     nav: [
-      { text: "D'accueil", link: "/fr/" },
+      { text: "Accueil", link: "/fr/" },
       { text: "Documentation", link: "/fr/introduction/welcome" },
       {
         text: "Liens",
@@ -62,10 +62,10 @@ export const frConfig: LocaleSpecificConfig<DefaultTheme.Config> = {
             text: "Discussions",
             link: "https://github.com/Savory/Danet/discussions",
           },
-          {
-            text: "Changelog",
-            link: "https://github.com/Savory/Danet/blob/main/CHANGELOG.md",
-          },
+          // {
+          //   text: "Changelog",
+          //   link: "https://github.com/Savory/Danet/blob/main/CHANGELOG.md",
+          // },
         ],
       },
     ],
