@@ -1,4 +1,5 @@
 import { readFileSync, readdirSync, statSync } from 'fs';
+import { DefaultTheme } from 'vitepress';
 import { join, resolve } from 'path';
 import { load } from 'js-yaml';
 import fm from 'front-matter';
@@ -27,7 +28,7 @@ declare interface SidebarItem {
 }
 
 export default class VitePressSidebar {
-    static generateSidebar(options: Options): object {
+    static generateSidebar(options: Options): DefaultTheme.Sidebar {
         options.root = options?.root ?? '/';
         if (!/^\//.test(options.root)) {
             options.root = `/${options.root}`;
@@ -57,7 +58,6 @@ export default class VitePressSidebar {
             sidebar[localePath] = item;
         });
 
-        console.log(sidebar);
         return sidebar;
     }
 

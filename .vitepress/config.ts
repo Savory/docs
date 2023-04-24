@@ -1,73 +1,44 @@
-import { defineConfig } from 'vitepress'
-import { sidebar } from "./sidebar.ts";
+import { enConfig } from "./locales//en.config";
+import { ptConfig } from "./locales/pt.config";
+import { frConfig } from "./locales/fr.config";
+import { defineConfig } from "vitepress";
 
+// https://vitepress.dev/reference/default-theme-config
 // https://vitepress.dev/reference/site-config
+
 export default defineConfig({
-  title: "Danet",
-  description: "The most mature backend framework for Deno",
   ignoreDeadLinks: true,
-  head: [
-    [
-        'script',
-      {
-      'data-goatcounter': "https://danet.goatcounter.com/count",
-      'async': true,
-      'src':"//gc.zgo.at/count.js"
-      }
-    ]
-  ],
+  title: "Danet",
   srcDir: "src",
   themeConfig: {
+    logo: "/danet-logo.png",
     search: {
-      provider: 'local',
-      options: {
-        locales: {
-          "fr": {
-            translations: {
-              button: {
-                buttonText: 'Rechercher',
-                buttonAriaLabel: 'Rechercher'
-              },
-              modal: {
-                noResultsText: 'Pas de résultat',
-                resetButtonTitle: 'Réinitialiser la recherche',
-                footer: {
-                  selectText: 'pour sélectionner',
-                  navigateText: 'pour naviguer'
-                }
-              }
-            }
-          }
-        }
-      }
+      provider: "local",
     },
-    editLink: {
-      pattern: 'https://github.com/savory/docs/edit/main/src/:path'
-    },
-    logo: '/danet-logo.png',
-    // https://vitepress.dev/reference/default-theme-config
-    nav: [
-      { text: 'Home', link: '' },
-      { text: 'Documentation', link: 'welcome.md' }
-    ],
-
-    sidebar,
-
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/Savory/Danet' }
+      { icon: "twitter", link: "https://twitter.com/DanetFramework" },
+      { icon: "discord", link: "https://discord.gg/Q7ZHuDPgjA" },
+      { icon: "github", link: "https://github.com/Savory/Danet" }
     ],
   },
-
   locales: {
     root: {
-      label: 'English',
-      lang: 'en',
-      dir: 'en'
+      label: "English",
+      lang: "en",
+      link: "/",
+      ...enConfig,
     },
     fr: {
-      label: 'Français',
-      lang: 'fr', // optional, will be added  as `lang` attribute on `html` tag
-      link: '/fr/' // default /fr/ -- shows on navbar translations menu, can be external
-    }
-  }
-})
+      label: "Français",
+      link: "/fr/",
+      lang: "fr",
+      ...frConfig,
+    },
+    pt: {
+      label: "Português",
+      lang: "pt-br",
+      link: "/pt/",
+      ...ptConfig,
+    },
+  },
+});
