@@ -15,6 +15,10 @@ A provider can have any of the following scopes:
     <td><code>REQUEST</code></td>
     <td>A new instance of the provider is created exclusively for each incoming <strong>request</strong>.  The instance is free'd after the request has completed processing.</td>
   </tr>
+<tr>
+    <td><code>TRANSIENT</code></td>
+    <td>Transient providers are not shared across consumers. Each consumer that injects a transient provider will receive a new, dedicated instance.</td>
+  </tr>
 </table>
 
 
@@ -54,6 +58,8 @@ export class TodoController {}
 The `REQUEST` scope bubbles up the injection chain. A controller that depends on a request-scoped provider will, itself, be request-scoped.
 
 Imagine the following dependency graph: `TodoController <- TodoService <- TodoRepository`. If `TodoService` is request-scoped (and the others are default singletons), the `TodoController` will become request-scoped as it is dependent on the injected service. The `TodoRepository`, which is not dependent, would remain singleton-scoped.
+
+Transient-scoped dependencies don't follow that pattern. If a singleton-scoped `ItemService` injects a transient `LoggerService` provider, it will receive a fresh instance of it. However, `ItemService` will stay singleton-scoped, so injecting it anywhere would not resolve to a new instance of `ItemService`. In case it's desired behavior, `ItemService` must be explicitly marked as `TRANSIENT` as well.
 
 ## Access context
 
