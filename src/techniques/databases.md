@@ -15,7 +15,7 @@ Currently, it handles :
 
 ## Getting started
 
-Let's say you want to start using Mongodb in your Danet application. The easier way is to import the `MongodbModule` in your `app.module.ts` as follows: 
+Let's say you want to start using Mongodb in your Danet application. The easiest way is to import the `MongodbModule` in your `app.module.ts` as follows: 
 
 ```ts
 import { Module } from 'danet/mod.ts';
