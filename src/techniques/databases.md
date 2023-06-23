@@ -34,7 +34,7 @@ This will make the MongodbModule's `MongodbService` available in your app if you
 
 Each provider's service implement [Danet lifecycle hooks](../fundamentals/lifecycle.md) `onAppBootstrap` and `onAppClose` to start and end connection to database server.
 
-::: hint
+::: info Hint
  Check the code of each provider service in to see its features: https://github.com/Savory/Danet-Database/tree/main
 :::
 
