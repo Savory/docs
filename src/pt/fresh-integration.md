@@ -2,69 +2,69 @@
 label: Deno's Fresh Integration
 order: 4
 ---
-## Introduction
+## Introdução
 
-Fresh is a next generation web framework, built for speed, reliability, and simplicity.
+Fresh representa a próxima geração de frameworks web, construído para ser veloz, confiável e simples.
 
-Some stand-out features:
+Algumas características marcantes:
 
-- Just-in-time rendering on the edge.
-- Island based client hydration for maximum interactivity.
-- Zero runtime overhead: no JS is shipped to the client by default.
-- No build step.
-- No configuration necessary.
-- TypeScript support out of the box.
-- File-system routing à la Next.js.
+- Renderização just-in-time na borda.
+- Hidratação do cliente baseada em ilha para interatividade máxima.
+- Sem sobrecarga de tempo de execução: nenhum JS é enviado ao cliente por padrão.
+- Sem etapa de compilação.
+- Nenhuma configuração necessária.
+- Suporte ao TypeScript desde o início.
+- Roteamento de sistema de arquivos ao estilo do Next.js.
 
-::: info **Hint**
-Learn more on the [official Deno Fresh website](https://fresh.deno.dev/)
+::: info **Dica**
+Saiba mais no [site oficial do Deno Fresh](https://fresh.deno.dev/)
 :::
 
 
-## Integration with Danet
+## Integração com o Danet
 
-We believe that Fresh is an awesome framework for frontend thanks to Server-Side-Rendering (SSR) with partial hydration, File-system routing and Typescript support.
+Acreditamos que o Fresh é um framework incrível para o frontend, graças à renderização do lado do servidor (SSR) com hidratação parcial, roteamento de sistema de arquivos e suporte ao TypeScript.
 
-However, in our opinion, it lacks backend specialized features to enable developers to build enterprise grade backend architecture with flexibility and robustness. 
+No entanto, na nossa opinião, ele carece de recursos especializados para o backend que permitam aos desenvolvedores construir uma arquitetura de backend de nível empresarial com flexibilidade e robustez.
 
-At the same time, Danet lacks specialized features to build awesome frontends.
+Ao mesmo tempo, o Danet carece de recursos especializados para construir frontends incríveis.
 
-This is why we worked towards providing a way to run both, from the same process. Allowing you to render awesome pages with Fresh while have a robust business logic/API code which can also be used in Fresh SSR for the first rendering.
+É por isso que trabalhamos para fornecer uma maneira de executar ambos, no mesmo processo. Permitindo que você renderize páginas incríveis com o Fresh enquanto tem um código de lógica de negócios/API robusto que também pode ser usado no Fresh SSR para a primeira renderização.
 
-There are two ways of doing so :
+Existem duas maneiras de fazer isso:
 
-- serve Fresh content from `/` path and your API endpoints from a dedicated prefix such as `/api`
-- serve Fresh content from a dedicated prefix, such as `/dashboard` and your API endpoints from root `/`
+- Servir conteúdo do Fresh a partir do caminho `/` e seus pontos de extremidade de API a partir de um prefixo dedicado, como `/api`.
+- Servir conteúdo do Fresh a partir de um prefixo dedicado, como `/dashboard`, e seus pontos de extremidade de API a partir da raiz `/`.
 
 
-::: danger **Deploy**
-Until Deno Deploy handles `emitDecoratorMetadata` compiler option, or Fresh handles bundling, there is no way to deploy a Danet app with Fresh integration on Deno Deploy if you use an instance of `DanetApplication` in Fresh islands.
+::: danger **Implantação**
+Até que o Deno Deploy lide com a opção do compilador `emitDecoratorMetadata`, ou o Fresh lide com o empacotamento, não há como implantar um aplicativo Danet com integração Fresh no Deno Deploy se você usar uma instância de `DanetApplication` nas ilhas do Fresh.
 :::
 
-## Folder and Files setup
+## Configuração de Pastas e Arquivos
 
-Good news, there is little to no change in your Danet or Fresh app's folder structure !
+Boas notícias, há pouca ou nenhuma mudança na estrutura de pastas do seu aplicativo Danet ou Fresh!
 
-Let's say you have a `danet-app` (generated from our CLI) and a `fresh-app` (generated from [fresh getting-started](https://fresh.deno.dev/#getting-started) ) next to each other as following :
+Suponha que você tenha um `danet-app` (gerado pelo nosso CLI) e um `fresh-app` (gerado em [fresh getting-started](https://fresh.deno.dev/#getting-started)) lado a lado da seguinte forma:
 
-![Screenshot 2023-04-16 at 17 08 48](https://user-images.githubusercontent.com/38007824/232283998-89510982-c917-474f-9a25-b80bbb8fc301.png)
-
-
-Move `fresh-app` into `danet-app/src` (we don't show all files that exist for clarity purpose):
-
-![Screenshot 2023-04-16 at 17 08 13](https://user-images.githubusercontent.com/38007824/232283976-e4551764-8333-463a-a003-47dee910a44b.png)
+![Screenshot 2023-04-16 às 17 08 48](https://user-images.githubusercontent.com/38007824/232283998-89510982-c917-474f-9a25-b80bbb8fc301.png)
 
 
-You can delete `fresh-app/dev.ts` and `fresh-app/main.ts`, but remember the plugins you use in `fresh-app/main.ts`, to pass them as parameters when enabling Fresh from your Danet app.
+Mova `fresh-app` para dentro de `danet-app/src` (não mostramos todos os arquivos que existem para fins de clareza):
 
-## Fresh from root
+![Screenshot 2023-04-16 às 17 08 13](https://user-images.githubusercontent.com/38007824/232283976-e4551764-8333-463a-a003-47dee910a44b.png)
 
-To enable Fresh from `/`, use our Fresh Module call : `FreshModule.enableFreshFromRoot` from your `DanetApplication`, **BEFORE** calling `.init`.
-This method argument are:
-- Your DanetApplication
-- Fresh folder URL
-- the prefix from where you want your Danet's routes to be accessible
-- Fresh start configuration object.:
+
+Você pode excluir `fresh-app/dev.ts` e `fresh-app/main.ts`, mas lembre-se dos plugins que você usa em `fresh-app/main.ts` para passá-los como parâmetros ao habilitar o Fresh no seu aplicativo Danet.
+
+## Fresh a partir da raiz
+
+Para habilitar o Fresh a partir de `/`, use a chamada do nosso Módulo Fresh: `FreshModule.enableFreshFromRoot` a partir do seu `DanetApplication`, **ANTES** de chamar `.init`.
+Os argumentos deste método são:
+- Seu DanetApplication
+- URL da pasta Fresh
+- o prefixo de onde você deseja que as rotas do Danet sejam acessíveis
+- Objeto de configuração de início do Fresh.:
 
 ```ts bootstrap.ts
 import { AppModule } from './app.module.ts';
@@ -87,19 +87,19 @@ export const bootstrap = async () => {
 };
 
 ```
-::: info **Hint**
-`danet-fresh/mod.ts` is declared in the import map to point to https://deno.land/x/danet_fresh/
+::: info **Dica**
+`danet-fresh/mod.ts` está declarado no mapa de importação para apontar para https://deno.land/x/danet_fresh/
 :::
 
 
-## Fresh from a given path
+## Fresh a partir de um caminho específico
 
-To enable Fresh from a given path, simply call : `.enableFresh` from your `DanetApplication`, **BEFORE** calling `.init`.
-This method argument are:
-- Your DanetApplication
-- Fresh folder URL
-- the prefix from where you want your Fresh routes to be accessible
-- Fresh start configuration object.:
+Para habilitar o Fresh a partir de um caminho específico, simplesmente chame: `.enableFresh` no seu `DanetApplication`, **ANTES** de chamar `.init`.
+Os argumentos deste método são:
+- Seu DanetApplication
+- URL da pasta Fresh
+- o prefixo de onde você deseja que as rotas do Fresh sejam acessíveis
+- Objeto de configuração de início do Fresh.:
 
 ```ts bootstrap.ts
 import { AppModule } from './app.module.ts';
@@ -123,14 +123,14 @@ export const bootstrap = async () => {
 
 ```
 
-::: info **Hint**
-`danet-fresh/mod.ts` is declared in the import map to point to https://deno.land/x/danet_fresh/
+::: info **Dica**
+`danet-fresh/mod.ts` está declarado no mapa de importação para apontar para [https://deno.land/x/danet_fresh/](https://deno.land/x/danet_fresh/)
 :::
 
 
-## Working example
+## Exemplo de Trabalho
 
-There is a [specific branch on our starter project](https://github.com/Savory/Danet-Starter/tree/fresh-integration) with a demo Fresh app in `src/dashboard` folder, served from root. 
+Há um [branch específico no nosso projeto inicial](https://github.com/Savory/Danet-Starter/tree/fresh-integration) com uma aplicação Fresh de demonstração na pasta `src/dashboard`, servido a partir da raiz.
 
-Check it out if needed !
+Confira, se necessário!
 
