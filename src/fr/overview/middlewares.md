@@ -2,7 +2,7 @@
 order: 96
 label: Middlewares
 ---
-Les middlewares sont des fonctions appelées **avant** le gestionnaire de route. Les fonctions middleware ont accès à l'objet de contexte [d'Oak](https://deno.land/x/oak@v11.1.0/context.ts?s=Context).
+Les middlewares sont des fonctions appelées **avant** le gestionnaire de route. Les fonctions middleware ont accès à l'objet de contexte [d'hono](https://hono.dev/api/context).
 
 <figure><img src="https://docs.nestjs.com/assets/Middlewares_1.png" /></figure>
 

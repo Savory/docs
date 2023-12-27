@@ -10,17 +10,15 @@ For high-traffic websites in production, it is strongly recommended to offload c
 
 ## Usage
 
-As Danet uses Oak under the hood, you can use [oak_compress](https://deno.land/x/oak_compress) package.
+As Danet uses hono under the hood, you can use [hono_compress](https://hono.dev/middleware/builtin/compress).
 
 Then, apply its middleware as global middleware (for example, in your `bootstrap.ts` file).
 
 ```typescript
-import { brotli } from "https://deno.land/x/oak_compress/mod.ts";
+import { compress } from 'https://deno.land/x/hono/middleware.ts'
 
 const app = new DanetApplication();
-app.addGlobalMiddlewares(brotli());
-// app.addGlobalMiddlewares(gzip());
-// app.addGlobalMiddlewares(deflate());
+app.use(compress());
 ```
 ::: tip **Hint**
 Feel free to use any other compression middleware you like
