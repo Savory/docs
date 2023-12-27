@@ -18,7 +18,7 @@ Nest, we wouldn't be developing Danet.
 Danet is a framework for building efficient, scalable Deno server-side
 applications. It is entirely build with Typescript.
 
-Under the hood, Danet makes use of [Oak](https://github.com/oakserver/oak). We
+Under the hood, Danet makes use of [hono](https://github.com/honojs/hono). We
 might support other HTTP Web Framework in the future !
 
 We abstract a lot of things so you can focus on your core business and

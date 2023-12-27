@@ -2,7 +2,7 @@
 order: 96
 ---
 
-Middleware is a function which is called **before** the route handler. Middleware functions have access to [oak's context](https://deno.land/x/oak@v11.1.0/context.ts?s=Context) object.
+Middleware is a function which is called **before** the route handler. Middleware functions have access to [hono's context](https://hono.dev/api/context) object.
 
 <figure><img src="https://docs.nestjs.com/assets/Middlewares_1.png" /></figure>
 
@@ -14,7 +14,7 @@ Middleware is a function which is called **before** the route handler. Middlewar
   </ul>
 </blockquote>
 
-You implement custom Danet middleware in either a function, or in a class with an `@Injectable()` decorator. The class should implement the `DanetMiddleware` interface, while the function does not have any special requirements. Let's start by implementing a simple middleware feature using the class method.
+You implement custom Danet middleware in either a function, or in a class with an `@Injectable()` decorator. The class should implement the `DanetMiddleware` interface, while the function does not have any special requirements except to return a response (usually from the `next` returned value, but you can also have a 'in maintenance' middleware that overwrite all response). Let's start by implementing a simple middleware feature using the class method.
 
 ```ts logger.middleware.ts
 import { Injectable, DanetMiddle, HttpContext, NextFunction } from 'https://deno.land/x/danet/mod.ts';
@@ -23,7 +23,7 @@ import { Injectable, DanetMiddle, HttpContext, NextFunction } from 'https://deno
 export class LoggerMiddleware implements DanetMiddleware {
   async action(ctx: HttpContext, next: NextFunction) {
     console.log('Request...');
-    await next();
+    return next();
   }
 }
 ```
@@ -68,7 +68,7 @@ import { Injectable, DanetMiddle, HttpContext, NextFunction } from 'https://deno
 
 export async function logger(ctx: HttpContext, next: NextFunction) {
   console.log(`Request...`);
-  await next();
+  return next();
 };
 ```
 
@@ -102,5 +102,20 @@ If we want to bind middleware to every registered route at once, simply use `add
   const application = new DanetApplication();
   await application.init(AppModule);
   application.addGlobalMiddlewares(YourFirstMiddleware, SecondMiddleware); //as many middleware as you want;
+...
+```
+
+
+### "Native" Hono middleware
+
+If you want to use a "Hono" middleware, for example the [timing middleware](https://hono.dev/middleware/builtin/timing), you can do 
+
+
+```ts bootstrap.ts
+  import { timing } from 'https://deno.land/x/hono/middleware.ts'
+...
+  const application = new DanetApplication();
+  await application.init(AppModule);
+  application.use(timing()); //as many middleware as you want;
 ...
 ```

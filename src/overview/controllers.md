@@ -63,7 +63,7 @@ this case is just a string.
 
 Handlers often need access to the client **request** details. Danet provides
 access to the
-[request object](https://doc.deno.land/https://deno.land/x/oak@v10.6.0/mod.ts/~/Request).
+[request object](https://hono.dev/api/request).
 We can access the request object by instructing Danet to inject it by adding the
 `@Req()` decorator to the handler's signature.
 
@@ -86,15 +86,15 @@ instead, such as `@Body()` or `@Query()`, which are available out of the box.
 Below is a list of the provided decorators and the plain platform-specific
 objects they represent.
 
-| Decorator | Type | Value |
-|-----------|------|-------|
-| `@Req()` | [oak.Request](https://deno.land/x/oak@v10.5.1/request.ts) | `ctx.request` |
-| `@Res()` | [oak.Response](https://deno.land/x/oak@v10.5.1/response.ts) | `ctx.response` |
-| `@Param(key: string)` | `string` | `context.params[key]` |
-| `@Header(key? : string)` | `string \| undefined` | `ctx.request.headers` / `ctx.request.headers.get(key)` |
-| `@Body(key?: string)` | `any` | `ctx.request.body` / `ctx.request.body[key]` |
+| Decorator | Type | Value                                                                               |
+|-----------|------|-------------------------------------------------------------------------------------|
+| `@Req()` | [hono.Request](https://hono.dev/api/request) | `ctx.req`                                                                           |
+| `@Res()` | [hono.Response](https://hono.dev/api/context#res) | `ctx.res`                                                                           |
+| `@Param(key: string)` | `string` | `context.params[key]`                                                               |
+| `@Header(key? : string)` | `string \| undefined` | `ctx.req.raw.headers` / `ctx.req.header(key)`                                       |
+| `@Body(key?: string)` | `any` | `ctx.req.json()` / `ctx.req.json()[key]`                                              |
 | `@Query(key: string, options?: { value?: 'first' \| 'last' \| 'array' })` | `string \| string[]` | Get the `first`, the `last` or `all` the values for the query parameter named `key` |
-| `@Query(options?: { value?: 'first' \| 'last' \| 'array' })` | `{ [key: string]: string \| string[] }` | Get the `first`, the `last` or `all` the values for all the query parameters |
+| `@Query(options?: { value?: 'first' \| 'last' \| 'array' })` | `{ [key: string]: string \| string[] }` | Get the `first`, the `last` or `all` the values for all the query parameters        |
 
 ## Resources
 

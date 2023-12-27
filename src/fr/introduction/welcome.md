@@ -13,7 +13,7 @@ Nous prenons beaucoup de choses de Nest, que ce soit de la documentation ou bien
 
 Danet est un framework pour construire des applications back-end efficaces, optimisées et scalable. Entiérement en Typescript.
 
-Sous le capot (j'ai pas trouvé une meilleur expression pour le moment), Danet utilise [Oak](https://github.com/oakserver/oak). Peut être que nous supporterons d'autres moteurs dans le futur.
+Sous le capot (j'ai pas trouvé une meilleur expression pour le moment), Danet utilise [hono](https://github.com/honojs/hono). Peut être que nous supporterons d'autres moteurs dans le futur.
 
 Nous abstrayons beaucoups de points pour que tu puisses focus sur le coeur de ton business et l'architecture.
 

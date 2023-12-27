@@ -32,7 +32,7 @@ Cette méthode renverra un code 200 et la réponse associée, qui dans ce cas es
 
 ## Objet de demande
 
-Les handlers ont souvent besoin d'accéder aux détails de la **requête**. Danet fournit l'accès à l'[objet correspondant a la requete](https://doc.deno.land/https://deno.land/x/oak@v10.6.0/mod.ts/~/Request).
+Les handlers ont souvent besoin d'accéder aux détails de la **requête**. Danet fournit l'accès à l'[objet correspondant a la requete](https://hono.dev/api/request).
 Nous pouvons accéder à l'objet de demande en demandant à Danet de l'injecter en ajoutant le décorateur `@Req()` à la signature du handler.
 
 ```ts todo.controller.ts
@@ -51,11 +51,11 @@ L'objet `request` représente la requête HTTP et contient des propriétés tels
 
 | Décorateur | Type | Valeur |
 |-----------|------|-------|
-| `@Req()` | [oak.Request](https://deno.land/x/oak@v10.5.1/request.ts) | `ctx.request` |
-| `@Res()` | [oak.Response](https://deno.land/x/oak@v10.5.1/response.ts) | `ctx.response` |
-| `@Param(key: string)` | `string` | `context.params[key]` |
-| `@Header(key? : string)` | `string \| undefined` | `ctx.request.headers` / `ctx.request.headers.get(key)` |
-| `@Body(key?: string)` | `any` | `ctx.request.body` / `ctx.request.body[key]` |
+| `@Req()` | [hono.Request](https://hono.dev/api/request) | `ctx.req`                                                                           |
+| `@Res()` | [hono.Response](https://hono.dev/api/context#res) | `ctx.res`                                                                           |
+| `@Param(key: string)` | `string` | `context.params[key]`                                                               |
+| `@Header(key? : string)` | `string \| undefined` | `ctx.req.raw.headers` / `ctx.req.header(key)`                                       |
+| `@Body(key?: string)` | `any` | `ctx.req.json()` / `ctx.req.json()[key]`                                              |
 | `@Query(key: string, options?: { value?: 'first' \| 'last' \| 'array' })` | `string \| string[]` | Récupère la première, la dernière ou toutes les valeurs pour le paramètre de requête nommé `key` |
 | `@Query(options?: { value?: 'first' \| 'last' \| 'array' })` | `{ [key: string]: string \| string[] }` | Récupère la première, la dernière ou toutes les valeurs pour tous les paramètres de requête |
 

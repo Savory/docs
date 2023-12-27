@@ -7,45 +7,39 @@ Les **sessions HTTP** fournissent un moyen de stocker des informations sur l'uti
 
 ## Utilisation
 
-Comme Danet utilise Oak sous le capot, tu peux utiliser le package [oak_sessions](https://deno.land/x/oak_sessions).
+Comme Danet utilise hono sous le capot, tu peux utiliser le package [hono_sessions](https://deno.land/x/hono_sessions).
 
-Ensuite, applique le middleware `oak_sessions` en tant que middleware global (par exemple, dans ton fichier `bootstrap.ts`).
-
-```typescript
-import { Session } from 'https://deno.land/x/oak_sessions@v4.0.5/mod.ts';
-
-const app = new DanetApplication();
-app.addGlobalMiddlewares(
-  Session.initMiddleware(),
-);
-```
-::: danger **Avertissement**
-Le stockage de session côté serveur par défaut n'est pas conçu pour un environnement de production. Il est destiné au débogage et au développement. Pour en savoir plus, consulte le [dépôt officiel](https://deno.land/x/oak_sessions).
-:::
-
-## Avec les cookies
-
-Oak_session utilise des `Stores` pour stocker les données de session dans les cookies, Sqlite, Mongodb ou Postgres.
+Ensuite, applique le middleware `hono_sessions` en tant que middleware global (par exemple, dans ton fichier `bootstrap.ts`).
+hono_session utilise des `Stores` pour stocker les données de session dans les cookies, ou deno KV.
 Le moyen le plus simple de gérer les sessions est avec les cookies en utilisant `CookieStore` :
 
 ```typescript
 import {
-  CookieStore,
-  Session,
-} from 'https://deno.land/x/oak_sessions@v4.0.5/mod.ts';
+    Session,
+    sessionMiddleware,
+    CookieStore
+} from 'https://deno.land/x/hono_sessions/mod.ts'
 
 const app = new DanetApplication();
-app.addGlobalMiddlewares(
-  Session.initMiddleware(
-    new CookieStore(Deno.env.get('COOKIE_SECRET_KEY') as string),
-  ) as MiddlewareFunction,
+const store = new CookieStore()
+app.use(
+    sessionMiddleware({
+        store,
+        encryptionKey: 'password_at_least_32_characters_long', // Required for CookieStore, recommended for others
+        expireAfterSeconds: 900, // Expire session after 15 minutes of inactivity
+        cookieOptions: {
+            sameSite: 'Lax', // Recommended for basic CSRF protection in modern browsers
+            path: '/', // Required for this library to work properly
+            httpOnly: true, // Recommended to avoid XSS attacks
+        },
+    })
 );
 ```
 
 ## Le décorateur Session
 
 Tu peux accéder à la session dans tes routes en utilisant le décorateur `@Session`.
-La `Session` de `oak_session` est essentiellement une carte, donc nous utilisons le type `Map`.
+La `Session` de `hono_session` est essentiellement une carte, donc nous utilisons le type `Map`.
 
 ```ts
 import { Session,
