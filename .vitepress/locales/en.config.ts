@@ -32,6 +32,15 @@ export const enConfig: LocaleSpecificConfig<DefaultTheme.Config> = {
       { text: "Home", link: "/" },
       { text: "Documentation", link: "/introduction/welcome" },
       {
+        text: 'v1 (legacy)',
+        items: [
+          {
+            text: 'v2 (stable)',
+            link: 'https://danet.land/'
+          }
+        ]
+      },
+      {
         text: "Links",
         items: [
           {

@@ -56,6 +56,15 @@ export const frConfig: LocaleSpecificConfig<DefaultTheme.Config> = {
       { text: "Accueil", link: "/fr/" },
       { text: "Documentation", link: "/fr/introduction/welcome" },
       {
+        text: 'v1 (legacy)',
+        items: [
+          {
+            text: 'v2 (stable)',
+            link: 'https://danet.land/'
+          }
+        ]
+      },
+      {
         text: "Liens",
         items: [
           {
