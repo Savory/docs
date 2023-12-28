@@ -5,6 +5,6 @@ export const sidebar =  generateSidebar({
     collapsed: false,
     capitalizeFirst: true,
     sortByFrontMatter: true,
-    excludeDir: ['fr', 'pt'],
-    locales: ['fr', 'pt']
+    excludeDir: ['fr'],
+    locales: ['fr']
 });
