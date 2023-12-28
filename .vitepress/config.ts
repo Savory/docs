@@ -34,11 +34,5 @@ export default defineConfig({
       lang: "fr",
       ...frConfig,
     },
-    pt: {
-      label: "Português",
-      lang: "pt-br",
-      link: "/pt/",
-      ...ptConfig,
-    },
   },
 });
