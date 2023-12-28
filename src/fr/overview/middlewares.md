@@ -14,7 +14,7 @@ Les middlewares sont des fonctions appelées **avant** le gestionnaire de route.
   </ul>
 </blockquote>
 
-Tu peux implémenter un middleware personnalisé de Danet dans une fonction ou dans une classe avec un décorateur `@Injectable()`. La classe doit implémenter l'interface `DanetMiddleware`, tandis que la fonction n'a pas d'exigences particulières. Commençons par implémenter une fonctionnalité middleware simple en utilisant la méthode de classe.
+Tu peux implémenter un middleware personnalisé de Danet dans une fonction ou dans une classe avec un décorateur `@Injectable()`. La classe doit implémenter l'interface `DanetMiddleware`, néanmoins la fonction n'a pas d'exigences particulières. Commençons par implémenter une fonctionnalité simple en utilisant une classe.
 
 ```ts logger.middleware.ts
 import { Injectable, DanetMiddle, HttpContext, NextFunction } from 'https://deno.land/x/danet/mod.ts';

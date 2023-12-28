@@ -8,45 +8,7 @@ order: 100
 
 Dans la version 1, nous utilisions hono en interne. La version 2 a basculé vers Hono pour des performances améliorées (cf [notre benchmark](https://quickchart.io/chart/render/sf-adcfeec7-78bc-43c6-9019-09c18ae3bd48)).
 
-Les changements majeurs se comptent sur les doigts d'une main, impactent les middlewares et touchent la plupart des utilisations avancées.
-
-## Middlewares
-
-Les middlewares appliqués avec `app.setGlobalMiddleware` et les décorateurs `@Middleware` doivent maintenant "cascader le retour" de la valeur de `next`, sinon la requête sera considérée comme `404 NOT FOUND`.
-
-Par exemple, prends ce middleware très simple de la version 1 :
-
-```ts
-@Injectable()
-class SimpleMiddleware implements DanetMiddleware {
-    constructor(private simpleInjectable: SimpleInjectable) {
-    }
-
-    async action(ctx: ExecutionContext, next: NextFunction) {
-        ctx.res.headers.append('middlewaredata', this.simpleInjectable.doSomething());
-        next();
-    }
-}
-```
-
-La version 2 doit retourner next, comme suit :
-
-```ts
-@Injectable()
-class SimpleMiddleware implements DanetMiddleware {
-    constructor(private simpleInjectable: SimpleInjectable) {
-    }
-
-    async action(ctx: ExecutionContext, next: NextFunction) {
-        ctx.res.headers.append('middlewaredata', this.simpleInjectable.doSomething());
-        return next();
-    }
-}
-```
-
-::: info Astuce
-Les middlewares appliqués via app.use fonctionnent comme prévu, ils ne s'exécutent pas de la même manière.
-:::
+Il y a un breaking change concernant le context.
 
 ## Requête et Réponse de HTTPContext
 

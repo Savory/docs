@@ -14,7 +14,7 @@ Middleware is a function which is called **before** the route handler. Middlewar
   </ul>
 </blockquote>
 
-You implement custom Danet middleware in either a function, or in a class with an `@Injectable()` decorator. The class should implement the `DanetMiddleware` interface, while the function does not have any special requirements except to return a response (usually from the `next` returned value, but you can also have a 'in maintenance' middleware that overwrite all response). Let's start by implementing a simple middleware feature using the class method.
+You implement custom Danet middleware in either a function, or in a class with an `@Injectable()` decorator. The class should implement the `DanetMiddleware` interface, while the function does not have any special requirements except calling next. Let's start by implementing a simple middleware feature using the class method.
 
 ```ts logger.middleware.ts
 import { Injectable, DanetMiddle, HttpContext, NextFunction } from 'https://deno.land/x/danet/mod.ts';
@@ -23,7 +23,7 @@ import { Injectable, DanetMiddle, HttpContext, NextFunction } from 'https://deno
 export class LoggerMiddleware implements DanetMiddleware {
   async action(ctx: HttpContext, next: NextFunction) {
     console.log('Request...');
-    return next();
+    await next();
   }
 }
 ```
@@ -68,7 +68,7 @@ import { Injectable, DanetMiddle, HttpContext, NextFunction } from 'https://deno
 
 export async function logger(ctx: HttpContext, next: NextFunction) {
   console.log(`Request...`);
-  return next();
+  await next();
 };
 ```
 
