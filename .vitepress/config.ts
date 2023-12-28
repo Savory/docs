@@ -1,5 +1,4 @@
-import { enConfig } from "./locales//en.config";
-import { ptConfig } from "./locales/pt.config";
+import { enConfig } from "./locales/en.config";
 import { frConfig } from "./locales/fr.config";
 import { defineConfig } from "vitepress";
 
