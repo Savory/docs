@@ -7,46 +7,7 @@ order: 100
 
 In v1, we were using hono internally. V2 switched to Hono for improved performances (cf [our benchmark](https://quickchart.io/chart/render/sf-adcfeec7-78bc-43c6-9019-09c18ae3bd48)).
 
-Breaking changes can be counted on fingers, impacted middlewares and impact most of the advanced usages.
-
-## Middlewares
-
-Middlewares that are applied with `app.setGlobalMiddleware` and `@Middleware` decorators, now have to "cascade return" `next` return value otherwise the request will be considered as `404 NOT FOUND`.
-
-For example, take this very simple middleware from v1: 
-
-```ts
-@Injectable()
-class SimpleMiddleware implements DanetMiddleware {
-    constructor(private simpleInjectable: SimpleInjectable) {
-    }
-
-    async action(ctx: ExecutionContext, next: NextFunction) {
-        ctx.res.headers.append('middlewaredata', this.simpleInjectable.doSomething());
-        next();
-    }
-}
-```
-
-The v2 version must return next, as follows: 
-
-```ts
-@Injectable()
-class SimpleMiddleware implements DanetMiddleware {
-    constructor(private simpleInjectable: SimpleInjectable) {
-    }
-
-    async action(ctx: ExecutionContext, next: NextFunction) {
-        ctx.res.headers.append('middlewaredata', this.simpleInjectable.doSomething());
-        return next();
-    }
-}
-```
-
-::: info Hint
-Middleware applied via `app.use` run as expected, they do not run in the same manner.
-:::
-
+There is only one breaking change, related to the HTTPContext structure
 
 ## HTTPContext's request and response object
 
