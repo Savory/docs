@@ -5,7 +5,7 @@ order: 100
 
 # Migrate from V1 to V2
 
-In v1, we were using hono internally. V2 switched to Hono for improved performances (cf [our benchmark](https://quickchart.io/chart/render/sf-adcfeec7-78bc-43c6-9019-09c18ae3bd48)).
+In v1, we were using Oak internally. V2 switched to Hono for improved performances (cf [our benchmark](https://quickchart.io/chart/render/sf-adcfeec7-78bc-43c6-9019-09c18ae3bd48)).
 
 There is only one breaking change, related to the HTTPContext structure
 
