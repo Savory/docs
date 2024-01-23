@@ -63,3 +63,7 @@ Once the installation process is complete, you can run the following command at 
   ```bash
 $ deno task launch-server
 ```
+
+## Swagger 
+
+Once the application is up swagger docs can be accessed at `/api` endpoint.
