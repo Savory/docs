@@ -1,6 +1,6 @@
 ---
 label: Sessions
-order: 50
+order: 60
 ---
 
 **HTTP sessions** provide a way to store information about the user across multiple requests.
