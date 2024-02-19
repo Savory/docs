@@ -64,7 +64,7 @@ class OrderListeners {
 }
 ```
 
-> **Warning 🚧** this modules does not support **wildcard** expressions yet.
+> **Warning 🚧** this module does not support **wildcard** expressions yet.
 
 #### Example
 
