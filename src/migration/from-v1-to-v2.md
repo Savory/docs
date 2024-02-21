@@ -11,7 +11,7 @@ There is only one breaking change, related to the HTTPContext structure
 
 ## HTTPContext's request and response object
 
-`HTTPContext` moved from being a superset of hono's context to being a superset of [Hono's context](https://hono.dev/api/context).
+`HTTPContext` moved from being a superset of Oak's context to being a superset of [Hono's context](https://hono.dev/api/context).
 
 This means that instead of using `context.response` and `context.request` we have to use `context.res` and `context.req`.
 
