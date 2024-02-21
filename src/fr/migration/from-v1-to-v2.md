@@ -12,7 +12,7 @@ Il y a un breaking change concernant le context.
 
 ## Requête et Réponse de HTTPContext
 
-`HTTPContext` est passé d'être un superset du contexte d'hono à être un superset du [contexte d'Hono](https://hono.dev/api/context).
+`HTTPContext` est passé d'être un superset du contexte d'Oak à être un superset du [contexte d'Hono](https://hono.dev/api/context).
 
 Cela signifie qu'au lieu d'utiliser `context.response` et `context.request`, nous devons utiliser `context.res` et `context.req`.
 
