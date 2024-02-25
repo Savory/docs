@@ -10,8 +10,9 @@ Image from [nestjs documentation](https://docs.nestjs.com/providers)
 
 In the previous chapter, we built a simple `TodoController`. Controllers should handle HTTP requests and delegate more complex tasks to **injectables**. Injectables are plain JavaScript classes that are declared as `injectables` in a [module](/overview/modules.md).
 
-> info **Hint** Since Danet enables the possibility to design and organize dependencies in a more OO way, we strongly recommend following the [SOLID](https://en.wikipedia.org/wiki/SOLID) principles.
-
+::: info **Hint** 
+Since Danet enables the possibility to design and organize dependencies in a more OO way, we strongly recommend following the [SOLID](https://en.wikipedia.org/wiki/SOLID) principles.
+:::
 ## Services
 
 Let's start by creating a simple `TodoService`. This service will be responsible for data storage and retrieval, and is designed to be used by the `TodoController`, so it's a good candidate to be defined as a provider.
@@ -85,10 +86,9 @@ constructor(private todoService: TodoService) {}
 Injectables normally have a lifetime ("scope") synchronized with the application lifecycle. When the application is bootstrapped, every dependency must be resolved, and therefore every provider has to be instantiated. Similarly, when the application shuts down, each provider will be destroyed. However, there are ways to make your provider lifetime **request-scoped** as well. 
 You can read more about these techniques on the following page[!fundamentals](/fundamentals/injection-scopes.md)
 
-[//]: # (## Custom injectables)
+## Custom injectables
 
-[//]: # ()
-[//]: # (Danet has a built-in inversion of control &#40;"IoC"&#41; container that resolves relationships between injectables. This feature underlies the dependency injection feature described above, but is in fact far more powerful than what we've described so far. There are several ways to define a provider: you can use plain values, classes, and either asynchronous or synchronous factories. More examples are provided [here]&#40;/fundamentals/dependency-injection&#41;.)
+Danet has a built-in inversion of control &#40;"IoC"&#41; container that resolves relationships between injectables. This feature underlies the dependency injection feature described above, but is in fact far more powerful than what we've described so far. There are several ways to define a provider: you can use plain values, classes, and either asynchronous or synchronous factories. More examples are provided [!here](/fundamentals/custom-injectables.md)
 
 ## Provider registration
 
