@@ -60,3 +60,49 @@ Every module is automatically a **shared module**. Once created it can be reused
 ## Global modules
 
 Like in [Angular](https://angular.io) `injectables` are registered in the global scope. Once defined, they're available everywhere.
+
+## Dynamic modules
+
+The Danet module system includes a powerful feature called **dynamic modules**. This feature enables you to easily create customizable modules that can register and configure providers dynamically. Dynamic modules are covered extensively [here](/fundamentals/dynamic-modules.md). In this chapter, we'll give a brief overview to complete the introduction to modules.
+
+Following is an example of a dynamic module definition for a `DatabaseModule`:
+
+```ts 
+import { Module, DynamicModule } from 'danet/mod.ts';
+import { createDatabaseProviders } from './database.providers';
+import { Connection } from './connection.provider';
+
+@Module({
+  providers: [Connection],
+})
+export class DatabaseModule {
+  static forRoot(entities = [], options?): DynamicModule {
+    const providers = createDatabaseProviders(options, entities);
+    return {
+      module: DatabaseModule,
+      providers: providers,
+      exports: providers,
+    };
+  }
+}
+```
+
+This module defines the `Connection` provider by default (in the `@Module()` decorator metadata), but additionally - depending on the `entities` and `options` objects passed into the `forRoot()` method - exposes a collection of providers, for example, repositories. Note that the properties returned by the dynamic module **extend** (rather than override) the base module metadata defined in the `@Module()` decorator. That's how both the statically declared `Connection` provider **and** the dynamically generated repository providers are exported from the module.
+
+
+The `DatabaseModule` can be imported and configured in the following manner:
+
+```ts
+import { Module } from 'danet/mod.ts';
+import { DatabaseModule } from './database/database.module';
+import { User } from './users/entities/user.entity';
+
+@Module({
+  imports: [DatabaseModule.forRoot([User])],
+})
+export class AppModule {}
+```
+
+If you want to in turn re-export a dynamic module, you can omit the `forRoot()` method call in the exports array:
+
+The [Dynamic modules](/fundamentals/dynamic-modules) chapter covers this topic in greater detail.
