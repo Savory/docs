@@ -1,10 +1,10 @@
 ### Dynamic modules
 
-The [Modules chapter](/modules) covers the basics of Nest modules, and includes a brief introduction to [dynamic modules](https://docs.danet.com/modules#dynamic-modules). This chapter expands on the subject of dynamic modules. Upon completion, you should have a good grasp of what they are and how and when to use them.
+The [Modules chapter](/overview/modules,md) covers the basics of Nest modules, and includes a brief introduction to [dynamic modules](overview/modules.md). This chapter expands on the subject of dynamic modules. Upon completion, you should have a good grasp of what they are and how and when to use them.
 
 ## Introduction
 
-Most application code examples in the **Overview** section of the documentation make use of regular, or static, modules. Modules define groups of components like [injectables](/injectables) and [controllers](/controllers) that fit together as a modular part of an overall application. They provide an execution context, or scope, for these components. For example, injectables defined in a module are visible to other members of the module without the need to export them. When a provider needs to be visible outside of a module, it is first exported from its host module, and then imported into its consuming module.
+Most application code examples in the **Overview** section of the documentation make use of regular, or static, modules. Modules define groups of components like [injectables](/overview/injectables) and [controllers](/overview/controllers) that fit together as a modular part of an overall application. They provide an execution context, or scope, for these components. For example, injectables defined in a module are visible to other members of the module without the need to export them. When a provider needs to be visible outside of a module, it is first exported from its host module, and then imported into its consuming module.
 
 Let's walk through a familiar example.
 
