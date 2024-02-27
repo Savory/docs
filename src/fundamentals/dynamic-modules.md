@@ -121,8 +121,8 @@ In fact, what our `register()` method will return is a `DynamicModule`. A dynami
 
 Dynamic modules must return an object with the exact same interface, plus one additional property called `module`. The `module` property serves as the name of the module, and should be the same as the class name of the module, as shown in the example below.
 
-> info **Hint** For a dynamic module, all properties of the module options object are optional **except** `module`.
-
+::: info **Hint** For a dynamic module, all properties of the module options object are optional **except** `module`.
+:::
 What about the static `register()` method? We can now see that its job is to return an object that has the `DynamicModule` interface. When we call it, we are effectively providing a module to the `imports` list, similar to the way we would do so in the static case by listing a module class name. In other words, the dynamic module API simply returns a module, but rather than fix the properties in the `@Module` decorator, we specify them programmatically.
 
 There are still a couple of details to cover to help make the picture complete:
@@ -150,8 +150,9 @@ export class ConfigModule {
 
 It should now be clear how the pieces tie together. Calling `ConfigModule.register(...)` returns a `DynamicModule` object with properties which are essentially the same as those that, until now, we've provided as metadata via the `@Module()` decorator.
 
-> info **Hint** Import `DynamicModule` from `danet/mod.ts`.
-
+::: info **Hint** 
+Import `DynamicModule` from `danet/mod.ts`.
+:::
 Our dynamic module isn't very interesting yet, however, as we haven't introduced any capability to **configure** it as we said we would like to do. Let's address that next.
 
 ## Module configuration
@@ -176,9 +177,8 @@ That nicely handles passing an `options` object to our dynamic module. How do we
 
 ```ts
 import { Injectable } from 'danet/mod.ts';
-import * as dotenv from 'dotenv';
-import * as fs from 'fs';
-import * as path from 'path';
+import * as path from "https://deno.land/std/path/resolve.ts";
+import * as dotenv from "https://deno.land/std/dotenv/mod.ts";
 import { EnvConfig } from './interfaces';
 
 @Injectable()
@@ -188,9 +188,9 @@ export class ConfigService {
   constructor() {
     const options = { folder: './config' };
 
-    const filePath = `${process.env.NODE_ENV || 'development'}.env`;
-    const envFile = path.resolve(__dirname, '../../', options.folder, filePath);
-    this.envConfig = dotenv.parse(fs.readFileSync(envFile));
+    const filePath = `${Deno.env.get('ENVIRONMENT') || 'development'}.env`;
+    const envFile = path.resolve(import.meta.dirname, '../../', options.folder, filePath);
+    this.envConfig = dotenv.loadSync({envPath: envFile, export: true});
   }
 
   get(key: string): string {
@@ -201,7 +201,7 @@ export class ConfigService {
 
 Now our `ConfigService` knows how to find the `.env` file in the folder we've specified in `options`.
 
-Our remaining task is to somehow inject the `options` object from the `register()` step into our `ConfigService`. And of course, we'll use _dependency injection_ to do it. This is a key point, so make sure you understand it. Our `ConfigModule` is providing `ConfigService`. `ConfigService` in turn depends on the `options` object that is only supplied at run-time. So, at run-time, we'll need to first bind the `options` object to the Nest IoC container, and then have Nest inject it into our `ConfigService`. Remember from the **Custom injectables** chapter that injectables can [include any value](https://docs.danet.com/fundamentals/custom-injectables#non-service-based-injectables) not just services, so we're fine using dependency injection to handle a simple `options` object.
+Our remaining task is to somehow inject the `options` object from the `register()` step into our `ConfigService`. And of course, we'll use _dependency injection_ to do it. This is a key point, so make sure you understand it. Our `ConfigModule` is providing `ConfigService`. `ConfigService` in turn depends on the `options` object that is only supplied at run-time. So, at run-time, we'll need to first bind the `options` object to the Nest IoC container, and then have Nest inject it into our `ConfigService`. Remember from the **Custom injectables** chapter that injectables can [include any value](/fundamentals/custom-injectables.md) not just services, so we're fine using dependency injection to handle a simple `options` object.
 
 Let's tackle binding the options object to the IoC container first. We do this in our static `register()` method. Remember that we are dynamically constructing a module, and one of the properties of a module is its list of injectables. So what we need to do is define our options object as a provider. This will make it injectable into the `ConfigService`, which we'll take advantage of in the next step. In the code below, pay attention to the `injectables` array:
 
@@ -230,10 +230,9 @@ export class ConfigModule {
 Now we can complete the process by injecting the `'CONFIG_OPTIONS'` provider into the `ConfigService`. Recall that when we define a provider using a non-class token we need to use the `@Inject()` decorator [as described here](https://docs.danet.com/fundamentals/custom-injectables#non-class-based-provider-tokens).
 
 ```ts
-import * as dotenv from 'dotenv';
-import * as fs from 'fs';
-import * as path from 'path';
-import { Injectable, Inject } from 'danet/mod.ts';
+import { Injectable } from 'danet/mod.ts';
+import * as path from "https://deno.land/std/path/resolve.ts";
+import * as dotenv from "https://deno.land/std/dotenv/mod.ts";
 import { EnvConfig } from './interfaces';
 
 @Injectable()
@@ -241,9 +240,9 @@ export class ConfigService {
   private readonly envConfig: EnvConfig;
 
   constructor(@Inject('CONFIG_OPTIONS') private options: Record<string, any>) {
-    const filePath = `${process.env.NODE_ENV || 'development'}.env`;
-    const envFile = path.resolve(__dirname, '../../', options.folder, filePath);
-    this.envConfig = dotenv.parse(fs.readFileSync(envFile));
+    const filePath = `${Deno.env.get('ENVIRONMENT') || 'development'}.env`;
+    const envFile = path.resolve(import.meta.dirname, '../../', options.folder, filePath);
+    this.envConfig = dotenv.loadSync({envPath: envFile, export: true});
   }
 
   get(key: string): string {
