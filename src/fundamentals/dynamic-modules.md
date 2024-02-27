@@ -4,7 +4,7 @@ The [Modules chapter](/overview/modules,md) covers the basics of Nest modules, a
 
 ## Introduction
 
-Most application code examples in the **Overview** section of the documentation make use of regular, or static, modules. Modules define groups of components like [injectables](/overview/injectables) and [controllers](/overview/controllers) that fit together as a modular part of an overall application. They provide an execution context, or scope, for these components. For example, injectables defined in a module are visible to other members of the module without the need to export them. When a provider needs to be visible outside of a module, it is first exported from its host module, and then imported into its consuming module.
+Most application code examples in the **Overview** section of the documentation make use of regular, or static, modules. Modules define groups of components like [injectables](/overview/injectables.md) and [controllers](/overview/controllers.md) that fit together as a modular part of an overall application. They provide an execution context, or scope, for these components. For example, injectables defined in a module are visible to other members of the module without the need to export them. When a provider needs to be visible outside of a module, it is first exported from its host module, and then imported into its consuming module.
 
 Let's walk through a familiar example.
 
@@ -53,7 +53,7 @@ export class AuthService {
 
 We'll refer to this as **static** module binding. All the information Nest needs to wire together the modules has already been declared in the host and consuming modules. Let's unpack what's happening during this process. Nest makes `UsersService` available inside `AuthModule` by:
 
-1. Instantiating `UsersModule`, including transitively importing other modules that `UsersModule` itself consumes, and transitively resolving any dependencies (see [Custom injectables](https://docs.danet.com/fundamentals/custom-injectables)).
+1. Instantiating `UsersModule`, including transitively importing other modules that `UsersModule` itself consumes, and transitively resolving any dependencies (see [Custom injectables](/fundamentals/custom-injectables.md)).
 2. Instantiating `AuthModule`, and making `UsersModule`'s exported injectables available to components in `AuthModule` (just as if they had been declared in `AuthModule`).
 3. Injecting an instance of `UsersService` in `AuthService`.
 
