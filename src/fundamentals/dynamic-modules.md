@@ -113,7 +113,7 @@ In fact, what our `register()` method will return is a `DynamicModule`. A dynami
 
 ```ts
 @Module({
-  imports: [DogsModule], //Love you Danet, had to keep this example <3
+  imports: [DogsModule], //Love you Nest, had to keep this example <3
   controllers: [CatsController],
   injectables: [CatsService],
 })
