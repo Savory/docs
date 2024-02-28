@@ -1,6 +1,6 @@
 ### Dynamic modules
 
-The [Modules chapter](/overview/modules,md) covers the basics of Nest modules, and includes a brief introduction to [dynamic modules](overview/modules.md). This chapter expands on the subject of dynamic modules. Upon completion, you should have a good grasp of what they are and how and when to use them.
+The [Modules chapter](/overview/modules,md) covers the basics of Danet modules, and includes a brief introduction to [dynamic modules](overview/modules.md). This chapter expands on the subject of dynamic modules. Upon completion, you should have a good grasp of what they are and how and when to use them.
 
 ## Introduction
 
@@ -51,7 +51,7 @@ export class AuthService {
 }
 ```
 
-We'll refer to this as **static** module binding. All the information Nest needs to wire together the modules has already been declared in the host and consuming modules. Let's unpack what's happening during this process. Nest makes `UsersService` available inside `AuthModule` by:
+We'll refer to this as **static** module binding. All the information Danet needs to wire together the modules has already been declared in the host and consuming modules. Let's unpack what's happening during this process. Danet makes `UsersService` available inside `AuthModule` by:
 
 1. Instantiating `UsersModule`, including transitively importing other modules that `UsersModule` itself consumes, and transitively resolving any dependencies (see [Custom injectables](/fundamentals/custom-injectables.md)).
 2. Instantiating `AuthModule`, and making `UsersModule`'s exported injectables available to components in `AuthModule` (just as if they had been declared in `AuthModule`).
@@ -61,7 +61,7 @@ We'll refer to this as **static** module binding. All the information Nest needs
 
 With static module binding, there's no opportunity for the consuming module to **influence** how injectables from the host module are configured. Why does this matter? Consider the case where we have a general purpose module that needs to behave differently in different use cases. This is analogous to the concept of a "plugin" in many systems, where a generic facility requires some configuration before it can be used by a consumer.
 
-A good example with Nest is a **configuration module**. Many applications find it useful to externalize configuration details by using a configuration module. This makes it easy to dynamically change the application settings in different deployments: e.g., a development database for developers, a staging database for the staging/testing environment, etc. By delegating the management of configuration parameters to a configuration module, the application source code remains independent of configuration parameters.
+A good example with Danet is a **configuration module**. Many applications find it useful to externalize configuration details by using a configuration module. This makes it easy to dynamically change the application settings in different deployments: e.g., a development database for developers, a staging database for the staging/testing environment, etc. By delegating the management of configuration parameters to a configuration module, the application source code remains independent of configuration parameters.
 
 The challenge is that the configuration module itself, since it's generic (similar to a "plugin"), needs to be customized by its consuming module. This is where _dynamic modules_ come into play. Using dynamic module features, we can make our configuration module **dynamic** so that the consuming module can use an API to control how the configuration module is customized at the time it is imported.
 
@@ -113,7 +113,7 @@ In fact, what our `register()` method will return is a `DynamicModule`. A dynami
 
 ```ts
 @Module({
-  imports: [DogsModule], //Love you Nest, had to keep this example <3
+  imports: [DogsModule], //Love you Danet, had to keep this example <3
   controllers: [CatsController],
   injectables: [CatsService],
 })
@@ -201,7 +201,7 @@ export class ConfigService {
 
 Now our `ConfigService` knows how to find the `.env` file in the folder we've specified in `options`.
 
-Our remaining task is to somehow inject the `options` object from the `register()` step into our `ConfigService`. And of course, we'll use _dependency injection_ to do it. This is a key point, so make sure you understand it. Our `ConfigModule` is providing `ConfigService`. `ConfigService` in turn depends on the `options` object that is only supplied at run-time. So, at run-time, we'll need to first bind the `options` object to the Nest IoC container, and then have Nest inject it into our `ConfigService`. Remember from the **Custom injectables** chapter that injectables can [include any value](/fundamentals/custom-injectables.md) not just services, so we're fine using dependency injection to handle a simple `options` object.
+Our remaining task is to somehow inject the `options` object from the `register()` step into our `ConfigService`. And of course, we'll use _dependency injection_ to do it. This is a key point, so make sure you understand it. Our `ConfigModule` is providing `ConfigService`. `ConfigService` in turn depends on the `options` object that is only supplied at run-time. So, at run-time, we'll need to first bind the `options` object to the Danet IoC container, and then have Danet inject it into our `ConfigService`. Remember from the **Custom injectables** chapter that injectables can [include any value](/fundamentals/custom-injectables.md) not just services, so we're fine using dependency injection to handle a simple `options` object.
 
 Let's tackle binding the options object to the IoC container first. We do this in our static `register()` method. Remember that we are dynamically constructing a module, and one of the properties of a module is its list of injectables. So what we need to do is define our options object as a provider. This will make it injectable into the `ConfigService`, which we'll take advantage of in the next step. In the code below, pay attention to the `injectables` array:
 
@@ -227,7 +227,7 @@ export class ConfigModule {
 }
 ```
 
-Now we can complete the process by injecting the `'CONFIG_OPTIONS'` provider into the `ConfigService`. Recall that when we define a provider using a non-class token we need to use the `@Inject()` decorator [as described here](https://docs.danet.com/fundamentals/custom-injectables#non-class-based-provider-tokens).
+Now we can complete the process by injecting the `'CONFIG_OPTIONS'` provider into the `ConfigService`. Recall that when we define a provider using a non-class token we need to use the `@Inject()` decorator [as described here](https://danet.land/fundamentals/custom-injectables#non-class-based-provider-tokens).
 
 ```ts
 import { Injectable } from 'danet/mod.ts';
