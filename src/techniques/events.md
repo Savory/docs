@@ -37,7 +37,9 @@ To dispatch (i.e., fire) an event, first inject `EventEmitter` using standard co
 constructor(private eventEmitter: EventEmitter) {}
 ```
 
-> **Hint** 💡 Import the `EventEmitter` from the `danet/mod.ts` package.
+::: **Hint** 💡 
+Import the `EventEmitter` from the `danet/mod.ts` package.
+:::
 
 Then use it in a class as follows:
 
@@ -64,7 +66,8 @@ class OrderListeners {
 }
 ```
 
-> **Warning 🚧** this module does not support **wildcard** expressions yet.
+::: warning **Warning 🚧**
+this module does not support **wildcard** expressions yet.
 
 #### Example
 
