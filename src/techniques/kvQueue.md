@@ -7,7 +7,7 @@ order: 39
 Queues are a powerful design pattern that help you deal with common application scaling and performance challenges. Some examples of problems that Queues can help you solve are:
 
 Smooth out processing peaks. For example, if users can initiate resource-intensive tasks at arbitrary times, you can add these tasks to a queue instead of performing them synchronously. Then you can have worker processes pull tasks from the queue in a controlled manner. You can easily add new Queue consumers to scale up the back-end task handling as the application scales up.
-Break up monolithic tasks that may otherwise block the Node.js event loop. For example, if a user request requires CPU intensive work like audio transcoding, you can delegate this task to other processes, freeing up user-facing processes to remain responsive.
+Break up monolithic tasks that may otherwise block the V8 (what Deno and Node use internally) event loop. For example, if a user request requires CPU intensive work like audio transcoding, you can delegate this task to other processes, freeing up user-facing processes to remain responsive.
 Provide a reliable communication channel across various services. For example, you can queue tasks (jobs) in one process or service, and consume them in another. 
 
 `KvQueue` package provides a simple abstraction, allowing you to fire and consume message.
