@@ -1,6 +1,6 @@
 ### Dynamic modules
 
-The [Modules chapter](/overview/modules,md) covers the basics of Danet modules, and includes a brief introduction to [dynamic modules](overview/modules.md). This chapter expands on the subject of dynamic modules. Upon completion, you should have a good grasp of what they are and how and when to use them.
+The [Modules chapter](/overview/modules.md) covers the basics of Danet modules, and includes a brief introduction to [dynamic modules](/overview/modules.md#dynamic-modules). This chapter expands on the subject of dynamic modules. Upon completion, you should have a good grasp of what they are and how and when to use them.
 
 ## Introduction
 
