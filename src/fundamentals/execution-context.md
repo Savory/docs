@@ -12,6 +12,14 @@ type ExecutionContext = {
    * request pipeline.
    */
   getHandler(): Function;
+  /**
+   * When in a WebSocket message 'lifecycle', get access to the current socket
+   */
+  webSocket?: WebSocket;
+  /**
+   * When in a WebSocket message 'lifecycle', get access to the current socket
+   */
+  webSocketTopic?: string;
 }
 ```
 
