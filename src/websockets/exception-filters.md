@@ -6,7 +6,7 @@ The only difference between the HTTP [exception filter](/overview/exception-filt
 return { topic: 'error', data: { customMessage: 'not cool my friend' }};
 ```
 
-With the sample above, Nest will handle the thrown exception and emit the `exception` message with the following structure:
+With the sample above, Danet will handle the thrown exception and emit the `exception` message with the following structure:
 
 #### Filters
 
