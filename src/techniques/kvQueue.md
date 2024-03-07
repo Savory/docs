@@ -73,7 +73,7 @@ class OrderMessageHandler {
 
 ::: warning **Warning 🚧**
 this module does not support **wildcard** expressions yet.
-
+:::
 
 #### Sending message from a non Danet application
 
