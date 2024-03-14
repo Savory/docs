@@ -55,7 +55,7 @@ At the time of writing this documentation, Deploy offers 2 pricing.
 - 100 GiB outbound data transfer per month (inbound is free)
 - Up to 10ms CPU time (not wall clock time) per request
 
-10$ per month for :
+20$ per month for :
 
 - Wildcard subdomains
 -Up to 50ms CPU time (not wall clock time) per request
