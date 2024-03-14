@@ -10,11 +10,42 @@ Deno Deploy is a distributed system that allows you to run JavaScript, TypeScrip
 Learn more on the [official Deno Deploy website](https://deno.com/deploy)
 :::
 
+## Easy way
 
-## First step
+Simply run
+
+```bash
+danet deploy
+```
+
+Here are the options: 
+```bash
+Usage: danet deploy
+
+Description:
+
+  Deploy your project to Deno Deploy
+
+Options:
+
+  -h, --help                      - Show this help.                                                                                    
+  -p, --project     <project>     - Deno deploy project name. If no value is given, Deno deploy will generate a                        
+                                    random name                                                                                        
+  -e, --entrypoint  <entrypoint>  - Bundle entrypoint file                                                       (Default: "run.ts")   
+  -b, --bundle      <bundle>      - Bundle output file name, also used as deployctl entrypoint                   (Default: "bundle.js")
+
+Commands:
+
+  help  [command]  - Show this help or the help of a sub-command.
+```
 
 
-## Create an account 
+## Advanced way
+
+### First step
+
+
+### Create an account 
 Before diving into the (few) commands required to deploy your Danet project from your local environment or from a Github action, you need to [create an account on Deno Deploy](https://deno.com/deploy/pricing).
 
 At the time of writing this documentation, Deploy offers 2 pricing.
@@ -39,7 +70,7 @@ The signing up process is pretty simple, login with github and voilà.
 The Github integration allows you to deploy from Github actions without the need of any secret/environment variable
 :::
 
-## Create a project
+### Create a project
 
 Now that you have an account, you need to create a Deploy project to deploy to.
 
@@ -54,23 +85,15 @@ For Danet project, we need to select "Github Action".
 Last input is to name your project, this will also be your project subdomain.
 
 
-## Deploy from your local environment
+### Deploy from your local environment
 
-If you want a fast way to test deploy, you can easily do so in 3 commands.
+If you want a fast way to test deploy, you can easily do so in 1 commands.
 
 TLDR: 
 
 ```bash
-$ danet bundle my-app.js
-$ cd bundle
-$ deployctl deploy --project=YOUR_PROJECT_NAME --no-static --token=YOUTOKEN my-app.js
+$ danet deploy
 ```
-
-::: info **Hint**
-`deployctl` is from https://deno.com/deploy/docs/deployctl
-
-Your token can be created/found [here](https://dash.deno.com/account#access-tokens)
-:::
 
 
 ### Bundle your application
@@ -80,11 +103,11 @@ Bundling is the action of creating one JS file which contains all your project s
 ```bash
 $ danet bundle my-app.js
 ```
-### Deploy to DD
+### Manually Deploy to DD
 Now that you have your whole app bundled, you can send this .js file to deploy.
 In order to do so, you need to [get your access token from Deploy](https://dash.deno.com/account#access-tokens)
 ```bash
-$ deployctl deploy --project=YOUR_PROJECT_NAME --no-static --token=YOUTOKEN my-app.js
+$ cd bundle && deployctl deploy --project=YOUR_PROJECT_NAME my-app.js
 ```
 
 ## Github Action
