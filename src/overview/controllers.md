@@ -26,7 +26,7 @@ path prefix `customers` in the `@Controller()` decorator so that we don't have
 to repeat that portion of the path for each route in the file.
 
 ```ts todo.controller.ts
-import { Controller, Get } from 'https://deno.land/x/danet/mod.ts';
+import { Controller, Get } from 'jsr:@danet/core';
 
 @Controller('todo')
 export class TodoController {
@@ -68,7 +68,7 @@ We can access the request object by instructing Danet to inject it by adding the
 `@Req()` decorator to the handler's signature.
 
 ```ts todo.controller.ts
-import { Controller, Get, Req } from 'https://deno.land/x/danet/mod.ts';
+import { Controller, Get, Req } from 'jsr:@danet/core';
 
 @Controller('todo')
 export class TodoController {
@@ -103,7 +103,7 @@ We'll typically also want to provide an endpoint that creates new records. For
 this, let's create the **POST** handler:
 
 ```ts todo.controller.ts
-import { Controller, Get, Post } from 'https://deno.land/x/danet/mod.ts';
+import { Controller, Get, Post } from 'jsr:@danet/core';
 
 @Controller('todo')
 export class TodoController {
@@ -144,7 +144,7 @@ findOne(@Param('id') id: string): string {
 parameter token to the decorator.
 
 ::: info Hint
-Import `Param` from the `https://deno.land/x/danet/mod.ts` package.
+Import `Param` from the `jsr:@danet/core` package.
 :::
 
 ## Scopes
@@ -195,7 +195,7 @@ You can see all the validation decorators avaibles [here](https://github.com/Sav
 Let's create the CreateTodoDto class:
 
 ```ts create-todo.dto.ts
-import { IsNumber, IsString, IsHexColor } from 'https://deno.land/x/validatte/mod.ts';
+import { IsNumber, IsString, IsHexColor } from 'jsr:@danet/validatte';
 
 export class CreateTodoDto {
   @IsString()
@@ -261,7 +261,7 @@ import {
   Put,
   Param,
   Delete,
-} from 'https://deno.land/x/danet/mod.ts';
+} from 'jsr:@danet/core';
 import { CreateTodoDto, UpdateTodoDto, ListAllEntities } from './dto';
 
 @Controller('todo')
@@ -299,7 +299,7 @@ modules except the root `AppModule`, we'll use that to introduce the
 `TodoController`:
 
 ```ts app.module.ts
-import { Module } from 'https://deno.land/x/danet/mod.ts';
+import { Module } from 'jsr:@danet/core';
 import { TodoController } from './todo/todo.controller';
 
 @Module({
@@ -317,7 +317,7 @@ We advise you to create a bootstrap function that returns your DanetApplication 
 
 ```ts bootstrap.ts
 import { AppModule } from './app.module.ts';
-import { DanetApplication } from 'https://deno.land/x/danet/mod.ts';
+import { DanetApplication } from 'jsr:@danet/core';
 
 export const bootstrap = async () => {
   const application = new DanetApplication();

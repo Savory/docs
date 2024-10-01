@@ -15,7 +15,7 @@ Assure-toi que [Deno](https://deno.land/) (version >= Install v1.24.3) est insta
 La manière la plus facile de mettre en place un projet Danet est d'utiliser notre [CLI Danet](/cli.md)
 
 ```bash
-$ deno install --allow-read --allow-write --allow-run --allow-env -n danet https://deno.land/x/danet_cli/main.ts
+$ deno install --allow-read --allow-write --allow-run --allow-env -n danet jsr:@danet/cli
 $ danet new my-danet-project
 $ cd my-danet-project
 ```

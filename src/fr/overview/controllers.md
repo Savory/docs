@@ -13,7 +13,7 @@ Pour créer un contrôleur de base, nous utilisons des classes et des **décorat
 Dans l'exemple suivant, nous utiliserons le décorateur `@Controller()`, qui est **obligatoire** pour définir un contrôleur. Nous spécifierons un préfixe optionnel `todo`. L'utilisation d'un préfixe dans un décorateur `@Controller()` nous permet de regrouper facilement un ensemble de routes liées et de minimiser la duplication de code. Par exemple, nous pouvons choisir de regrouper un ensemble de routes qui gèrent des interactions avec une entité client sous la route `/clients`. Dans ce cas, nous pourrions spécifier le préfixe `clients` dans le décorateur `@Controller('clients)` afin de ne pas avoir à répéter cette partie du chemin pour chaque route dans le fichier.
 
 ```ts todo.controller.ts
-import { Controller, Get } from 'https://deno.land/x/danet/mod.ts';
+import { Controller, Get } from 'jsr:@danet/core';
 
 @Controller('todo')
 export class TodoController {
@@ -36,7 +36,7 @@ Les handlers ont souvent besoin d'accéder aux détails de la **requête**. Dane
 Nous pouvons accéder à l'objet de demande en demandant à Danet de l'injecter en ajoutant le décorateur `@Req()` à la signature du handler.
 
 ```ts todo.controller.ts
-import { Controller, Get, Req } from 'https://deno.land/x/danet/mod.ts';
+import { Controller, Get, Req } from 'jsr:@danet/core';
 
 @Controller('todo')
 export class TodoController {
@@ -61,7 +61,7 @@ L'objet `request` représente la requête HTTP et contient des propriétés tels
 
 
 ```ts todo.controller.ts
-import { Controller, Get, Req } from 'https://deno.land/x/danet/mod.ts';
+import { Controller, Get, Req } from 'jsr:@danet/core';
 
 @Controller('todo')
 export class TodoController {
@@ -76,7 +76,7 @@ export class TodoController {
 Plus tôt, nous avons défini un endpoint pour récupérer les todos (**GET** route). Nous souhaiterons généralement également fournir un endpoint pour créer de nouveaux todos. Pour cela, créons le handler **POST** :
 
 ```ts todo.controller.ts
-import { Controller, Get, Post } from 'https://deno.land/x/danet/mod.ts';
+import { Controller, Get, Post } from 'jsr:@danet/core';
 
 @Controller('todo')
 export class TodoController {
@@ -108,7 +108,7 @@ findOne(@Param('id') id: string): string {
 `@Param()` est utilisé pour décorer un paramètre de méthode en donnant un jeton de paramètre particulier au décorateur.
 
 ::: info Astuce
-Importe `Param` depuis le package `https://deno.land/x/danet/mod.ts`.
+Importe `Param` depuis le package `jsr:@danet/core`.
 :::
 
 ## Scopes
@@ -148,7 +148,7 @@ Vous pouvez voir tous les décorateurs de validation disponibles [ici](https://g
 Créons la classe CreateTodoDto :
 
 ```ts create-todo.dto.ts
-import { IsNumber, IsString, IsHexColor } from 'https://deno.land/x/validatte/mod.ts';
+import { IsNumber, IsString, IsHexColor } from 'jsr:@danet/validatte';
 
 export class CreateTodoDto {
   @IsString()
@@ -208,7 +208,7 @@ import {
   Put,
   Param,
   Delete,
-} from 'https://deno.land/x/danet/mod.ts';
+} from 'jsr:@danet/core';
 import { CreateTodoDto, UpdateTodoDto, ListAllEntities } from './dto';
 
 @Controller('todo')
@@ -242,7 +242,7 @@ Avec le contrôleur défini ci-dessus, Danet ne sait pas encore que le
 Les contrôleurs appartiennent toujours à un module, c'est pourquoi nous incluons le tableau `controllers` dans le décorateur `@Module()`. Étant donné que nous n'avons pas encore défini d'autres modules que le module racine `AppModule`, nous utiliserons celui-ci pour introduire le `TodoController` :
 
 ```ts app.module.ts
-import { Module } from 'https://deno.land/x/danet/mod.ts';
+import { Module } from 'jsr:@danet/core';
 import { TodoController } from './todo/todo.controller';
 
 @Module({
@@ -259,7 +259,7 @@ Nous vous conseillons de créer une fonction de démarrage qui retourne l'instan
 
 ```ts bootstrap.ts
 import { AppModule } from './app.module.ts';
-import { DanetApplication } from 'https://deno.land/x/danet/mod.ts';
+import { DanetApplication } from 'jsr:@danet/core';
 
 export const bootstrap = async () => {
   const application = new DanetApplication();

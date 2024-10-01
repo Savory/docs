@@ -14,13 +14,13 @@ References:
 
 #### Installation
 
-No need to install an extra module, you can import it from `danet/mod.ts`
+No need to install an extra module, you can import it from `jsr:@danet/core`
 
 To activate job scheduling, import the `ScheduleModule` into the root `AppModule`:
 
 ```typescript
 @@filename(app.module)
-import { ScheduleModule, Module } from 'danet/mod.ts';
+import { ScheduleModule, Module } from 'jsr:@danet/core';
 
 @Module({
   imports: [ScheduleModule],
@@ -40,7 +40,7 @@ A cron job schedules an arbitrary function (method call) to run automatically. C
 Declare a cron job with the `@Cron()` decorator preceding the method definition containing the code to be executed, as follows:
 
 ```typescript
-import { Cron, Injectable } from 'danet/mod.ts';
+import { Cron, Injectable } from 'jsr:@danet/core';
 
 @Injectable()
 export class TasksService {
@@ -95,7 +95,7 @@ Some sample cron patterns are:
 Like `@nestjs/schedule` package, we also provides a convenient enum with commonly used cron patterns. You can use this enum as follows:
 
 ```typescript
-import { Injectable, Logger, Cron, CronExpression  } from 'danet/mod.ts';
+import { Injectable, Logger, Cron, CronExpression  } from 'jsr:@danet/core';
 
 @Injectable()
 export class TasksService {

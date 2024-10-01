@@ -7,7 +7,7 @@ Les **sessions HTTP** fournissent un moyen de stocker des informations sur l'uti
 
 ## Utilisation
 
-Comme Danet utilise hono sous le capot, tu peux utiliser le package [hono_sessions](https://deno.land/x/hono_sessions).
+Comme Danet utilise hono sous le capot, tu peux utiliser le package [hono_sessions](https://jsr.io/@jcs224/hono-sessions).
 
 Ensuite, applique le middleware `hono_sessions` en tant que middleware global (par exemple, dans ton fichier `bootstrap.ts`).
 hono_session utilise des `Stores` pour stocker les données de session dans les cookies, ou deno KV.
@@ -18,7 +18,8 @@ import {
     Session,
     sessionMiddleware,
     CookieStore
-} from 'https://deno.land/x/hono_sessions/mod.ts'
+} from "jsr:@jcs224/hono-sessions";
+
 
 const app = new DanetApplication();
 const store = new CookieStore()
@@ -43,7 +44,7 @@ La `Session` de `hono_session` est essentiellement une carte, donc nous utilison
 
 ```ts
 import { Session,
-} from 'https://deno.land/x/Danet/mod.ts';
+} from 'jsr:@danet/core';
 
 @Get()
 findAll(@Session() session: Map<unknown, unknown>) {

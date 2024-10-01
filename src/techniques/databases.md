@@ -18,7 +18,7 @@ Currently, it handles :
 Let's say you want to start using Mongodb in your Danet application. The easiest way is to import the `MongodbModule` in your `app.module.ts` as follows: 
 
 ```ts
-import { Module } from 'danet/mod.ts';
+import { Module } from 'jsr:@danet/core';
 import { AppController } from './app.controller.ts';
 import { MongodbModule } from 'danet_database/mongodb/module.ts';
 
@@ -60,7 +60,7 @@ export interface Repository<T extends unknown> {
 All repositories have a `collectionName` attribute set in constructors to know which collections/tables/prefix is queried. For example, here is our `MongodbItemRepository` from our [SAASKIT](https://github.com/Savory/saaskit-danet):
 
 ```ts
-import { Injectable } from 'danet/mod.ts';
+import { Injectable } from 'jsr:@danet/core';
 import { Item } from './class.ts';
 import { MongodbRepository } from "danet-database/mongodb/repository.ts";
 import { MongodbService } from "danet-database/mongodb/service.ts";
@@ -88,7 +88,7 @@ A new method `getOne` which also takes an optional filter parameter
 Repository has a method `getSecondaryKeys` which takes an object as parameter and will create secondary keys for it. You need to implement it for each repository with secondary keys. For example, here is an implementation of the VoteRepository from our [SAASKIT](https://github.com/Savory/saaskit-danet)
 
 ```ts
-import { Injectable } from 'danet/mod.ts';
+import { Injectable } from 'jsr:@danet/core';
 import { Vote } from './class.ts';
 import { type VoteRepository } from './repository.ts';
 import { KvRepository } from "danet-database/kv/repository.ts";

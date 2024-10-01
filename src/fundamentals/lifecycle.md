@@ -21,7 +21,7 @@ The lifecycle hooks listed above are not triggered for **request-scoped** classe
 Each lifecycle hook is represented by an interface. Interfaces are technically optional because they do not exist after TypeScript compilation. Nonetheless, it's good practice to use them in order to benefit from strong typing and editor tooling. To register a lifecycle hook, implement the appropriate interface. For example, to register a method to be called after injections has been done on a particular class (e.g., Controller or Injectable), implement the `OnAppBootstrap` interface by supplying an `onAppBootstrap()` method, as shown below:
 
 ```typescript user-service.ts
-import { Injectable, AuthGuard } from 'https://deno.land/x/danet/mod.ts';
+import { Injectable, AuthGuard } from 'jsr:@danet/core';
 
 @Injectable()
 export class UsersService implements OnAppBootstrap {

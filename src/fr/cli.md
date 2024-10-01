@@ -14,7 +14,7 @@ Le [CLI Danet](https://github.com/Savory/Danet-CLI) est un outil d'interface de 
 L'installation des paquets Deno en tant que commandes est simple. Tu peux les installer sous le nom de ton choix. Pour des raisons de simplicité, nous installons notre danet-cli sous le nom `danet`.
 
 ```bash
-$ deno install --allow-read --allow-write --allow-run --allow-env -n danet https://deno.land/x/danet_cli/main.ts
+$ deno install --allow-read --allow-write --allow-run --allow-env -n danet jsr:@danet/cli
 ```
 
 ## Workflow travail de base

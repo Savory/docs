@@ -18,7 +18,7 @@ Since Danet enables the possibility to design and organize dependencies in a mor
 Let's start by creating a simple `TodoService`. This service will be responsible for data storage and retrieval, and is designed to be used by the `TodoController`, so it's a good candidate to be defined as a provider.
 
 ```ts todo.service.ts
-import { Injectable } from 'https://deno.land/x/danet/mod.ts';
+import { Injectable } from 'jsr:@danet/core';
 import { Todo } from './todo.interface';
 
 @Injectable()
@@ -48,7 +48,7 @@ Now that we have a service class to retrieve todos, let's use it inside the `Tod
 
 ```ts todo.controller
 
-import { Controller, Get, Post, Body } from 'https://deno.land/x/danet/mod.ts';
+import { Controller, Get, Post, Body } from 'jsr:@danet/core';
 import { CreateTodoDto } from './create-todo.dto';
 import { TodoService } from './todo.service';
 import { Todo } from './todo.interface';
@@ -95,7 +95,7 @@ Danet has a built-in inversion of control &#40;"IoC"&#41; container that resolve
 Now that we have defined a provider (`TodoService`), and we have a consumer of that service (`TodoController`), we need to register the service with Danet so that it can perform the injection. We do this by editing our module file (`app.module.ts`) and adding the service to the `injectables` array of the `@Module()` decorator.
 
 ```ts app.module
-import { Module } from 'https://deno.land/x/danet/mod.ts';
+import { Module } from 'jsr:@danet/core';
 import { TodoController } from './todo/todo.controller';
 import { TodoService } from './todo/todo.service';
 

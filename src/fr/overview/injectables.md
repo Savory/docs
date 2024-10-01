@@ -17,7 +17,7 @@ Dans le chapitre précédent, nous avons créé un simple `TodoController`. Les 
 Commençons par créer un simple `TodoService`. Ce service sera responsable du stockage et de la récupération de données, et est conçu pour être utilisé par le `TodoController`, il est donc un bon candidat pour être défini en tant que fournisseur.
 
 ```ts todo.service.ts
-import { Injectable } from 'https://deno.land/x/danet/mod.ts';
+import { Injectable } from 'jsr:@danet/core';
 import { Todo } from './todo.interface';
 
 @Injectable()
@@ -46,7 +46,7 @@ export interface Todo {
 Maintenant que nous avons une classe de service pour récupérer les tâches à faire, utilisons-la à l'intérieur du `TodoController`:
 ```ts todo.controller
 
-import { Controller, Get, Post, Body } from 'https://deno.land/x/danet/mod.ts';
+import { Controller, Get, Post, Body } from 'jsr:@danet/core';
 import { CreateTodoDto } from './create-todo.dto';
 import { TodoService } from './todo.service';
 import { Todo } from './todo.interface';
@@ -92,7 +92,7 @@ Les injectables ont normalement une durée de vie ("portée") synchronisée avec
 Maintenant que nous avons défini un fournisseur (`TodoService`) et que nous avons un consommateur de ce service (`TodoController`), nous devons enregistrer le service auprès de Danet afin qu'il puisse effectuer l'injection. Nous le faisons en modifiant notre fichier de module (`app.module.ts`) et en ajoutant le service au tableau `injectables` du décorateur `@Module()`.
 
 ```ts app.module
-import { Module } from 'https://deno.land/x/danet/mod.ts';
+import { Module } from 'jsr:@danet/core';
 import { TodoController } from './todo/todo.controller';
 import { TodoService } from './todo/todo.service';
 

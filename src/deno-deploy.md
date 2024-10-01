@@ -166,7 +166,7 @@ jobs:
           deno-version: v1.x
 
       - name: Install Danet CLI
-        run: deno install --allow-read --allow-write --allow-run --allow-env -n danet https://deno.land/x/danet_cli/main.ts
+        run: deno install --allow-read --allow-write --allow-run --allow-env -n danet jsr:@danet/cli
 
       - name: Bundle app with danet CLI
         run: danet bundle run.js

@@ -14,16 +14,16 @@ Provide a reliable communication channel across various services. For example, y
 
 #### Getting started
 
-No need to install an extra module, you can import it from `danet/mod.ts`
+No need to install an extra module, you can import it from `jsr:@danet/core`
 
 ```ts
-import { KvQueueModule, KvQueue } from `danet/mod.ts`
+import { KvQueueModule, KvQueue } from `jsr:@danet/core`
 ```
 
 Import the `KvQueueModule` into the root `AppModule` as following:
 
 ```typescript
-import { Module, KvQueueModule } from 'danet/mod.ts';
+import { Module, KvQueueModule } from 'jsr:@danet/core';
 
 @Module({
   import: [KvQueueModule.configure()],
@@ -44,7 +44,7 @@ constructor(private queue: KvQueue) {}
 ```
 
 ::: **Hint** 💡 
-Import the `KvQueue` from the `danet/mod.ts` package.
+Import the `KvQueue` from the `jsr:@danet/core` package.
 :::
 
 Then use it in a class as follows:

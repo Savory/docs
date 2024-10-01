@@ -25,7 +25,7 @@ handleEvent(@Body() data: unknown): WebSocketPayload {
 Once the controller is created, we can register it in our module.
 
 ```ts events.module.ts
-import { Module } from 'danet/mod.ts';
+import { Module } from 'jsr:@danet/core';
 import { Eventscontroller } from './events.controller';
 
 @Module({
