@@ -85,7 +85,7 @@ A new method `getOne` which also takes an optional filter parameter
 
 ### KV
 
-Repository has a method `getSecondaryKeys` which takes an object as parameter and will create secondary keys for it. You need to implement it for each repository with secondary keys. For example, here is an implementation of the VoteRepository from our [SAASKIT](https://github.com/Savory/saaskit-danet)
+Repository has a method `getSecondaryKeys` which takes an object as parameter and will create secondary keys for it. You need to implement it for each repository with secondary keys. For example, here is an implementation of a VoteRepository
 
 ```ts
 import { Injectable } from 'jsr:@danet/core';
