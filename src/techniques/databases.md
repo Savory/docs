@@ -20,7 +20,7 @@ Let's say you want to start using Mongodb in your Danet application. The easiest
 ```ts
 import { Module } from 'jsr:@danet/core';
 import { AppController } from './app.controller.ts';
-import { MongodbModule } from 'jsr:@danet/database/mongodb/module';
+import { MongodbModule } from 'jsr:@danet/database/mongodb';
 
 @Module({
   controllers: [AppController],
@@ -62,8 +62,7 @@ All repositories have a `collectionName` attribute set in constructors to know w
 ```ts
 import { Injectable } from 'jsr:@danet/core';
 import { Item } from './class.ts';
-import { MongodbRepository } from "jsr:@danet/database/mongodb/repository";
-import { MongodbService } from "jsr:@danet/database/mongodb/service.ts";
+import { MongodbRepository, MongodbService } from "jsr:@danet/database/mongodb";
 
 @Injectable()
 export class MongodbItemRepository extends MongodbRepository<Item> {
@@ -91,8 +90,7 @@ Repository has a method `getSecondaryKeys` which takes an object as parameter an
 import { Injectable } from 'jsr:@danet/core';
 import { Vote } from './class.ts';
 import { type VoteRepository } from './repository.ts';
-import { KvRepository } from "jsr:@danet/database/kv/repository";
-import { KvService } from "jsr:@danet/database/kv/service";
+import { KvRepository, KvService } from "jsr:@danet/database/kv";
 
 @Injectable()
 export class KvVoteRepository extends KvRepository<Vote>
