@@ -14,7 +14,7 @@ Comme Danet utilise hono en interne, tu peux utiliser le package [hono_compress]
 Ensuite, applique son middleware en tant que middleware global (par exemple, dans ton fichier `bootstrap.ts`).
 
 ```typescript
-import { compress } from 'https://deno.land/x/hono/middleware.ts'
+import { compress } from 'jsr:@hono/hono/compress'
 
 const app = new DanetApplication();
 app.use(compress());

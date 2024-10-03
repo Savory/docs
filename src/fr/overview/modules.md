@@ -26,7 +26,7 @@ Le `TodoController` et `TodoService` appartiennent au même domaine d'applicatio
 Pour le démontrer, nous allons créer le `TodoModule`.
 
 ```ts todo.module.ts
-import { Module } from 'https://deno.land/x/danet/mod.ts';
+import { Module } from 'jsr:@danet/core';
 import { TodoController } from './todo.controller';
 import { TodoService } from './todo.service';
 
@@ -40,7 +40,7 @@ export class TodoModule {}
 Ci-dessus, nous avons défini le `TodoModule` dans le fichier `todo.module.ts` et déplacé tout ce qui concerne ce module dans le répertoire `todo`. La dernière chose à faire est d'importer ce module dans le module racine (le `AppModule`, défini dans le fichier `app.module.ts`).
 
 ```typescript app.module.ts
-import { Module } from'https://deno.land/x/danet/mod.ts';
+import { Module } from'jsr:@danet/core';
 import { TodoModule } from './todo/todo.module';
 
 @Module({

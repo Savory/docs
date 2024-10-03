@@ -28,7 +28,7 @@ The `TodoController` and `TodoService` belong to the same application domain. As
 To demonstrate this, we'll create the `TodoModule`.
 
 ```ts todo.module.ts
-import { Module } from 'https://deno.land/x/danet/mod.ts';
+import { Module } from 'jsr:@danet/core';
 import { TodoController } from './todo.controller';
 import { TodoService } from './todo.service';
 
@@ -42,7 +42,7 @@ export class TodoModule {}
 Above, we defined the `TodoModule` in the `todo.module.ts` file, and moved everything related to this module into the `todo` directory. The last thing we need to do is import this module into the root module (the `AppModule`, defined in the `app.module.ts` file).
 
 ```typescript app.module.ts
-import { Module } from 'https://deno.land/x/danet/mod.ts';
+import { Module } from 'jsr:@danet/core';
 import { TodoModule } from './todo/todo.module';
 
 @Module({
@@ -68,7 +68,7 @@ The Danet module system includes a powerful feature called **dynamic modules**. 
 Following is an example of a dynamic module definition for a `DatabaseModule`:
 
 ```ts 
-import { Module, DynamicModule } from 'danet/mod.ts';
+import { Module, DynamicModule } from 'jsr:@danet/core';
 import { createDatabaseProviders } from './database.providers';
 import { Connection } from './connection.provider';
 
@@ -93,7 +93,7 @@ This module defines the `Connection` provider by default (in the `@Module()` dec
 The `DatabaseModule` can be imported and configured in the following manner:
 
 ```ts
-import { Module } from 'danet/mod.ts';
+import { Module } from 'jsr:@danet/core';
 import { DatabaseModule } from './database/database.module';
 import { User } from './users/entities/user.entity';
 

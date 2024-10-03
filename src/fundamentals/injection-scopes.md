@@ -31,7 +31,7 @@ Using singleton scope is **recommended** for most use cases. Sharing injectables
 Specify injection scope by passing the `scope` property to the `@Injectable()` decorator options object:
 
 ```typescript
-import { Injectable, Scope } from 'https://deno.land/x/danet/mod.ts';
+import { Injectable, Scope } from 'jsr:@danet/core';
 
 @Injectable({ scope: Scope.REQUEST })
 export class TodoService {}
@@ -66,7 +66,7 @@ Transient-scoped dependencies don't follow that pattern. If a singleton-scoped `
 You may want to access a reference to the original request object when using request-scoped injectables. You can access it using the `beforeControllerMethodIsCalled` method as following. And yes, it can be async.
 
 ```typescript
-import { Injectable, Scope, Inject, HttpContext } from 'https://deno.land/x/danet/mod.ts';
+import { Injectable, Scope, Inject, HttpContext } from 'jsr:@danet/core';
 
 @Injectable({ scope: Scope.REQUEST })
 export class TodoService {

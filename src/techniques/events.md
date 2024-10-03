@@ -12,16 +12,16 @@ Events serve as a great way to decouple various aspects of your application, sin
 
 #### Getting started
 
-No need to install an extra module, you can import it from `danet/mod.ts`
+No need to install an extra module, you can import it from `jsr:@danet/core`
 
 ```ts
-import { EventEmitterModule, EventEmitter } from `danet/mod.ts`
+import { EventEmitterModule, EventEmitter } from `jsr:@danet/core`
 ```
 
 Import the `EventEmitterModule` into the root `AppModule`:
 
 ```typescript
-import { Module, EventEmitterModule } from 'danet/mod.ts';
+import { Module, EventEmitterModule } from 'jsr:@danet/core';
 
 @Module({
   import: [EventEmitterModule],
@@ -38,7 +38,7 @@ constructor(private eventEmitter: EventEmitter) {}
 ```
 
 ::: **Hint** 💡 
-Import the `EventEmitter` from the `danet/mod.ts` package.
+Import the `EventEmitter` from the `jsr:@danet/core` package.
 :::
 
 Then use it in a class as follows:

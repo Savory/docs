@@ -41,7 +41,7 @@ async create(@Body() createTodoDto: CreateTodoDto) {
 Avec la construction ci-dessus, nous avons attaché la métadonnée `roles` (`roles` est une clé de métadonnée et `['admin']` est la valeur associée) à la méthode `create()`. Bien que cela fonctionne, il n'est pas recommandé d'utiliser `@SetMetadata()` directement dans vos routes. Au lieu de cela, créez vos propres décorateurs, comme illustré ci-dessous:
 
 ```typescript roles.decorators.ts
-import { SetMetadata } from 'https://deno.land/x/danet/mod.ts';
+import { SetMetadata } from 'jsr:@danet/core';
 
 export const Roles = (...roles: string[]) => SetMetadata('roles', roles);
 ```

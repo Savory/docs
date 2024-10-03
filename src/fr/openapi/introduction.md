@@ -13,8 +13,8 @@ Le module SwaggerModule est actuellement en version alpha et de nombreuses fonct
 Ouvre simplement le fichier `bootstrap.ts` et initialise Swagger en utilisant la classe `SwaggerModule` :
 
 ```ts bootstrap.ts
-import { DanetApplication } from 'https://deno.land/x/danet/mod.ts';
-import { SwaggerModule, SpecBuilder } from 'https://deno.land/x/danet_swagger/mod.ts';
+import { DanetApplication } from 'jsr:@danet/core';
+import { SwaggerModule, SpecBuilder } from 'jsr:@danet/swagger';
 import { AppModule } from './app.module';
 
 async function bootstrap() {

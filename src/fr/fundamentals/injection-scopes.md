@@ -30,7 +30,7 @@ L'utilisation du scope singleton est **recommandée** pour la plupart des cas d'
 Spécifie la portée d'injection en passant la propriété `scope` à l'objet d'options du décorateur `@Injectable()` :
 
 ```typescript
-import { Injectable, Scope } from 'https://deno.land/x/danet/mod.ts';
+import { Injectable, Scope } from 'jsr:@danet/core';
 
 @Injectable({ scope: Scope.REQUEST })
 export class TodoService {}
@@ -63,7 +63,7 @@ Imagine le graphique de dépendance suivant : `TodoController <- TodoService <- 
 Tu peux avoir besoin d'accéder à une référence à l'objet de demande d'origine lors de l'utilisation de fournisseurs à portée de demande. Tu peux y accéder en utilisant la méthode `beforeControllerMethodIsCalled` comme suit. Et oui, cela peut être asynchrone.
 
 ```typescript
-import { Injectable, Scope, Inject, HttpContext } from 'https://deno.land/x/danet/mod.ts';
+import { Injectable, Scope, Inject, HttpContext } from 'jsr:@danet/core';
 
 @Injectable({ scope: Scope.REQUEST })
 export class TodoService {

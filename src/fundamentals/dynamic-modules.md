@@ -11,7 +11,7 @@ Let's walk through a familiar example.
 First, we'll define a `UsersModule` to provide and export a `UsersService`. `UsersModule` is the **host** module for `UsersService`.
 
 ```ts
-import { Module } from 'danet/mod.ts';
+import { Module } from 'jsr:@danet/core';
 import { UsersService } from './users.service';
 
 @Module({
@@ -24,7 +24,7 @@ export class UsersModule {}
 Next, we'll define an `AuthModule`, which imports `UsersModule`, making `UsersModule`'s exported injectables available inside `AuthModule`:
 
 ```ts
-import { Module } from 'danet/mod.ts';
+import { Module } from 'jsr:@danet/core';
 import { AuthService } from './auth.service';
 import { UsersModule } from '../users/users.module';
 
@@ -39,7 +39,7 @@ export class AuthModule {}
 These constructs allow us to inject `UsersService` in, for example, the `AuthService` that is hosted in `AuthModule`:
 
 ```ts
-import { Injectable } from 'danet/mod.ts';
+import { Injectable } from 'jsr:@danet/core';
 import { UsersService } from '../users/users.service';
 
 @Injectable()
@@ -74,7 +74,7 @@ Our requirement is to make `ConfigModule` accept an `options` object to customiz
 Dynamic modules give us the ability to pass parameters into the module being imported so we can change its behavior. Let's see how this works. It's helpful if we start from the end-goal of how this might look from the consuming module's perspective, and then work backwards. First, let's quickly review the example of _statically_ importing the `ConfigModule` (i.e., an approach which has no ability to influence the behavior of the imported module). Pay close attention to the `imports` array in the `@Module()` decorator:
 
 ```ts
-import { Module } from 'danet/mod.ts';
+import { Module } from 'jsr:@danet/core';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from './config/config.module';
@@ -90,7 +90,7 @@ export class AppModule {}
 Let's consider what a _dynamic module_ import, where we're passing in a configuration object, might look like. Compare the difference in the `imports` array between these two examples:
 
 ```ts
-import { Module } from 'danet/mod.ts';
+import { Module } from 'jsr:@danet/core';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from './config/config.module';
@@ -133,7 +133,7 @@ There are still a couple of details to cover to help make the picture complete:
 Armed with this understanding, we can now look at what our dynamic `ConfigModule` declaration must look like. Let's take a crack at it.
 
 ```ts
-import { DynamicModule, Module } from 'danet/mod.ts';
+import { DynamicModule, Module } from 'jsr:@danet/core';
 import { ConfigService } from './config.service';
 
 @Module({})
@@ -151,7 +151,7 @@ export class ConfigModule {
 It should now be clear how the pieces tie together. Calling `ConfigModule.register(...)` returns a `DynamicModule` object with properties which are essentially the same as those that, until now, we've provided as metadata via the `@Module()` decorator.
 
 ::: info **Hint** 
-Import `DynamicModule` from `danet/mod.ts`.
+Import `DynamicModule` from `jsr:@danet/core`.
 :::
 Our dynamic module isn't very interesting yet, however, as we haven't introduced any capability to **configure** it as we said we would like to do. Let's address that next.
 
@@ -160,7 +160,7 @@ Our dynamic module isn't very interesting yet, however, as we haven't introduced
 The obvious solution for customizing the behavior of the `ConfigModule` is to pass it an `options` object in the static `register()` method, as we guessed above. Let's look once again at our consuming module's `imports` property:
 
 ```ts
-import { Module } from 'danet/mod.ts';
+import { Module } from 'jsr:@danet/core';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from './config/config.module';
@@ -176,9 +176,9 @@ export class AppModule {}
 That nicely handles passing an `options` object to our dynamic module. How do we then use that `options` object in the `ConfigModule`? Let's consider that for a minute. We know that our `ConfigModule` is basically a host for providing and exporting an injectable service - the `ConfigService` - for use by other injectables. It's actually our `ConfigService` that needs to read the `options` object to customize its behavior. Let's assume for the moment that we know how to somehow get the `options` from the `register()` method into the `ConfigService`. With that assumption, we can make a few changes to the service to customize its behavior based on the properties from the `options` object. (**Note**: for the time being, since we _haven't_ actually determined how to pass it in, we'll just hard-code `options`. We'll fix this in a minute).
 
 ```ts
-import { Injectable } from 'danet/mod.ts';
-import * as path from "https://deno.land/std/path/resolve.ts";
-import * as dotenv from "https://deno.land/std/dotenv/mod.ts";
+import { Injectable } from 'jsr:@danet/core';
+import { resolve } from "@std/path";
+import { loadSync } from "jsr:@std/dotenv";
 import { EnvConfig } from './interfaces';
 
 @Injectable()
@@ -189,8 +189,8 @@ export class ConfigService {
     const options = { folder: './config' };
 
     const filePath = `${Deno.env.get('ENVIRONMENT') || 'development'}.env`;
-    const envFile = path.resolve(import.meta.dirname, '../../', options.folder, filePath);
-    this.envConfig = dotenv.loadSync({envPath: envFile, export: true});
+    const envFile = resolve(import.meta.dirname, '../../', options.folder, filePath);
+    this.envConfig = loadSync({envPath: envFile, export: true});
   }
 
   get(key: string): string {
@@ -206,7 +206,7 @@ Our remaining task is to somehow inject the `options` object from the `register(
 Let's tackle binding the options object to the IoC container first. We do this in our static `register()` method. Remember that we are dynamically constructing a module, and one of the properties of a module is its list of injectables. So what we need to do is define our options object as a provider. This will make it injectable into the `ConfigService`, which we'll take advantage of in the next step. In the code below, pay attention to the `injectables` array:
 
 ```ts
-import { DynamicModule, Module } from 'danet/mod.ts';
+import { DynamicModule, Module } from 'jsr:@danet/core';
 import { ConfigService } from './config.service';
 
 @Module({})
@@ -230,9 +230,9 @@ export class ConfigModule {
 Now we can complete the process by injecting the `'CONFIG_OPTIONS'` provider into the `ConfigService`. Recall that when we define a provider using a non-class token we need to use the `@Inject()` decorator [as described here](https://danet.land/fundamentals/custom-injectables#non-class-based-provider-tokens).
 
 ```ts
-import { Injectable } from 'danet/mod.ts';
-import * as path from "https://deno.land/std/path/resolve.ts";
-import * as dotenv from "https://deno.land/std/dotenv/mod.ts";
+import { Injectable } from 'jsr:@danet/core';
+import { resolve }from "jsr:@std/path";
+import { loadSync } from "jsr:@std/dotenv";
 import { EnvConfig } from './interfaces';
 
 @Injectable()
@@ -241,8 +241,8 @@ export class ConfigService {
 
   constructor(@Inject('CONFIG_OPTIONS') private options: Record<string, any>) {
     const filePath = `${Deno.env.get('ENVIRONMENT') || 'development'}.env`;
-    const envFile = path.resolve(import.meta.dirname, '../../', options.folder, filePath);
-    this.envConfig = dotenv.loadSync({envPath: envFile, export: true});
+    const envFile = resolve(import.meta.dirname, '../../', options.folder, filePath);
+    this.envConfig = loadSync({envPath: envFile, export: true});
   }
 
   get(key: string): string {

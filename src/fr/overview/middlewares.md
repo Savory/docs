@@ -17,7 +17,7 @@ Les middlewares sont des fonctions appelées **avant** le gestionnaire de route.
 Tu peux implémenter un middleware personnalisé de Danet dans une fonction ou dans une classe avec un décorateur `@Injectable()`. La classe doit implémenter l'interface `DanetMiddleware`, néanmoins la fonction n'a pas d'exigences particulières. Commençons par implémenter une fonctionnalité simple en utilisant une classe.
 
 ```ts logger.middleware.ts
-import { Injectable, DanetMiddle, HttpContext, NextFunction } from 'https://deno.land/x/danet/mod.ts';
+import { Injectable, DanetMiddle, HttpContext, NextFunction } from 'jsr:@danet/core';
 
 @Injectable()
 export class LoggerMiddleware implements DanetMiddleware {
@@ -63,7 +63,7 @@ class TodoController {
 La classe `LoggerMiddleware` que nous avons utilisée est assez simple. Elle ne possède aucun membre, aucune méthode supplémentaire et aucune dépendance. Pourquoi ne pouvons-nous pas simplement la définir dans une fonction simple au lieu d'une classe ? En fait, nous le pouvons. Ce type de middleware s'appelle **middleware fonctionnel**. Transformons le middleware de journalisation d'une classe en middleware fonctionnel pour illustrer la différence :
 
 ```ts logger.middleware.ts
-import { Injectable, DanetMiddle, HttpContext, NextFunction } from 'https://deno.land/x/danet/mod.ts';
+import { Injectable, DanetMiddle, HttpContext, NextFunction } from 'jsr:@danet/core';
 
 export async function logger(ctx: HttpContext, next: NextFunction) {
   console.log(`Request...`);

@@ -13,7 +13,7 @@ Comme mentionné précédemment, **l'autorisation** est un excellent cas d'utili
 
 ```typescript simple-auth-guard.ts
 
-import { Injectable, AuthGuard } from 'https://deno.land/x/danet/mod.ts';
+import { Injectable, AuthGuard } from 'jsr:@danet/core';
 import { ExecutionContext } from "./router.ts";
 
 @Injectable()
@@ -49,7 +49,7 @@ La construction ci-dessus attache le guard à chaque gestionnaire déclaré par 
 Les guards globaux sont utilisés dans toute l'application, pour chaque contrôleur et chaque gestionnaire de route. Vous pouvez configurer un guard global en utilisant le code suivant :
 
 ```typescript app.module.ts
-import { Module, AuthGuard } from 'https://deno.land/x/danet/mod.ts';
+import { Module, AuthGuard } from 'jsr:@danet/core';
 
 @Module({
   providers: [

@@ -54,7 +54,7 @@ import {
   ExceptionFilter,
   Catch,
   HttpContext,
-} from 'https://deno.land/x/danet/mod.ts';
+} from 'jsr:@danet/core';
 
 @Injectable()
 @Catch(CustomException)
@@ -107,7 +107,7 @@ import {
   Catch,
   ExceptionFilter,
   HttpContext,
-} from 'https://deno.land/x/danet/mod.ts';
+} from 'jsr:@danet/core';
 
 @Injectable()
 export class AllExceptionsFilter implements ExceptionFilter {

@@ -24,7 +24,7 @@ Les hooks de cycle de vie listés ci-dessus ne sont pas déclenchés pour les cl
 Chaque hook de cycle de vie est représenté par une interface. Les interfaces sont techniquement optionnelles car elles n'existent pas après la compilation TypeScript. Néanmoins, il est bon de les utiliser afin de bénéficier d'une forte typage et des outils d'éditeur. Pour enregistrer un hook de cycle de vie, implémente l'interface appropriée. Par exemple, pour enregistrer une méthode qui doit être appelée après que les injections ont été effectuées sur une classe particulière (par exemple, Controller ou Injectable), implémente l'interface `OnAppBootstrap` en fournissant une méthode `onAppBootstrap()`, comme indiqué ci-dessous :
 
 ```typescript user-service.ts
-import { Injectable, AuthGuard } from 'https://deno.land/x/danet/mod.ts';
+import { Injectable, AuthGuard } from 'jsr:@danet/core';
 
 @Injectable()
 export class UsersService implements OnAppBootstrap {

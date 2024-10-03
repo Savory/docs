@@ -12,7 +12,7 @@ As mentioned, **authorization** is a great use case for Guards because specific 
 
 ```typescript simple-auth-guard.ts
 
-import { Injectable, AuthGuard } from 'https://deno.land/x/danet/mod.ts';
+import { Injectable, AuthGuard } from 'jsr:@danet/core';
 import { ExecutionContext } from "./router.ts";
 
 @Injectable()
@@ -48,7 +48,7 @@ The construction above attaches the guard to every handler declared by this cont
 Global guards are used across the whole application, for every controller and every route handler. You can set up a global guard using the following:
 
 ```typescript app.module.ts
-import { Module, AuthGuard } from 'https://deno.land/x/danet/mod.ts';
+import { Module, AuthGuard } from 'jsr:@danet/core';
 
 @Module({
   providers: [

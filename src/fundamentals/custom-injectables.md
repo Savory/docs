@@ -6,7 +6,7 @@ Dependency injection is an [inversion of control (IoC)](https://en.wikipedia.org
 
 First, we define a provider. The `@Injectable()` decorator marks the `TodoService` class as a provider.
 ```ts todo.service.ts
-import { Injectable } from 'https://deno.land/x/danet/mod.ts';
+import { Injectable } from 'jsr:@danet/core';
 import { Todo } from './todo.interface';
 
 @Injectable()
@@ -27,7 +27,7 @@ Then we request that Danet inject the provider into our controller class:
 
 ```ts todo.controller
 
-import { Controller, Get, Post, Body } from 'https://deno.land/x/danet/mod.ts';
+import { Controller, Get, Post, Body } from 'jsr:@danet/core';
 import { CreateTodoDto } from './create-todo.dto';
 import { TodoService } from './todo.service';
 import { Todo } from './todo.interface';
@@ -51,7 +51,7 @@ export class TodoController {
 Finally, we register the provider with the Danet IoC container:
 
 ```ts app.module
-import { Module } from 'https://deno.land/x/danet/mod.ts';
+import { Module } from 'jsr:@danet/core';
 import { TodoController } from './todo/todo.controller';
 import { TodoService } from './todo/todo.service';
 

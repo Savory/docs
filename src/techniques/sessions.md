@@ -7,7 +7,7 @@ order: 60
 
 ## Usage
 
-As Danet uses hono under the hood, you can use [hono_sessions](https://deno.land/x/hono_sessions) package.
+As Danet uses hono under the hood, you can use [hono_sessions](https://jsr.io/@jcs224/hono-sessions) package.
 
 Then, apply the `hono_sessions` middleware as native hono middleware (for example, in your `bootstrap.ts` file).
 
@@ -20,7 +20,7 @@ import {
     Session,
     sessionMiddleware,
     CookieStore
-} from 'https://deno.land/x/hono_sessions/mod.ts'
+} from 'jsr:@jcs224/hono-sessions'
 
 const app = new DanetApplication();
 const store = new CookieStore()
@@ -45,7 +45,7 @@ You can access the session in your routes using `@Session` decorator.
 
 ```ts
 import { Session,
-} from 'https://deno.land/x/Danet/mod.ts';
+} from 'jsr:@danet/core';
 
 @Get()
 findAll(@Session() session: Map<unknown, unknown>) {
