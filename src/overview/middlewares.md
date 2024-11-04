@@ -115,7 +115,12 @@ If you want to use a "Hono" middleware, for example the [timing middleware](http
   import { timing } from 'jsr:@hono/hono/timing'
 ...
   const application = new DanetApplication();
-  await application.init(AppModule);
   application.use(timing()); //as many middleware as you want;
+  await application.init(AppModule);
 ...
 ```
+
+
+::: info **Hint**
+Always register "native" middlewares before calling `init`, otherwise, the middleware becomes an "execute if no route was matched" handler.
+:::
