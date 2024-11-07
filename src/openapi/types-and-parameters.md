@@ -83,3 +83,7 @@ To identify an `enum`, we must manually set the `enum` property on the `@ApiProp
 @ApiProperty({ enum: ['Admin', 'Moderator', 'User']})
 role: UserRole;
 ```
+
+## Zod
+
+The OpenAPI module also supports Zod schemas. You can find more information on the dedicated page [here](/zod/openapi).
