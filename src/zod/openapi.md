@@ -8,6 +8,30 @@ The SwaggerModule is currently in Alpha, maaaany features are missing. If someth
 :::
 
 
+## Pre-requiresites
+
+First, if you don't know how to use Danet's swagger module first read the dedicated page [here](/openapi/introduction).
+Second, in order to generate openAPI definition from zod, you will need to extend zod using [zod-to-openapi](https://github.com/asteasolutions/zod-to-openapi). As follows: 
+
+```ts
+import { extendZodWithOpenApi } from 'zod-openapi';
+
+extendZodWithOpenApi(z);
+```
+
+Last, you will need to add an openApi title attribute to your zod schema as follows, so we know how to name the model in the openAPI definition:
+```ts
+const Cat = z.object({
+    name: z.string(),
+    breed: z.string(),
+    dob: z.date(),
+    isHungry: z.boolean().optional(),
+    hobbies: z.array(z.any())
+}).openapi({
+    title: 'Cat'
+})
+```
+
 ## Body, Query
 
 The `SwaggerModule` searches for all `@Body()` and `@Query()` from `@danet/zod` decorators in route handlers to generate the API document. It also creates corresponding model definitions . Consider the following code:
