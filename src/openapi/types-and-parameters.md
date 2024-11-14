@@ -53,8 +53,21 @@ Let's open the browser and verify the generated `Todo` model:
 
 ## Return type
 
-Due to SWC (Deno's typescript compiler) lacking `design:return` metadata, you **must** use the `@ReturnedType` decorator to say what your endpoint will return :
+There are multiple ways to define the return type of a route.
 
+The easiest way is to type your method.
+
+The `SwaggerModule` will automatically detect the return type of a route handler and generate the corresponding model definition **if it's not an array**.
+The following code will generate a model definition for the `Todo` class as Danet understands that the `getById` method returns a `Todo` object:
+
+  ```ts
+     @Get(':id')
+    async getById(@Param('id') id: string): Todo {
+      return this.todoService.getById(id);
+    }
+  ```
+
+When it's an array, or if you don't want to type your method for some (obscure) reasons, you can also use the `@ReturnedType` decorator to explicitly set the return type of a route handler.
 
 ```ts
 @ReturnedType(Todo)
