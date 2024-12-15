@@ -25,4 +25,19 @@ export class TodoController {
     return this.todoService.getById(id);
   }
 }
+```
+
+### Description
+
+Simply use `@Description` decorator to describe your endpoint. We love description.
+
+```typescript
+@Controller('todo')
+export class TodoController {
+  @Description('Get a Todo by ID')
+  @Get(':id')
+  async getById(@Param('id') id: string): Todo {
+    return this.todoService.getById(id);
+  }
+}
 ``````
