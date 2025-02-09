@@ -73,7 +73,7 @@ We created the WebsocketController in a way to make *almost* permutable with the
 ### Message data with attribute name
 ```ts events.controller.ts
 @OnWebSocketMessage('events')
-handleEvent(@WebSocket() socket: WebSocket) {
+handleEvent(@WebSocket() socket: WebSocketInstance) {
   return socket.send(JSON.string({ topic: 'hello', data: name });;
 }
 ```
