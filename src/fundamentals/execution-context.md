@@ -48,7 +48,7 @@ async create(@Body() createTodoDto: CreateTodoDto) {
 With the construction above, we attached the `roles` metadata (`roles` is a metadata key and `['admin']` is the associated value) to the `create()` method. While this works, it's not good practice to use `@SetMetadata()` directly in your routes. Instead, create your own decorators, as shown below:
 
 ```typescript roles.decorators.ts
-import { SetMetadata } from 'jsr:@danet/core';
+import { SetMetadata } from 'jsr:@danet/core/metadata';
 
 export const Roles = (...roles: string[]) => SetMetadata('roles', roles);
 ```
