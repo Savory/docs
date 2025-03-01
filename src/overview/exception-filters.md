@@ -156,3 +156,17 @@ export class AllExceptionsFilter implements ExceptionFilter {
   }
 }
 ```
+
+## Global exception filter
+
+If you want to catch exceptions across your entire application without attahcing
+them to a specific controller or method, you can use  globals exception filters.
+exception filters.
+
+```typescript
+const app = new DanetApplication();
+await app.init(AppModule);
+
+const simpleService = app.get(SimpleService);
+app.useGlobalExceptionFilter(new ErrorFilter(simpleService));
+```
