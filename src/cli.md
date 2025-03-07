@@ -13,7 +13,7 @@ In the future, it will allow creating modules/controllers/services.Project creat
 Installing Deno packages as a commands is simple. You can install them under any name you want. For simplicity's sake, we install our danet-cli under the name `danet`.  
 
 ```bash
-$ deno install --allow-read --allow-write --allow-run --allow-env -n danet jsr:@danet/cli
+$ deno install --allow-read --allow-write --allow-run --allow-env --global -n danet jsr:@danet/cli
 ```
 
 ## Basic workflow
