@@ -76,16 +76,18 @@ import {
 @Catch(CustomException)
 export class CustomExceptionFilter implements ExceptionFilter {
   catch(exception: CustomException, ctx: HttpContext) {
-    const response = ctx.response;
-    const request = ctx.request;
+    const request = ctx.req;
     const status = exception.status;
-
-    response.status = status;
-    response.body = {
+    const body = {
       statusCode: status,
       timestamp: new Date().toISOString(),
       path: request.url,
     };
+
+    return ctx.newResponse(JSON.stringify(body), {
+			status: status.code,
+			headers: ctx.res.headers
+		});
   }
 }
 ```
@@ -143,16 +145,18 @@ export class AllExceptionsFilter implements ExceptionFilter {
   constructor() {}
 
   catch(exception: unknown, ctx: HttpContext): boolean {
-    const response = ctx.response;
-    const request = ctx.request;
+    const request = ctx.req;
     const status = exception.status;
-
-    response.status = status;
-    response.body = {
+    const body = {
       statusCode: status,
       timestamp: new Date().toISOString(),
       path: request.url,
     };
+
+    return ctx.newResponse(JSON.stringify(body), {
+			status: status.code,
+			headers: ctx.res.headers
+		});
   }
 }
 ```
