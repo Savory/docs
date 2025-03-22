@@ -86,15 +86,16 @@ instead, such as `@Body()` or `@Query()`, which are available out of the box.
 Below is a list of the provided decorators and the plain platform-specific
 objects they represent.
 
-| Decorator | Type | Value                                                                               |
-|-----------|------|-------------------------------------------------------------------------------------|
-| `@Req()` | [hono.Request](https://hono.dev/api/request) | `ctx.req`                                                                           |
-| `@Res()` | [hono.Response](https://hono.dev/api/context#res) | `ctx.res`                                                                           |
-| `@Param(key: string)` | `string` | `context.params[key]`                                                               |
-| `@Header(key? : string)` | `string \| undefined` | `ctx.req.raw.headers` / `ctx.req.header(key)`                                       |
-| `@Body(key?: string)` | `any` | `ctx.req.json()` / `ctx.req.json()[key]`                                              |
-| `@Query(key: string, options?: { value?: 'first' \| 'last' \| 'array' })` | `string \| string[]` | Get the `first`, the `last` or `all` the values for the query parameter named `key` |
-| `@Query(options?: { value?: 'first' \| 'last' \| 'array' })` | `{ [key: string]: string \| string[] }` | Get the `first`, the `last` or `all` the values for all the query parameters        |
+| Decorator                                                                 | Type                                              | Value                                                                               |
+|---------------------------------------------------------------------------|---------------------------------------------------|-------------------------------------------------------------------------------------|
+| `@Req()`                                                                  | [hono.Request](https://hono.dev/api/request)      | `ctx.req`                                                                           |
+| `@Res()`                                                                  | [hono.Response](https://hono.dev/api/context#res) | `ctx.res`                                                                           |
+| `@Context()`                                                              | Danet ExecutionContext                            | `context`                                                                           |
+| `@Param(key: string)`                                                     | `string`                                          | `context.params[key]`                                                               |
+| `@Header(key? : string)`                                                  | `string \| undefined`                             | `ctx.req.raw.headers` / `ctx.req.header(key)`                                       |
+| `@Body(key?: string)`                                                     | `any`                                             | `ctx.req.json()` / `ctx.req.json()[key]`                                              |
+| `@Query(key: string, options?: { value?: 'first' \| 'last' \| 'array' })` | `string \| string[]`                              | Get the `first`, the `last` or `all` the values for the query parameter named `key` |
+| `@Query(options?: { value?: 'first' \| 'last' \| 'array' })`              | `{ [key: string]: string \| string[] }`           | Get the `first`, the `last` or `all` the values for all the query parameters        |
 
 ## Resources
 
