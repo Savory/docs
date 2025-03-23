@@ -180,6 +180,18 @@ async findAll(): Promise<any[]> {
 }
 ```
 
+#### Status code
+
+As mentioned, the default **status code** for responses is always **200**. You can easily change this behavior by using the `@HttpCode(...)` decorator at the handler level.
+
+```typescript
+@Post()
+@HttpCode(204)
+create() {
+  return 'Something';
+}
+```
+
 ## Request payloads
 
 Our previous examples of the POST route handler didn't accept any client params.
