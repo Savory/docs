@@ -11,7 +11,7 @@ The SwaggerModule is currently in Alpha, maaaany features are missing. If someth
 ## Pre-requiresites
 
 First, if you don't know how to use Danet's swagger module first read the dedicated page [here](/openapi/introduction).
-Second, in order to generate openAPI definition from zod, you will need to extend zod using [zod-to-openapi](https://github.com/asteasolutions/zod-to-openapi). As follows: 
+Second, in order to generate openAPI definition from zod, you will need to extend zod using [zod-to-openapi](https://www.npmjs.com/package/@anatine/zod-openapi). As follows: 
 
 ```ts
 import { extendZodWithOpenApi } from 'zod-openapi';
