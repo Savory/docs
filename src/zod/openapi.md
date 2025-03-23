@@ -19,6 +19,13 @@ import { extendZodWithOpenApi } from 'zod-openapi';
 extendZodWithOpenApi(z);
 ```
 
+Danet Swagger module uses the following versions:
+
+```
+"zod": "npm:zod@3.23.8",
+"zod-openapi": "npm:@anatine/zod-openapi@2.2.6"
+```
+
 Last, you will need to add an openApi title attribute to your zod schema as follows, so we know how to name the model in the openAPI definition:
 ```ts
 const Cat = z.object({
