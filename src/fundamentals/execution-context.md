@@ -1,5 +1,5 @@
 
-`ExecutionContext` provides additional details about the current execution process. Danet provides an instance of `ExecutionContext` in places you may need it, such as in the `canActivate()` method of a [guard](https://docs.danet.land/overview/guards.html) and the `action()` method of a [middleware](https://docs.danet.land/overview/middlewares.html). It provides the following methods:
+`ExecutionContext` provides additional details about the current execution process. Danet provides an instance of `ExecutionContext` in places you may need it, such as in the `canActivate()` method of a [guard](/overview/guards.md) and the `action()` method of a [middleware](/overview/middlewares.md). It provides the following methods:
 
 ```ts
 type ExecutionContext = {

@@ -12,16 +12,20 @@ As mentioned, **authorization** is a great use case for Guards because specific 
 
 ```typescript simple-auth-guard.ts
 
-import { Injectable, AuthGuard } from 'jsr:@danet/core';
-import { ExecutionContext } from "./router.ts";
+import { Injectable, AuthGuard, ExecutionContext } from 'jsr:@danet/core';
 
 @Injectable()
 export class SimpleAuthGuard implements AuthGuard {
+    validateRequest(authHeader:string): boolean {
+      // Can be tested using: curl -u user:my-secret-password localhost:3000/todo
+      return authHeader === "Basic dXNlcjpteS1zZWNyZXQtcGFzc3dvcmQ=";
+    }
+
     canActivate(
-        context: ExecutionContext,
+      context: ExecutionContext,
     ): boolean | Promise<boolean> {
-        const request = context.request;
-        return validateRequest(request);
+      const authHeader = context.req.raw.headers.get('authorization');
+      return this.validateRequest(authHeader);
     }
 }
 ```
@@ -35,15 +39,15 @@ Every guard must implement a `canActivate()` function. This function should retu
 
 ## Binding guards
 
-Like pipes and exception filters, guards can be **controller-scoped**, method-scoped, or global-scoped. Below, we set up a controller-scoped guard using the `@UseGuards()` decorator. This decorator may take a single argument, or a comma-separated list of arguments. This lets you easily apply the appropriate set of guards with one declaration.
+Like pipes and exception filters, guards can be **controller-scoped**, method-scoped, or global-scoped. Below, we set up a controller-scoped guard using the `@UseGuard()` decorator. This decorator may take a single argument, or a comma-separated list of arguments. This lets you easily apply the appropriate set of guards with one declaration.
 
 ```typescript todo.controller.ts
 @Controller('todo')
-@UseGuards(SimpleGuard)
+@UseGuard(SimpleGuard)
 export class TodoController {}
 ```
 
-The construction above attaches the guard to every handler declared by this controller. If we wish the guard to apply only to a single method, we apply the `@UseGuards()` decorator at the **method level**.
+The construction above attaches the guard to every handler declared by this controller. If we wish the guard to apply only to a single method, we apply the `@UseGuard()` decorator at the **method level**.
 
 Global guards are used across the whole application, for every controller and every route handler. You can set up a global guard using the following:
 
@@ -57,3 +61,7 @@ import { Module, AuthGuard } from 'jsr:@danet/core';
 })
 export class AppModule {}
 ```
+
+## Recipes
+You can find the following recipes for Guard usage:
+- JWT Guard[JWT Guard](/recipes/jwt-guard.md).
