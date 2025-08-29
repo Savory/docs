@@ -14,7 +14,7 @@ v1.24.3) is installed on your operating system.
 The easiest way to set up a Danet project is by using our [Danet CLI](/cli.md)
 
 ```bash
-$ deno install --allow-read --allow-write --allow-run --allow-env -n danet jsr:@danet/cli
+$ deno install --allow-read --allow-write --allow-run --allow-env --global -n danet jsr:@danet/cli
 $ danet new my-danet-project
 $ cd my-danet-project
 ```
