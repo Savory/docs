@@ -52,11 +52,11 @@ The construction above attaches the guard to every handler declared by this cont
 Global guards are used across the whole application, for every controller and every route handler. You can set up a global guard using the following:
 
 ```typescript app.module.ts
-import { Module, AuthGuard } from 'jsr:@danet/core';
+import { GLOBAL_GUARD, Module } from 'jsr:@danet/core';
 
 @Module({
-  providers: [
-    new TokenInjector(SimpleGuard, GLOBAL_GUARD)
+  injectables: [
+    { useClass: SimpleGuard, token: GLOBAL_GUARD },
   ],
 })
 export class AppModule {}
