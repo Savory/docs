@@ -74,7 +74,7 @@ We created the WebsocketController in a way to make *almost* permutable with the
 ```ts events.controller.ts
 @OnWebSocketMessage('events')
 handleEvent(@WebSocket() socket: WebSocketInstance) {
-  return socket.send(JSON.string({ topic: 'hello', data: name });;
+  return socket.send(JSON.string({ topic: 'hello', data: name }));
 }
 ```
 
