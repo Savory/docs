@@ -4,9 +4,9 @@ order: 1
 ---
 ## Overview
 
-The [Danet CLI](https://github.com/Savory/Danet-CLI) is a command-line interface tool that helps you to initialize, run and bundle your Danet applications.
+The [Danet CLI](https://github.com/Savory/Danet-CLI) is a command-line interface tool that helps you to initialize, run, bundle your Danet applications and scaffold modules, controllers and services.
 
-In the future, it will allow creating modules/controllers/services.Project created with the CLI embody best-practice architectural patterns to encourage well-structured apps.
+Projects created with the CLI embody best-practice architectural patterns to encourage well-structured apps.
 
 ## Installation
 
@@ -34,6 +34,65 @@ $ danet start  //run without file watching
 ```
 
 In your browser, open  <a href="http://localhost:3000" target="_blank" rel="noreferrer">http://localhost:3000</a> to see the new application running.
+
+## Generating Components
+
+From inside a project, you can scaffold modules, controllers and services with the `generate` command (aliased as `g`):
+
+```bash
+$ danet generate <schematic> <name>
+$ danet g <schematic> <name>
+```
+
+The available schematics, with their aliases, are:
+
+| Schematic    | Alias | Generates                  | Class created      |
+| ------------ | ----- | -------------------------- | ------------------ |
+| `module`     | `mo`  | `src/<name>/module.ts`     | `<Name>Module`     |
+| `controller` | `co`  | `src/<name>/controller.ts` | `<Name>Controller` |
+| `service`    | `s`   | `src/<name>/service.ts`    | `<Name>Service`    |
+
+Each component lives in its own folder, following the Danet folder convention. The provided name is normalized to `kebab-case` for the folder and `PascalCase` for the class, so `danet g co user-profile`, `danet g co userProfile` and `danet g co UserProfile` all produce the folder `user-profile` and the class `UserProfileController`.
+
+```bash
+$ danet g module cat        # src/cat/module.ts        -> class CatModule
+$ danet g controller cat    # src/cat/controller.ts    -> class CatController
+$ danet g service cat       # src/cat/service.ts       -> class CatService
+```
+
+### Automatic module wiring
+
+By default, generated components are automatically registered in the relevant `@Module` so you don't have to edit it by hand:
+
+- a **controller** is added to the `controllers` array of its sibling module;
+- a **service** is added to the `injectables` array of its sibling module;
+- a **module** is added to the `imports` array of your root `src/app.module.ts`.
+
+For instance, after generating the controller and service above, the module is updated for you:
+
+```typescript src/cat/module.ts
+import { Module } from 'jsr:@danet/core';
+import { CatController } from './controller.ts';
+import { CatService } from './service.ts';
+
+@Module({
+  controllers: [CatController],
+  injectables: [CatService],
+})
+export class CatModule {}
+```
+
+Wiring is skipped (without error) when the target module file cannot be found. To opt out entirely, pass `--skip-import`:
+
+```bash
+$ danet g controller cat --skip-import
+```
+
+You can also change where the component folder is created with `--path` (defaults to `src`):
+
+```bash
+$ danet g module cat --path src/features
+```
 
 ## Database Options
 
