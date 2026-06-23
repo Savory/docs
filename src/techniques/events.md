@@ -10,6 +10,13 @@ Events serve as a great way to decouple various aspects of your application, sin
 
 `EventEmitterModule` internally uses the [EventTarget](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget) API.
 
+::: tip In-process only
+`EventEmitter` events stay inside a single running instance. To emit and consume
+messages **across services** with the same decorator-based ergonomics, see the
+[`@danet/rabbitmq`](/rabbitmq/overview) package, or
+[KV Queue](/techniques/kvQueue) for a durable in-Deno queue.
+:::
+
 #### Getting started
 
 No need to install an extra module, you can import it from `jsr:@danet/core`

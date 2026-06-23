@@ -12,6 +12,13 @@ Provide a reliable communication channel across various services. For example, y
 
 `KvQueue` package provides a simple abstraction, allowing you to fire and consume message.
 
+::: tip Need a broker shared across services?
+`KvQueue` is backed by `Deno.kv` and lives inside a single Deno app. If you need
+to exchange messages across services or languages, the
+[`@danet/rabbitmq`](/rabbitmq/overview) package offers the same listener model
+(`@OnRabbitMQMessage` + a `RabbitMQ` service) on top of a real RabbitMQ broker.
+:::
+
 #### Getting started
 
 No need to install an extra module, you can import it from `jsr:@danet/core`
