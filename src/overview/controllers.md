@@ -181,7 +181,7 @@ export class FileController {
   async logo(@Context() ctx: ExecutionContext) {
     const image = await Deno.readFile('./logo.png');
     ctx.header('Content-Type', 'image/png');
-    return ctx.body(image);
+    return ctx.body(image.buffer);
   }
 }
 ```
