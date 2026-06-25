@@ -97,6 +97,95 @@ objects they represent.
 | `@Query(key: string, options?: { value?: 'first' \| 'last' \| 'array' })` | `string \| string[]`                              | Get the `first`, the `last` or `all` the values for the query parameter named `key` |
 | `@Query(options?: { value?: 'first' \| 'last' \| 'array' })`              | `{ [key: string]: string \| string[] }`           | Get the `first`, the `last` or `all` the values for all the query parameters        |
 
+## Response object
+
+Most of the time you can simply **return a value** from your handler and let
+Danet build the response for you: objects are serialized to JSON, strings are
+sent as `text/plain`, and the status code defaults to `200` (see
+[Status code](#status-code)).
+
+When you need more control — custom headers, a specific content type, or a
+binary/`Blob` body (files, images, PDFs...) — you have three options.
+
+### Returning a `Response`
+
+If a handler returns a standard
+[`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response), Danet
+sends it **as-is**, without any serialization. This is the most direct way to
+set both the body and the headers, and it works with any
+[`BodyInit`](https://developer.mozilla.org/en-US/docs/Web/API/Response/Response)
+value — a `Blob`, an `ArrayBuffer`, a `Uint8Array`, a `ReadableStream`, or a
+string.
+
+```ts file.controller.ts
+import { Controller, Get } from 'jsr:@danet/core';
+
+@Controller('files')
+export class FileController {
+  @Get('report')
+  async downloadReport(): Promise<Response> {
+    // `data` could come from Deno.readFile, a database, a remote fetch, etc.
+    const data = await Deno.readFile('./report.pdf');
+    const blob = new Blob([data], { type: 'application/pdf' });
+
+    return new Response(blob, {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/pdf',
+        'Content-Disposition': 'attachment; filename="report.pdf"',
+      },
+    });
+  }
+}
+```
+
+::: info Hint
+Because you build the `Response` yourself, the `@HttpCode()` decorator is
+ignored for that handler — set the status directly on the `Response`.
+:::
+
+### Setting headers with `@Res()`
+
+If you'd rather keep returning a plain object or string and only need to tweak
+the **headers**, inject the response object with `@Res()` and mutate its
+`headers`. Danet merges those headers into the response it builds from your
+return value.
+
+```ts file.controller.ts
+import { Controller, Get, Res } from 'jsr:@danet/core';
+
+@Controller('files')
+export class FileController {
+  @Get()
+  findAll(@Res() res: Response) {
+    res.headers.set('Cache-Control', 'no-store');
+    res.headers.set('X-Custom-Header', 'danet');
+    return { todos: [] }; // still serialized to JSON, now with your headers
+  }
+}
+```
+
+### Using `@Context()`
+
+For advanced cases you can inject the underlying
+[Hono context](https://hono.dev/api/context) with `@Context()` and use its
+helpers, such as `c.header()` and `c.body()`:
+
+```ts file.controller.ts
+import { Controller, Get, Context } from 'jsr:@danet/core';
+import type { ExecutionContext } from 'jsr:@danet/core';
+
+@Controller('files')
+export class FileController {
+  @Get('logo')
+  async logo(@Context() ctx: ExecutionContext) {
+    const image = await Deno.readFile('./logo.png');
+    ctx.header('Content-Type', 'image/png');
+    return ctx.body(image.buffer);
+  }
+}
+```
+
 ## Resources
 
 Earlier, we defined an endpoint to fetch the todo resource (**GET** route).
