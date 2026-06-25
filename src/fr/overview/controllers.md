@@ -71,6 +71,96 @@ export class TodoController {
   }
 }
 ```
+## Objet de réponse
+
+La plupart du temps, il suffit de **retourner une valeur** depuis ton handler et
+de laisser Danet construire la réponse : les objets sont sérialisés en JSON, les
+strings sont envoyées en `text/plain`, et le code de statut vaut `200` par
+défaut.
+
+Lorsque tu as besoin de plus de contrôle — des en-têtes personnalisés, un type
+de contenu spécifique, ou un corps binaire/`Blob` (fichiers, images, PDF...) —
+tu disposes de trois options.
+
+### Retourner une `Response`
+
+Si un handler retourne une
+[`Response`](https://developer.mozilla.org/fr/docs/Web/API/Response) standard,
+Danet l'envoie **telle quelle**, sans aucune sérialisation. C'est la manière la
+plus directe de définir à la fois le corps et les en-têtes, et cela fonctionne
+avec n'importe quelle valeur
+[`BodyInit`](https://developer.mozilla.org/fr/docs/Web/API/Response/Response) :
+un `Blob`, un `ArrayBuffer`, un `Uint8Array`, un `ReadableStream` ou une string.
+
+```ts file.controller.ts
+import { Controller, Get } from 'jsr:@danet/core';
+
+@Controller('files')
+export class FileController {
+  @Get('report')
+  async downloadReport(): Promise<Response> {
+    // `data` peut provenir de Deno.readFile, d'une base de données, d'un fetch distant, etc.
+    const data = await Deno.readFile('./report.pdf');
+    const blob = new Blob([data], { type: 'application/pdf' });
+
+    return new Response(blob, {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/pdf',
+        'Content-Disposition': 'attachment; filename="report.pdf"',
+      },
+    });
+  }
+}
+```
+
+::: info Astuce
+Comme tu construis toi-même la `Response`, le décorateur `@HttpCode()` est ignoré
+pour ce handler — définis le statut directement sur la `Response`.
+:::
+
+### Définir des en-têtes avec `@Res()`
+
+Si tu préfères continuer à retourner un objet ou une string et que tu as
+seulement besoin d'ajuster les **en-têtes**, injecte l'objet de réponse avec
+`@Res()` et modifie ses `headers`. Danet fusionne ces en-têtes dans la réponse
+qu'il construit à partir de ta valeur de retour.
+
+```ts file.controller.ts
+import { Controller, Get, Res } from 'jsr:@danet/core';
+
+@Controller('files')
+export class FileController {
+  @Get()
+  findAll(@Res() res: Response) {
+    res.headers.set('Cache-Control', 'no-store');
+    res.headers.set('X-Custom-Header', 'danet');
+    return { todos: [] }; // toujours sérialisé en JSON, désormais avec tes en-têtes
+  }
+}
+```
+
+### Utiliser `@Context()`
+
+Pour des cas avancés, tu peux injecter le
+[contexte Hono](https://hono.dev/api/context) sous-jacent avec `@Context()` et
+utiliser ses helpers, comme `c.header()` et `c.body()` :
+
+```ts file.controller.ts
+import { Controller, Get, Context } from 'jsr:@danet/core';
+import type { ExecutionContext } from 'jsr:@danet/core';
+
+@Controller('files')
+export class FileController {
+  @Get('logo')
+  async logo(@Context() ctx: ExecutionContext) {
+    const image = await Deno.readFile('./logo.png');
+    ctx.header('Content-Type', 'image/png');
+    return ctx.body(image);
+  }
+}
+```
+
 ## Ressources
 
 Plus tôt, nous avons défini un endpoint pour récupérer les todos (**GET** route). Nous souhaiterons généralement également fournir un endpoint pour créer de nouveaux todos. Pour cela, créons le handler **POST** :
