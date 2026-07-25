@@ -11,7 +11,7 @@ Server-Sent Events (SSE) is a server push technology enabling a client to receiv
 
 To enable Server-Sent events on a route (route registered within a **controller class**), annotate the method handler with the `@SSE()` decorator.
 
-```typescript
+```typescript sse.controller.ts
 @SSE('sse')
 sendUpdate(): EventTarget {
   const eventTarget = new EventTarget();
@@ -19,7 +19,7 @@ sendUpdate(): EventTarget {
   const interval = setInterval(() => {
     if (id >= 4) {
       clearInterval(interval);
-      const event = new SSEMessage({
+      const event = new SSEEvent({
         retry: 1000,
         id: `${id}`,
         data: 'close',
@@ -28,7 +28,7 @@ sendUpdate(): EventTarget {
       eventTarget.dispatchEvent(event);
       return;
     }
-    const event = new SSEMessage({
+    const event = new SSEEvent({
       retry: 1000,
       id: `${id}`,
       data: 'world',
@@ -41,13 +41,13 @@ sendUpdate(): EventTarget {
 }
 ```
 
-> info **Hint** The `@SSE()` decorator and `SSEMessage` class are imported from the `@danet/core`, while `EventTarget` is a web standard class.
+> info **Hint** The `@SSE()` decorator and the `SSEEvent` class are imported from `@danet/core`, while `EventTarget` is a web standard class.
 
 > warning **Warning** Server-Sent Events routes must return an `EventTarget`.
 
 In the example above, we defined a route named `sse` that will allow us to propagate real-time updates. These events can be listened to using the [EventSource API](https://developer.mozilla.org/en-US/docs/Web/API/EventSource).
 
-The `sse` method returns an `EventTarget` that dispatch multiple `SSEEvent` (in this example, it emits a new `SSEEvent` every second). The `SSEEvent` takes a `SSEMessage` object as argument should respect the following interface to match the specification:
+The `sse` method returns an `EventTarget` that dispatches multiple `SSEEvent` (in this example, one every 100ms). `SSEEvent` is a `CustomEvent` subclass; its constructor takes an object respecting the `SSEMessage` interface, which matches the specification:
 
 ```typescript
 export interface SSEMessage {
@@ -57,6 +57,14 @@ export interface SSEMessage {
   retry?: number;
 }
 ```
+
+> info **Hint** `data` may be an object. Danet `JSON.stringify` it before writing it to the stream, since the SSE wire format only carries text.
+
+#### Closing the stream
+
+Danet keeps the connection open until it receives an event whose `event` field is `close`, as in the example above. Once that event is dispatched, the stream is closed and the connection ends. Make sure your `EventTarget` eventually dispatches one, otherwise the connection stays open indefinitely.
+
+> warning **Warning** Danet subscribes to your `EventTarget` **after** the handler returns it. Any event dispatched synchronously inside the handler, before returning, is lost. Dispatch from a timer, an interval or an awaited callback instead.
 
 With this in place, we can now create an instance of the `EventSource` class in our client-side application, passing the `/sse` route (which matches the endpoint we have passed into the `@SSE()` decorator above) as a constructor argument.
 
