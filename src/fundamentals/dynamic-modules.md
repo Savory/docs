@@ -4,11 +4,18 @@ The [Modules chapter](/overview/modules.md) covers the basics of Danet modules, 
 
 ## Introduction
 
-Most application code examples in the **Overview** section of the documentation make use of regular, or static, modules. Modules define groups of components like [injectables](/overview/injectables.md) and [controllers](/overview/controllers.md) that fit together as a modular part of an overall application. They provide an execution context, or scope, for these components. For example, injectables defined in a module are visible to other members of the module without the need to export them. When a provider needs to be visible outside of a module, it is first exported from its host module, and then imported into its consuming module.
+Most application code examples in the **Overview** section of the documentation make use of regular, or static, modules. Modules define groups of components like [injectables](/overview/injectables.md) and [controllers](/overview/controllers.md) that fit together as a modular part of an overall application. They organize your code and declare which components Danet has to instantiate.
+
+::: info Hint
+Danet modules **do not encapsulate** their injectables today, so there is no
+`exports` key on `@Module()`. Once an injectable has been resolved it is
+available to any consumer. Declaring it in a module and importing that module is
+all you need. See [Modules](/overview/modules.md).
+:::
 
 Let's walk through a familiar example.
 
-First, we'll define a `UsersModule` to provide and export a `UsersService`. `UsersModule` is the **host** module for `UsersService`.
+First, we'll define a `UsersModule` that provides a `UsersService`. `UsersModule` is the **host** module for `UsersService`.
 
 ```ts
 import { Module } from 'jsr:@danet/core';
@@ -16,12 +23,11 @@ import { UsersService } from './users.service';
 
 @Module({
   injectables: [UsersService],
-  exports: [UsersService],
 })
 export class UsersModule {}
 ```
 
-Next, we'll define an `AuthModule`, which imports `UsersModule`, making `UsersModule`'s exported injectables available inside `AuthModule`:
+Next, we'll define an `AuthModule`, which imports `UsersModule`, making `UsersModule`'s injectables available inside `AuthModule`:
 
 ```ts
 import { Module } from 'jsr:@danet/core';
@@ -31,7 +37,6 @@ import { UsersModule } from '../users/users.module';
 @Module({
   imports: [UsersModule],
   injectables: [AuthService],
-  exports: [AuthService],
 })
 export class AuthModule {}
 ```
@@ -54,7 +59,7 @@ export class AuthService {
 We'll refer to this as **static** module binding. All the information Danet needs to wire together the modules has already been declared in the host and consuming modules. Let's unpack what's happening during this process. Danet makes `UsersService` available inside `AuthModule` by:
 
 1. Instantiating `UsersModule`, including transitively importing other modules that `UsersModule` itself consumes, and transitively resolving any dependencies (see [Custom injectables](/fundamentals/custom-injectables.md)).
-2. Instantiating `AuthModule`, and making `UsersModule`'s exported injectables available to components in `AuthModule` (just as if they had been declared in `AuthModule`).
+2. Instantiating `AuthModule`, and making `UsersModule`'s injectables available to components in `AuthModule` (just as if they had been declared in `AuthModule`).
 3. Injecting an instance of `UsersService` in `AuthService`.
 
 ## Dynamic module use case
@@ -142,7 +147,6 @@ export class ConfigModule {
     return {
       module: ConfigModule,
       injectables: [ConfigService],
-      exports: [ConfigService],
     };
   }
 }
@@ -221,7 +225,6 @@ export class ConfigModule {
         },
         ConfigService,
       ],
-      exports: [ConfigService],
     };
   }
 }

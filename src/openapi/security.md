@@ -14,7 +14,7 @@ export class TodoController {}
 Before you run your application, remember to add the security definition to your base document using `SpecBuilder`:
 
 ```ts
-const options = new Spec().addSecurity('basic', {
+const options = new SpecBuilder().addSecurity('basic', {
   type: 'http',
   scheme: 'basic',
 });
@@ -37,8 +37,6 @@ Add the security definition to your base document using `SpecBuilder`:
 ```ts
 const options = new SpecBuilder().addBasicAuth();
 ```
-
-
 
 ## Bearer authentication
 

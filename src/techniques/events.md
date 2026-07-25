@@ -31,7 +31,7 @@ Import the `EventEmitterModule` into the root `AppModule`:
 import { Module, EventEmitterModule } from 'jsr:@danet/core';
 
 @Module({
-  import: [EventEmitterModule],
+  imports: [EventEmitterModule],
 })
 export class AppModule {}
 ```

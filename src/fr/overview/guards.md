@@ -36,15 +36,15 @@ Chaque guard doit implémenter une fonction `canActivate()`. Cette fonction doit
 
 ## Attacher des guards
 
-Comme les pipes et les filtres d'exception, les guards peuvent être liés à un contrôleur (au niveau du contrôleur), au niveau de la méthode ou globalement. Ci-dessous, nous configurons un guard au niveau du contrôleur en utilisant le décorateur `@UseGuards()`. Ce décorateur peut prendre un seul argument ou une liste d'arguments séparés par des virgules. Cela vous permet d'appliquer facilement l'ensemble approprié de guards avec une seule déclaration.
+Comme les pipes et les filtres d'exception, les guards peuvent être liés à un contrôleur (au niveau du contrôleur), au niveau de la méthode ou globalement. Ci-dessous, nous configurons un guard au niveau du contrôleur en utilisant le décorateur `@UseGuard()`. Ce décorateur peut prendre un seul argument ou une liste d'arguments séparés par des virgules. Cela vous permet d'appliquer facilement l'ensemble approprié de guards avec une seule déclaration.
 
 ```typescript todo.controller.ts
 @Controller('todo')
-@UseGuards(SimpleGuard)
+@UseGuard(SimpleGuard)
 export class TodoController {}
 ```
 
-La construction ci-dessus attache le guard à chaque gestionnaire déclaré par ce contrôleur. Si nous souhaitons que le guard ne s'applique qu'à une seule méthode, nous appliquons le décorateur `@UseGuards()` au niveau de la **méthode**.
+La construction ci-dessus attache le guard à chaque gestionnaire déclaré par ce contrôleur. Si nous souhaitons que le guard ne s'applique qu'à une seule méthode, nous appliquons le décorateur `@UseGuard()` au niveau de la **méthode**.
 
 Les guards globaux sont utilisés dans toute l'application, pour chaque contrôleur et chaque gestionnaire de route. Vous pouvez configurer un guard global en utilisant le code suivant :
 

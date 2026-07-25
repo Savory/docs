@@ -69,15 +69,22 @@ We created the WebsocketController in a way to make *almost* permutable with the
 
 ### WebSocket instance
 
+Use `@WebSocket()` to get a reference to the socket the message came from. This is
+what you need to push a message outside of the normal request/response flow, for
+example to broadcast to other clients.
 
-### Message data with attribute name
 ```ts events.controller.ts
 @OnWebSocketMessage('events')
-handleEvent(@WebSocket() socket: WebSocketInstance) {
-  return socket.send(JSON.string({ topic: 'hello', data: name }));
+handleEvent(@WebSocket() socket: WebSocketInstance, @Body('name') name: string) {
+  return socket.send(JSON.stringify({ topic: 'hello', data: name }));
 }
 ```
 
+::: info Hint
+`WebSocketInstance` is a standard `WebSocket` plus an `id` property
+(`WebSocket & { id: string }`). The `id` is stable for the lifetime of the
+connection, which is handy when you keep a map of connected clients.
+:::
 
 ### Message data with attribute name
 ```ts events.controller.ts

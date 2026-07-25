@@ -6,8 +6,8 @@ In this set of articles, you'll learn the **core fundamentals** of Danet. To get
 
 ## Prerequisites
 
-Please make sure that [Deno](https://deno.land/) (version >= Install
-v1.24.3) is installed on your operating system.
+Please make sure that [Deno](https://deno.land/) (version >= v1.24.3) is
+installed on your operating system.
 
 ## Setup
 

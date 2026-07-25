@@ -33,7 +33,7 @@ Import the `KvQueueModule` into the root `AppModule` as following:
 import { Module, KvQueueModule } from 'jsr:@danet/core';
 
 @Module({
-  import: [KvQueueModule.configure()],
+  imports: [KvQueueModule.configure()],
 })
 export class AppModule {}
 ```

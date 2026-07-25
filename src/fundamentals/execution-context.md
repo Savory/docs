@@ -15,11 +15,11 @@ type ExecutionContext = {
   /**
    * When in a WebSocket message 'lifecycle', get access to the current socket
    */
-  webSocket?: WebSocket;
+  websocket?: WebSocketInstance;
   /**
-   * When in a WebSocket message 'lifecycle', get access to the current socket
+   * When in a WebSocket message 'lifecycle', get access to the current message topic
    */
-  webSocketTopic?: string;
+  websocketTopic?: string;
 }
 ```
 

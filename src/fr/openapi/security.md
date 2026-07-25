@@ -14,7 +14,7 @@ export class TodoController {}
 Avant d'exécuter ton application, n'oublie pas d'ajouter la définition de sécurité à ton document de base en utilisant `SpecBuilder` :
 
 ```ts
-const options = new Spec().addSecurity('basic', {
+const options = new SpecBuilder().addSecurity('basic', {
   type: 'http',
   scheme: 'basic',
 });

@@ -46,13 +46,18 @@ export class JwtAuthGuard implements AuthGuard {
         }
     }
     
-    async validateRequest(authHeader): Promise<boolean> {
-        const token = authHeader.replace('Bearer ','')
+    async validateRequest(authHeader: string | null): Promise<boolean> {
+        // `headers.get()` returns null when the header is absent, which is the
+        // most common case for an unauthenticated request. Check before using it,
+        // otherwise the guard throws and the caller gets a 500 instead of a denial.
+        if (!authHeader?.startsWith('Bearer ')) {
+            return false
+        }
+        const token = authHeader.slice('Bearer '.length)
         const verifiedPayload = await this.verifyJWT(token);
         if(!verifiedPayload) {
             return false
         }
-        console.log("Verified Payload:", verifiedPayload);
         return true
     }
     

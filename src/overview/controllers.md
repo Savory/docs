@@ -339,7 +339,7 @@ If the body doesn't follow the DTO is returned a 400 status code. Like the examp
 ```
 
 ::: info Hint
-More details about Body validation can be found [here](https://savory.github.io/body-validation-in-danet/).
+More details about Body validation can be found [here](https://savory.github.io/body-validation-in-danet-v2/).
 :::
 
 ## Handling errors
