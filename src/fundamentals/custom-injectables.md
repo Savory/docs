@@ -99,7 +99,14 @@ injectables: [
 ];
 ```
 
-Now that we see this explicit construction, we can understand the registration process. Here, we are clearly associating the token `TodoService` with the class `TodoService`. The short-hand notation is merely a convenience to simplify the most common use-case, where the token is used to request an instance of a class by the same name.
+Now that we see this explicit construction, we can understand the registration process. Here, we are clearly associating the token `TodoService` with the class `TodoService`.
+
+::: warning **Notice**
+Class tokens work at runtime, but `token` is currently typed as `string`, so
+TypeScript will complain when you write one explicitly. Until the type is
+widened, prefer a string constant as the token when you write the long form
+yourself, and keep the `injectables: [TodoService]` short-hand for classes.
+::: The short-hand notation is merely a convenience to simplify the most common use-case, where the token is used to request an instance of a class by the same name.
 
 ## Custom injectables
 
@@ -140,7 +147,7 @@ In this example, the `TodoService` token will resolve to the `mockTodoService` m
 
 ## Non-class-based provider tokens
 
-So far, we've used class names as our provider tokens (the value of the `provide` property in a provider listed in the `injectables` array). This is matched by the standard pattern used with [constructor based injection](/injectables), where the token is also a class name. (Refer back to [DI Fundamentals](#di-fundamentals) for a refresher on tokens if this concept isn't entirely clear). Sometimes, we may want the flexibility to use strings or symbols as the DI token. For example:
+So far, we've used class names as our provider tokens (the value of the `token` property in a provider listed in the `injectables` array). This is matched by the standard pattern used with [constructor based injection](/injectables), where the token is also a class name. (Refer back to [DI Fundamentals](#di-fundamentals) for a refresher on tokens if this concept isn't entirely clear). Sometimes, we may want the flexibility to use strings or symbols as the DI token. For example:
 
 ```ts
 import { connection } from './connection';
@@ -181,7 +188,7 @@ The `useClass` syntax allows you to dynamically determine a class that a token s
 const configServiceProvider = {
   token: ConfigService,
   useClass:
-    process.env.NODE_ENV === 'development'
+    Deno.env.get('ENVIRONMENT') === 'development'
       ? DevelopmentConfigService
       : ProductionConfigService,
 };

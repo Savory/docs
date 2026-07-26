@@ -220,7 +220,7 @@ export class ConfigModule {
       module: ConfigModule,
       injectables: [
         {
-          provide: 'CONFIG_OPTIONS',
+          token: 'CONFIG_OPTIONS',
           useValue: options,
         },
         ConfigService,
@@ -230,13 +230,21 @@ export class ConfigModule {
 }
 ```
 
+::: warning **Order matters**
+A `useValue` injectable must be declared **before** the injectables that depend
+on it. Danet resolves the `injectables` array in order, and a consumer that is
+reached first makes the container try to instantiate the value as if it were a
+class, failing with `TypeError: actualType is not a constructor`. `useClass`
+injectables are not affected.
+:::
+
 Now we can complete the process by injecting the `'CONFIG_OPTIONS'` provider into the `ConfigService`. Recall that when we define a provider using a non-class token we need to use the `@Inject()` decorator [as described here](https://danet.land/fundamentals/custom-injectables#non-class-based-provider-tokens).
 
 ```ts
-import { Injectable } from 'jsr:@danet/core';
-import { resolve }from "jsr:@std/path";
+import { Inject, Injectable } from 'jsr:@danet/core';
+import { resolve } from "jsr:@std/path";
 import { loadSync } from "jsr:@std/dotenv";
-import { EnvConfig } from './interfaces';
+import type { EnvConfig } from './interfaces';
 
 @Injectable()
 export class ConfigService {

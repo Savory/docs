@@ -31,26 +31,30 @@ Using singleton scope is **recommended** for most use cases. Sharing injectables
 Specify injection scope by passing the `scope` property to the `@Injectable()` decorator options object:
 
 ```typescript
-import { Injectable, Scope } from 'jsr:@danet/core';
+import { Injectable, SCOPE } from 'jsr:@danet/core';
 
-@Injectable({ scope: Scope.REQUEST })
+@Injectable({ scope: SCOPE.REQUEST })
 export class TodoService {}
 ```
 
-Singleton scope is used by default, and need not be declared. If you do want to declare an injectable as singleton scoped, use the `Scope.GLOBAL` value for the `scope` property.
+Singleton scope is used by default, and need not be declared. If you do want to declare an injectable as singleton scoped, use the `SCOPE.GLOBAL` value for the `scope` property.
+
+::: warning **Notice**
+The enum is spelled `SCOPE`, in capitals. There is no `Scope` export.
+:::
 
 ## Controller scope
 
-Controllers can also have scope, which applies to all request method handlers declared in that controller. Like injectable scope, the scope of a controller declares its lifetime. For a request-scoped controller, a new instance is created for each inbound request, and garbage-collected when the request has completed processing.
-
-Declare controller scope with the `scope` property of the `ControllerOptions` object:
+Controllers have a scope too, but you do not declare it. `@Controller()` takes a
+path string and nothing else. A controller becomes request-scoped automatically
+when one of its dependencies is request-scoped, and stays a singleton otherwise.
 
 ```typescript
-@Controller({
-  path: 'todo',
-  scope: Scope.REQUEST,
-})
-export class TodoController {}
+// TodoController becomes request-scoped because TodoService is
+@Controller('todo')
+export class TodoController {
+  constructor(private todoService: TodoService) {}
+}
 ```
 
 ## Scope hierarchy
