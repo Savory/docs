@@ -12,15 +12,17 @@ Learn more on the [official Deno Deploy website](https://deno.com/deploy)
 
 ## Easy way
 
-Simply run
+Grab an access token from [your Deploy account page](https://dash.deno.com/account#access-tokens), then run
 
 ```bash
-danet deploy
+danet deploy --project my-api --token $DENO_DEPLOY_TOKEN
 ```
 
-Here are the options: 
+The project is created for you if it does not exist yet.
+
+Here are the options:
 ```bash
-Usage: danet deploy
+Usage: danet deploy --project <project> --token <token>
 
 Description:
 
@@ -28,16 +30,23 @@ Description:
 
 Options:
 
-  -h, --help                      - Show this help.                                                                                    
-  -p, --project     <project>     - Deno deploy project name. If no value is given, Deno deploy will generate a                        
-                                    random name                                                                                        
-  -e, --entrypoint  <entrypoint>  - Bundle entrypoint file                                                       (Default: "run.ts")   
-  -b, --bundle      <bundle>      - Bundle output file name, also used as deployctl entrypoint                   (Default: "bundle.js")
-
-Commands:
-
-  help  [command]  - Show this help or the help of a sub-command.
+  -h, --help                      - Show this help.
+  -p, --project     <project>     - Deno deploy project name.                                   (required)
+  -e, --entrypoint  <entrypoint>  - Bundle entrypoint file                                      (Default: "run.ts")
+  -b, --bundle      <bundle>      - Bundle output file name, also used as deployctl entrypoint  (Default: "bundle.js")
+  -t, --token       <token>       - Deno Deploy API token.                                      (required)
 ```
+
+::: warning
+The first deployment of a project is pushed to production. Every deployment after
+that one is a **preview** deployment with its own URL. To promote a later build,
+bundle it and call `deployctl` yourself with `--prod`:
+
+```bash
+danet bundle app.js
+deployctl deploy --prod --project my-api bundle/app.js
+```
+:::
 
 
 ## Advanced way
@@ -46,23 +55,9 @@ Commands:
 
 
 ### Create an account 
-Before diving into the (few) commands required to deploy your Danet project from your local environment or from a Github action, you need to [create an account on Deno Deploy](https://deno.com/deploy/pricing).
+Before diving into the (few) commands required to deploy your Danet project from your local environment or from a Github action, you need to [create an account on Deno Deploy](https://deno.com/deploy).
 
-At the time of writing this documentation, Deploy offers 2 pricing.
-
-0$ for : 
-- 100,000 requests per day
-- 100 GiB outbound data transfer per month (inbound is free)
-- Up to 10ms CPU time (not wall clock time) per request
-
-20$ per month for :
-
-- Wildcard subdomains
--Up to 50ms CPU time (not wall clock time) per request
-- 5 million requests per month included
-- 100 GiB outbound data transfer included (inbound is free)
-
-You can start with the free tier and upgrade when you see need !
+There is a free tier, generous enough for a side project, and paid plans when you outgrow it. Prices and quotas change, so read them at the source: [deno.com/deploy/pricing](https://deno.com/deploy/pricing).
 
 The signing up process is pretty simple, login with github and voilà.
 
@@ -92,13 +87,16 @@ If you want a fast way to test deploy, you can easily do so in 1 commands.
 TLDR: 
 
 ```bash
-$ danet deploy
+$ danet deploy --project my-api --token $DENO_DEPLOY_TOKEN
 ```
 
 
 ### Bundle your application
 Bundling is the action of creating one JS file which contains all your project source code.
  We recommend that you use `danet bundle` command to bundle, but feel free to use any bundler you want as long as it handles "emitDecoratorMetadata" option.
+
+The argument is the **output** file name, the input is `--entrypoint` (default `run.ts`).
+The result is written to the `./bundle` folder, which is deleted and recreated on every run.
 
 ```bash
 $ danet bundle my-app.js
@@ -112,7 +110,7 @@ $ cd bundle && deployctl deploy --project=YOUR_PROJECT_NAME my-app.js
 
 ## Github Action
 
-If you created your project with our CLI, you already have a workflow ready in `.github/workflows/run-test.yml` to be used, you simply need to put your project name in the last step :
+If you created your project with our CLI, you already have a workflow ready in `.github/workflows/run-tests.yml` to be used, you simply need to put your project name in the last step :
 
 ```yaml
       - name: Deploy to Deno Deploy
@@ -157,16 +155,15 @@ jobs:
 
     steps:
       - name: Setup repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Deno
-        # uses: denoland/setup-deno@v1
-        uses: denoland/setup-deno@004814556e37c54a2f6e31384c9e18e983317366
+        uses: denoland/setup-deno@v2
         with:
-          deno-version: v1.x
+          deno-version: v2.x
 
       - name: Install Danet CLI
-        run: deno install --allow-read --allow-write --allow-run --allow-env -n danet jsr:@danet/cli
+        run: deno install -A -g -n danet jsr:@danet/cli
 
       - name: Bundle app with danet CLI
         run: danet bundle run.js
