@@ -33,6 +33,21 @@ decorate methods with `@OnRabbitMQMessage` to **consume**.
   ```
 - **`@danet/core` >= 2.11.0**.
 
+::: warning RabbitMQ 4.x needs `frameMax` in the URL
+`amqplib` still negotiates a 4096 byte frame by default, and RabbitMQ 4.x
+refuses anything below 8192, so connecting to a 4.x broker fails with a bare
+`read ECONNRESET` and no explanation. Ask for a bigger frame in the connection
+string:
+
+```ts
+RabbitMQModule.forRoot({
+  url: 'amqp://guest:guest@localhost:5672?frameMax=8192',
+});
+```
+
+Brokers on the 3.x line are unaffected.
+:::
+
 ## Installation
 
 ```sh

@@ -18,9 +18,16 @@ wrapper around [`@grpc/proto-loader`](https://www.npmjs.com/package/@grpc/proto-
 ```ts
 import { loadProto } from 'jsr:@danet/grpc';
 
-const proto = loadProto('./greeter.proto');
+const proto = loadProto(new URL('./greeter.proto', import.meta.url).pathname);
 const GreeterService = proto.greeter.Greeter.service;
 ```
+
+::: tip
+The path is resolved by the process, not by the module, so a relative
+`'./greeter.proto'` only resolves when the working directory happens to be the
+right one. Anchoring it on `import.meta.url` makes it independent of where the
+app is started from.
+:::
 
 ## `@GrpcController`
 
@@ -77,14 +84,18 @@ SayHello(@GrpcPayload() request: { name: string }) {
 ### `@GrpcMetadata`
 
 Injects the call [metadata](https://grpc.io/docs/guides/metadata/) (the gRPC
-equivalent of headers), or a single value when a key is given:
+equivalent of headers), or the values stored under a key when one is given.
+
+A metadata key may repeat, so `@GrpcMetadata('key')` gives you an **array**, not
+a string:
 
 ```ts
 @GrpcMethod()
 SayHello(
   @GrpcPayload() request: { name: string },
-  @GrpcMetadata('authorization') token: string,
+  @GrpcMetadata('authorization') tokens: string[],
 ) {
+  const token = tokens[0];
   // ...
 }
 ```
@@ -106,11 +117,11 @@ works as usual:
 ```ts
 @GrpcController(GreeterService)
 export class GreeterController {
-  constructor(private greeterService: GreeterService) {}
+  constructor(private greetingService: GreetingService) {}
 
   @GrpcMethod()
   SayHello(@GrpcPayload() request: { name: string }) {
-    return this.greeterService.greet(request.name);
+    return this.greetingService.greet(request.name);
   }
 }
 ```
@@ -137,6 +148,22 @@ export class GreeterController {
 
 A guard that returns `false` (or throws) rejects the call with the appropriate
 gRPC status — see [Error handling](./error-handling).
+
+::: warning A global guard runs on gRPC calls too
+A guard registered under `GLOBAL_GUARD` runs for every transport. If it reads
+`context.req` (an HTTP header, typically), it throws on a gRPC call and the
+client receives `UNKNOWN: Cannot read properties of undefined`. Branch on
+`context.grpcMetadata` to read the equivalent value:
+
+```ts
+const token = context.grpcMetadata
+  ? context.grpcMetadata.get('authorization')[0]
+  : context.req.header('authorization');
+```
+
+`SetMetadata`-based whitelists such as `@Public()` keep working, since
+`context.getHandler()` and `context.getClass()` are both set for gRPC calls.
+:::
 
 ::: warning
 Only **transport-agnostic** middleware works on gRPC controllers. Middleware

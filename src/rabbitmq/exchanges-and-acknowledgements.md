@@ -56,16 +56,27 @@ Messages are acknowledged automatically:
   [dead-letter](https://www.rabbitmq.com/docs/dlx) policy can pick it up instead
   of redelivering in a hot loop.
 
-To take over acking yourself, opt out of auto-ack with `consumeOptions`:
+To opt out of acknowledgements entirely, set `noAck` in `consumeOptions`:
 
 ```ts
 @OnRabbitMQMessage('order.created', {
   consumeOptions: { noAck: true },
 })
 handle(payload: OrderCreated) {
-  // you are responsible for acking — nothing is acked or nacked for you
+  // fire and forget: nothing is acked or nacked
 }
 ```
+
+::: warning Do not ack manually with `noAck: true`
+`noAck: true` is AMQP's *auto-acknowledge* mode: the broker considers a message
+delivered the moment it leaves the queue, and forgets it. We detect the flag and
+skip our own `ack`/`nack`, but you must not call them either. Acking a message
+delivered under `noAck: true` closes the channel with
+`406 PRECONDITION_FAILED - unknown delivery tag`.
+
+The trade-off is that a message is dropped if your handler throws, or if the
+process dies mid-work. Leave `noAck` alone unless losing messages is acceptable.
+:::
 
 Use `prefetch` in `RabbitMQModule.forRoot({ url, prefetch })` to cap how many
 unacknowledged messages the broker delivers at once (QoS), which is how you

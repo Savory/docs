@@ -21,8 +21,8 @@ any language — can talk to it. This is not gRPC-Web or a proxy.
 ## Requirements
 
 - **Deno 2.8+** — server-side gRPC relies on `node:http2` trailer support.
-- **`@danet/core` >= 2.11.0** — the release that exposes the transport hook this
-  package plugs into.
+- **`@danet/core` 2.11.0 or above** — the release that exposes the transport hook
+  this package plugs into.
 
 > The first MVP supports **unary** RPCs. Streaming (server/client/bidi), TLS
 > credentials and static Protobuf codegen are planned — see
@@ -31,7 +31,7 @@ any language — can talk to it. This is not gRPC-Web or a proxy.
 ## Installation
 
 ```sh
-deno add jsr:@danet/grpc
+deno add jsr:@danet/core jsr:@danet/grpc
 ```
 
 Or import it directly with the `jsr:` specifier:
@@ -75,7 +75,7 @@ import {
   loadProto,
 } from 'jsr:@danet/grpc';
 
-const proto = loadProto('./greeter.proto');
+const proto = loadProto(new URL('./greeter.proto', import.meta.url).pathname);
 
 @GrpcController(proto.greeter.Greeter.service)
 export class GreeterController {
@@ -101,7 +101,9 @@ export class GreeterModule {}
 ### 4. Boot the application
 
 Create a `GrpcServer` **before** `app.init()` so the transport can claim its
-controllers during bootstrap, then start it on its own port.
+controllers during bootstrap, then start it on its own port. Construct it after
+`init()` and your gRPC controllers are handed to the HTTP router instead, which
+has no path to register them under and aborts the boot with a `TypeError`.
 
 ```ts main.ts
 import { DanetApplication } from 'jsr:@danet/core';

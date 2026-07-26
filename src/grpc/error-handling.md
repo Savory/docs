@@ -33,7 +33,7 @@ Any other error maps to `UNKNOWN`.
 GetUser(@GrpcPayload() request: { id: string }) {
   const user = this.users.find(request.id);
   if (!user) {
-    throw new NotFoundException('user not found'); // -> NOT_FOUND on the client
+    throw new NotFoundException(); // -> NOT_FOUND on the client
   }
   return user;
 }
@@ -41,6 +41,17 @@ GetUser(@GrpcPayload() request: { id: string }) {
 
 A denied guard throws `ForbiddenException`, so the client receives
 `PERMISSION_DENIED`.
+
+## Sending your own message
+
+The built-in exceptions take no constructor argument, so the client only reads
+the generic description (`Not found`, `Forbidden`, ...). Throw an `HttpException`
+directly to choose both the status and the text the caller receives:
+
+```ts
+throw new HttpException(404, `no user with id ${request.id}`);
+// -> code NOT_FOUND, details "no user with id 42"
+```
 
 ## Exception filters
 
