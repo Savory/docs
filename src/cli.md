@@ -71,18 +71,20 @@ By default, generated components are automatically registered in the relevant `@
 For instance, after generating the controller and service above, the module is updated for you:
 
 ```typescript src/cat/module.ts
-import { Module } from 'jsr:@danet/core';
+import { Module } from '@danet/core';
 import { CatController } from './controller.ts';
 import { CatService } from './service.ts';
 
 @Module({
   controllers: [CatController],
-  injectables: [CatService],
+  injectables: [CatService]
 })
 export class CatModule {}
 ```
 
-Wiring is skipped (without error) when the target module file cannot be found. To opt out entirely, pass `--skip-import`:
+Generated files import from the bare `@danet/core` specifier, which is mapped in the `deno.json` created by `danet new`. In a project set up by hand, add that entry to your import map.
+
+Wiring is skipped (without error) when the target module file cannot be found. A controller or a service therefore only gets registered if its sibling `module.ts` already exists, so generate the module first. To opt out entirely, pass `--skip-import`:
 
 ```bash
 $ danet g controller cat --skip-import
@@ -93,6 +95,8 @@ You can also change where the component folder is created with `--path` (default
 ```bash
 $ danet g module cat --path src/features
 ```
+
+Note that `--path` also moves where a generated module looks for its root module: the command above registers `CatModule` into `src/features/app.module.ts`, not into `src/app.module.ts`.
 
 ## Database Options
 
