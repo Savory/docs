@@ -29,17 +29,22 @@ import { KvQueueModule, KvQueue } from `jsr:@danet/core`
 
 Import the `KvQueueModule` into the root `AppModule` as following:
 
-```typescript
+```typescript app.module.ts
 import { Module, KvQueueModule } from 'jsr:@danet/core';
 
 @Module({
-  imports: [KvQueueModule.configure()],
+  imports: [KvQueueModule.forRoot()],
 })
 export class AppModule {}
 ```
 
 ::: info **Hint**
-As Deno.openKv takes an path, you can also provide it to the configure method
+As `Deno.openKv` takes a path, you can also provide it to `forRoot()`.
+:::
+
+::: warning Enable the unstable API
+`KvQueue` calls `Deno.openKv()`, which is still behind a flag. Run your app with
+`--unstable-kv`, or add `"unstable": ["kv"]` to your `deno.json`.
 :::
 
 #### Send message to the queue
@@ -67,20 +72,36 @@ this.queue.sendMessage('order.created', new OrderCreatedMessage(
 
 #### Consuming message
 
-To declare a message consumer, decorate a method with the `@OnEvent()` decorator preceding the method definition containing the code to be executed, as follows:
+To declare a message consumer, decorate a method with the `@OnQueueMessage()` decorator preceding the method definition containing the code to be executed, as follows:
 
-```typescript
-class OrderMessageHandler {
-    @OnQueueMessage ('order.created')
+```typescript order-message.handler.ts
+@Injectable()
+export class OrderMessageHandler {
+    @OnQueueMessage('order.created')
     handleOrderCreatedEvent(payload: OrderCreatedMessage) {
       // handle and process "OrderCreatedMessage" event
     }
 }
 ```
 
+Register that class in the `injectables` array of a module. We scan injectables
+at bootstrap, controllers are not scanned.
+
 ::: warning **Warning 🚧**
 this module does not support **wildcard** expressions yet.
 :::
+
+::: warning `this` is not your instance
+The decorated method is handed to `Deno.Kv.listenQueue` as a plain function, so
+it runs detached from the instance it was declared on. Reaching for
+`this.someService` inside a consumer throws. Keep the consumer self contained and
+import the function that does the work.
+:::
+
+Only one method can listen to a given message type. If a message arrives with a
+type nobody registered, we throw `Unhandled message type`. When a consumer
+throws, `Deno.Kv` redelivers the message a few times with a growing delay before
+giving up.
 
 #### Sending message from a non Danet application
 
