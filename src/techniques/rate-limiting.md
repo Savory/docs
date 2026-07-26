@@ -50,9 +50,32 @@ This configuration allows **10 requests every 60 seconds** (`ttl` is expressed
 in **milliseconds**) for every route in the application, keyed by the caller's
 IP address.
 
+Counters are kept **per route**, not per application: the storage key is built
+from the throttler name, the caller, the controller class and the handler name.
+Ten calls to `GET /todo` therefore leave the budget of `GET /todo/:id` intact.
+
 > Prefer to throttle only a subset of your app? Instead of registering the
 > global guard, apply it where needed with `@UseGuard(ThrottlerGuard)` on a
 > controller or a route handler.
+
+::: warning Only one guard can hold the `GLOBAL_GUARD` token
+If your application already registers an authentication guard globally,
+declaring `ThrottlerGuard` under the same token does not chain the two: the
+last declaration wins, silently. Make your existing global guard extend
+`ThrottlerGuard` and call `super.canActivate(context)` first instead.
+
+```typescript auth.guard.ts
+@Injectable()
+export class AuthGuard extends ThrottlerGuard {
+  override async canActivate(context: ExecutionContext): Promise<boolean> {
+    await super.canActivate(context);
+    // your own authentication logic
+    return true;
+  }
+}
+```
+
+:::
 
 ## Multiple throttlers
 
@@ -143,22 +166,24 @@ By default a caller is identified by its IP address. The tracker honors the
 `X-Forwarded-For` and `X-Real-IP` headers before falling back to the connection's
 remote address, so it works behind a reverse proxy.
 
-To key on something else — an API key or an authenticated user id — extend
-`ThrottlerGuard` and override `getTracker()`:
+To key on something else, an API key or an authenticated user id for example,
+extend `ThrottlerGuard` and override `getTracker()`. The `override` keyword is
+required, Deno type checks it:
 
-```typescript user-throttler.guard.ts
+```typescript api-key-throttler.guard.ts
 import { ExecutionContext, Injectable, ThrottlerGuard } from 'jsr:@danet/core';
 
 @Injectable()
-export class UserThrottlerGuard extends ThrottlerGuard {
-  protected getTracker(context: ExecutionContext): string {
-    // e.g. throttle per authenticated user instead of per IP.
-    return context.get('userId') ?? super.getTracker(context);
+export class ApiKeyThrottlerGuard extends ThrottlerGuard {
+  protected override getTracker(context: ExecutionContext): string {
+    return context.req.header('x-api-key') ?? super.getTracker(context);
   }
 }
 ```
 
-Then register `UserThrottlerGuard` instead of `ThrottlerGuard`.
+Then register `ApiKeyThrottlerGuard` instead of `ThrottlerGuard`. The subclass
+inherits the constructor, so the throttler options and the storage are still
+injected for you.
 
 ## Custom storage
 
