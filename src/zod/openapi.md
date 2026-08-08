@@ -4,72 +4,107 @@ label: OpenAPI
 ---
 
 ::: danger
-The SwaggerModule is currently in Alpha, maaaany features are missing. If something you need is not here yet, [please fill an issue/feature request](https://github.com/Savory/Danet-Swagger/issues)
+This page assumes that you are familiar with are familiar with Danet's controllers. If you are not, please read the [Controllers](/overview/controllers) page first.
 :::
 
 
-## Pre-requiresites
-
-First, if you don't know how to use Danet's swagger module first read the dedicated page [here](/openapi/introduction).
-Second, in order to generate openAPI definition from zod, you will need to extend zod using [zod-to-openapi](https://www.npmjs.com/package/@anatine/zod-openapi). As follows: 
-
-```ts
-import { extendZodWithOpenApi } from 'zod-openapi';
-
-extendZodWithOpenApi(z);
-```
-
-Danet Swagger module uses the following versions:
-
-```
-"zod": "npm:zod@3.23.8",
-"zod-openapi": "npm:@anatine/zod-openapi@2.2.6"
-```
-
-Last, you will need to add an openApi title attribute to your zod schema as follows, so we know how to name the model in the openAPI definition:
-```ts
-const Cat = z.object({
-    name: z.string(),
-    breed: z.string(),
-    dob: z.date(),
-    isHungry: z.boolean().optional(),
-    hobbies: z.array(z.any())
-}).openapi({
-    title: 'Cat'
-})
-```
-
 ## Body, Query
 
-The `SwaggerModule` searches for all `@Body()` and `@Query()` from `@danet/zod` decorators in route handlers to generate the API document. It also creates corresponding model definitions . Consider the following code:
+Zod integration in Danet is very straightforward. First, you need to define your schemas using Zod. Then, you can use the `@Body()` and `@Query()` decorators from `@danet/zod` to validate the request body and query parameters.
+
+For example:
 
 ```ts
-@Post()
-async create(@Body(CreateTodoSchema) createTodoDto: CreateTodoSchema) {
-  this.todoService.create(createTodoDto);
+
+import { Controller, Post } from '@danet/core';
+import { Body } from '@danet/zod';
+
+const CreateTodoSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+});
+
+type CreateTodoSchema = z.infer<typeof CreateTodoSchema>;
+
+@Controller('todos')
+export class TodosController {
+  constructor(private readonly todoService: TodoService) {}
+    
+  @Post()
+  async create(@Body(CreateTodoSchema) createTodoDto: CreateTodoSchema) {
+    this.todoService.create(createTodoDto);
+  }
 }
 ```
 
-## Returned schema
+will automatically validate the request body against the `CreateTodoSchema` schema.
 
-You can use the `@ReturnedSchema` decorator to say what your endpoint will return :
-
+You can also use the `@Query()` decorator to validate query parameters:
 
 ```ts
-@ReturnedSchema(TodoSchema)
-@Get(':id')
-async getById(@Param('id') id: string): Todo {
-  return this.todoService.getById(id);
+import { Controller, Get } from '@danet/core';
+import { Query } from '@danet/zod';
+
+const GetTodoQuery = z.object({
+  id: z.string(),
+});
+
+type GetTodoQuery = z.infer<typeof GetTodoQuery>;
+
+@Controller('todos')
+export class TodosController {
+  constructor(private readonly todoService: TodoService) {}
+    
+  @Get(':id')
+  async getById(@Query(GetTodoQuery) query: GetTodoQuery) {
+    return this.todoService.getById(query.id);
+  }
 }
 ```
 
-If your route returns an array, pass `true` as the second argument of `ReturnedSchema` : 
+::: tip
+Using these decorators will also allow you to generate OpenAPI documentation for your routes. More information on this can be found in the [OpenAPI](/zod/openapi) section.
+:::
 
+
+# ZOD Version 4 Support
+
+Danet now supports Zod version 4 `@danet/zod@^0.1.0`, which is a major upgrade from version 3.
+
+::: note
+All previous versions of `@danet/zod` support only Zod version 3.
+:::
+
+One of the new features is the ability to generate JSON Schema from Zod schemas and vice versa.
+
+### z.fromJSONSchema()
 
 ```ts
-@ReturnedSchema(TodoSchema, true)
-@Get()
-async getTodos(): Todo[] {
-  return this.todoService.getAll();
-}
+import { z } from 'zod';
+
+const jsonSchema = {
+  type: 'object',
+  properties: {
+    name: { type: 'string' },
+    age: { type: 'number' }
+  },
+  required: ['name', 'age']
+};
+
+const zodSchema = z.fromJSONSchema(jsonSchema);
 ```
+
+### z.toJSONSchema()
+
+```ts
+import { z } from 'zod';
+
+const zodSchema = z.object({
+  name: z.string(),
+  age: z.number()
+});
+
+const jsonSchema = z.toJSONSchema(zodSchema);
+```
+
+For more information on Zod's JSON Schema: https://zod.dev/json-schema.
