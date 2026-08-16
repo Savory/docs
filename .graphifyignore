@@ -1,0 +1,7 @@
+.claude/
+graphify-out/
+.idea/
+.vscode/
+.vitepress/cache/
+.vitepress/dist/
+openspec/
